@@ -7,12 +7,12 @@ import utf8 from 'utf8'
 const BASE_URL  = "https://www.presscleaners.com/api"
 
 const API_URL = {
-  test: 'http://httpbin.org/post',
   login:                BASE_URL + '/login/',
+  login_fb:             BASE_URL + '/fb_login/',
   register:             BASE_URL + '/customer/register/',
   forgot_password:      BASE_URL + '/customer/register/',
   me:                   BASE_URL + '/customer/me/',
-  phone_verification_create:   BASE_URL + 'phone_verification/create/',
+  phone_verification_create:   BASE_URL + '/phone_verification/create/',
   phone_verification:   BASE_URL + '/phone_verification/',
   world:                BASE_URL + '/world/',
   availability:         BASE_URL + '/availability/'
@@ -46,7 +46,8 @@ export default class HttpClientHelper {
           if(token && token!='')
             HttpClientHelper.authorization = token;
         }
-        headers['Authorization'] = 'Basic ' + HttpClientHelper.authorization;
+        if(HttpClientHelper.authorization)
+          headers['Authorization'] = 'Basic ' + HttpClientHelper.authorization;
       } catch (e) {
         console.log(e);
       }
@@ -74,6 +75,7 @@ export default class HttpClientHelper {
       }
       console.log(opts);
       let response = await fetch(url, opts)
+      console.log(response);
       let responseJson= await response.json()
       if(callback!=undefined) {
         callback(null, responseJson);

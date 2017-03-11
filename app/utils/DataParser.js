@@ -26,7 +26,7 @@ export function initializeUser(data) {
   Address.zipcode = data.address.zipcode
 }
 
-export function updateUserWithRegistration(data) {
+export function updateUserInfo(data) {
   for(let i in User) {
     if(data[i]!=undefined && data[i]!='') {
       User[i] = data[i];
@@ -36,8 +36,8 @@ export function updateUserWithRegistration(data) {
   // User.lastName = data[1],
   // User.email = data[2],
   // User.password = data[3],
-  if(User.firstName!='' && User.lastName!='')
-    User.fullName = User.firstName + ' ' + User.lastName;
+  if(User.first_name!='' && User.last_name!='')
+    User.full_name = User.first_name + ' ' + User.last_name;
   // User.profilePicture = '',
   // User.FBAccessToken = '',
   // User.FBID = '',
@@ -58,14 +58,22 @@ export function initializeWorld(data) {
 }
 
 export function getRegistrationData() {
-  return [
-    User.email,
-    User.password,
-    User.fullName,
-    User.firstName,
-    User.lastName,
-    User.phoneNumber,
-    User.FBAccessToken,
-    User.FBID
-  ];
+  return {
+    email: User.email,
+    password: User.password,
+    full_name: User.full_name,
+    first_name: User.first_name,
+    last_name: User.last_name,
+    phone_number: "",
+    fb_token: User.fb_token,
+    fbid: User.fbid
+  };
+}
+
+export function getLoginFBData() {
+  return {
+    email: User.email,
+    fb_token: User.fb_token,
+    fbid: User.fbid
+  };
 }

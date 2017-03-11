@@ -11,8 +11,12 @@
     "native-base": "^2.0.12",
     "react": "^15.4.2",
     "react-native": "0.42.0",
+    "react-native-facebook-login": "git+https://github.com/leonacky/react-native-facebook-login.git",
     "react-native-loading-spinner-overlay": "^0.4.2",
+    "react-native-maps": "^0.12.4",
+    "react-native-phone-call": "^1.0.2",
     "react-native-router-flux": "^3.38.0",
+    "react-native-share": "^1.0.20",
     "react-native-simple-modal": "^4.0.2"
   },
   "devDependencies": {

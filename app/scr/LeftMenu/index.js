@@ -13,22 +13,34 @@ export default class LeftMenu extends React.Component {
         <ListItem style={{justifyContent: 'center', paddingBottom: 50, paddingTop: 50}}>
             <Image source={Images.logo2} style={{width: 50, height: 50}}/>
         </ListItem>
-        <ListItem>
+        <ListItem onPress={()=>{}}>
           <Body>
             <Text>Payment</Text>
           </Body>
         </ListItem>
-        <ListItem>
+        <ListItem onPress={()=>{
+          GLOBAL.requestAnimationFrame(() => {
+              Actions.pricing();
+          });
+        }}>
           <Body>
             <Text>Pricing</Text>
           </Body>
         </ListItem>
-        <ListItem>
+        <ListItem onPress={()=>{
+          GLOBAL.requestAnimationFrame(() => {
+              Actions.promotions();
+          });
+        }}>
           <Body>
             <Text>Promotions</Text>
           </Body>
         </ListItem>
-        <ListItem>
+        <ListItem onPress={()=>{
+          GLOBAL.requestAnimationFrame(() => {
+              Actions.freePress();
+          });
+        }}>
           <Body>
             <Text>Free Press</Text>
           </Body>
@@ -37,7 +49,9 @@ export default class LeftMenu extends React.Component {
       <Footer style={{backgroundColor: '#ffffff', height: 50, alignItems: 'center'}}>
         <Button containerStyle={{padding: 10}} text="Logout" onPress={()=>{
           SessionManager.logout();
-          Actions.login({tyle: ActionConst.REPLACE});
+          GLOBAL.requestAnimationFrame(() => {
+              Actions.login({type: ActionConst.REPLACE});
+          });
         }} />
       </Footer>
     </Container>

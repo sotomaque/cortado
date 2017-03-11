@@ -1,38 +1,27 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
 import { Metrics, Colors, Images } from '../../themes';
 import { Button } from '../../components';
+import { Actions } from 'react-native-router-flux';
 
 export default class NavigationBar extends React.Component {
   render() {
-    <View style={styles.container}>
-      <Button
-        containerStyle={styles.buttonMenuBar}
-        imageStyle={styles.iconMenuBar}
-        image={Images.logo2}
-        onPress={()=>{
-          alert(1);
-        }}/>
-        <View style={{flex: 1, padding: 5, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>Delivering to</Text>
-          <Text>Address</Text>
-        </View>
-    </View>
+    return  <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+      <Button containerStyle={{width: 40, justifyContent: 'center'}} onPress={()=>{
+        try {
+          Actions.pop();
+        } catch (e) {
+          console.log(e);
+        }
+      }}>
+        <Icon style={{color: '#565656'}} name='arrow-back' />
+      </Button>
+      <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
+        <Text style={{color: '#565656', fontSize: 18}}>{this.props.title}</Text>
+      </Button>
+      <Button containerStyle={{width: 40, alignItems: 'center', justifyContent: 'center'}}>
+      </Button>
+    </Header>
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: Metrics.screenWidth,
-    height: Metrics.navBarHeight,
-    backgroundColor: Colors.snow,
-    flexDirection: 'row',
-  },
-  buttonMenuBar: {
-    width: Metrics.navBarHeight,
-    height: Metrics.navBarHeight
-  },
-  iconMenuBar: {
-
-  }
-})

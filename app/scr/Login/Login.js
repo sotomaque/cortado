@@ -2,11 +2,13 @@ import React from 'react';
 import { TextInput, Text, View, Image } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
+var { FBLoginManager } = require('react-native-facebook-login');
 
 import { Touchable, Button } from '../../components';
 import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper, SessionManager } from '../../libs';
 import styles from './styles';
+import * as DataParser from '../../utils/DataParser';
 
 export default class Login extends React.Component {
 
@@ -18,17 +20,47 @@ export default class Login extends React.Component {
       error: '',
       loading: false
     }
+    this.onLoginPressed = this.onLoginPressed.bind(this);
+    this.onLoginFBPressed = this.onLoginFBPressed.bind(this);
+    this.handleLoginFB = this.handleLoginFB.bind(this);
   }
 
-  handlePressSignUp = () => {
+  handlePressSignUp() {
     Actions.register();
   }
 
-  handlePressForgotPassword = () => {
+  handlePressForgotPassword() {
     Actions.forgotPassword();
   }
 
-  onLoginPressed = () => {
+  handleLoginFB() {
+    this.setState({loading: true});
+    HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data)=>{
+      this.setState({loading: false});
+      if(!error) {
+        console.log(data);
+        Actions.presentation({type: ActionConst.REPLACE});
+      } else {
+      }
+    })
+  }
+
+  onLoginFBPressed() {
+    FBLoginManager.loginWithPermissions(["email","user_friends"], (error, data)=>{
+      if (!error) {
+        const { email, first_name, last_name } = JSON.parse(data.profile);
+        const { token, userId } = data.credentials;
+        fb_token = token;
+        fbid = userId;
+        DataParser.updateUserInfo({email, first_name, last_name, fb_token, fbid})
+        this.handleLoginFB();
+      } else {
+        console.log("Error: ", error);
+      }
+    });
+  }
+
+  onLoginPressed() {
     this.setState({loading: true});
     const {email, password} = this.state;
     HttpClientHelper.login({email, password}, (error, data)=>{
@@ -57,7 +89,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    return (<View style={styles.mainContainer}>
+    return (<View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
       <Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='stretch' />
       <View style={styles.container} ref='container'>
         <Image source={Images.pressMarketing} style={styles.logoImage} resizeMode='contain' />
@@ -84,11 +116,10 @@ export default class Login extends React.Component {
           onPress={this.onLoginPressed}/>
         <Text style={styles.seperator}>OR</Text>
         <Button
-          disabled={true}
           text="LOGIN WITH FACEBOOK"
           containerStyle={styles.facebookButton}
           textStyle={styles.buttonText}
-          onPress={this.onLoginPressed}/>
+          onPress={this.onLoginFBPressed}/>
         <Text style={styles.errorText}>{this.state.error}</Text>
         <View style={styles.bottomButtons}>
           <Button

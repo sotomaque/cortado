@@ -5,11 +5,15 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 //Screens
 import {
   ForgotPassword,
+  FreePress,
+  Login,
   PhoneNumberVerification,
   PinVerification,
-  Login,
   Presentation,
+  Pricing,
+  Promotions,
   Register,
+  SetAddress,
   Splash,
 } from './scr'
 
@@ -22,6 +26,10 @@ const scenes = Actions.create(
     <Scene key="pinVerification" component={PinVerification}/>
     <Scene key="forgotPassword" component={ForgotPassword}/>
     <Scene key="presentation" component={Presentation}/>
+    <Scene key="promotions" component={Promotions} title="Promotions"/>
+    <Scene key="pricing" component={Pricing} title="Pricing"/>
+    <Scene key="freePress" component={FreePress} title="Free Press"/>
+    <Scene key="setAddress" component={SetAddress} title="Set Address"/>
   </Scene>
 );
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, Text, View, Image, ScrollView }	from 'react-native';
 import { Actions } from 'react-native-router-flux';
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import { Metrics, Images, Colors } from '../../themes';
 import * as DataParser from '../../utils/DataParser';
 import { Button } from '../../components';
@@ -17,23 +17,24 @@ export default class Register extends React.Component {
 			last_name: "",
 			email: "",
 			password: "",
-			errors: []
+			errors: [],
+			loading: false
 		}
 	}
 
 	handlePressRegister = () => {
 		// verify data is correctly formatted
+		this.setState({ loading: true });
 		let data = {
-			firstName: this.state.first_name,
-			lastName: this.state.last_name,
+			first_name: this.state.first_name,
+			last_name: this.state.last_name,
 			email: this.state.email,
 			password: this.state.password
 		};
-		DataParser.updateUserWithRegistration(data);
-		HttpClientHelper.post(
-			'register',
-			DataParser.getRegistrationData(),
+		DataParser.updateUserInfo(data);
+		HttpClientHelper.post('register', DataParser.getRegistrationData(),
 			(error, data)=>{
+				this.setState({ loading: false });
 				if(!error) {
 					console.log(data);
 					Actions.phoneNumberVerification();
@@ -49,9 +50,9 @@ export default class Register extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.mainContainer}>
+			<View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='contain' />
-				<ScrollView style={styles.container} ref='container'>
+				<ScrollView style={styles.container} ref='container' keyboardShouldPersistTaps='always'>
 					<Text style={styles.heading}>SIGN UP</Text>
 					<View style={{flex: 1, flexDirection: 'row'}}>
 						<TextInput
@@ -86,6 +87,7 @@ export default class Register extends React.Component {
           textStyle={styles.cancelButtonText}
           onPress={this.handlePressCancel}
           text="Cancel"/>
+				<Spinner visible={this.state.loading} />
 			</View>);
 	}
 }

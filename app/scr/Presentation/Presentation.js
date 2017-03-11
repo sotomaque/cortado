@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, NativeModules } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
-
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { Button, Touchable, DrawerLayoutMenu } from '../../components';
 import styles from './styles';
 import Notes from './Notes';
 import LeftMenu from '../LeftMenu';
 import Modal from 'react-native-simple-modal';
 import { Metrics } from '../../themes'
-
 const TimePicker = NativeModules.RNTimePicker;
 
 export default class Presentation extends React.Component {
@@ -73,7 +72,7 @@ export default class Presentation extends React.Component {
         <Button containerStyle={{width: 40, justifyContent: 'center'}} onPress={()=>this.toggleMenu()}>
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
-        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
+        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
           <Text style={{marginTop: -2}} note>Delivering to</Text>
           <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>Set Address</Text>
         </Button>

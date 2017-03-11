@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RNPress</string>
+    <string name="fb_app_id">1618099148466774</string>
+    <string name="fb_login_protocol_scheme">fb1618099148466774</string>
 </resources>

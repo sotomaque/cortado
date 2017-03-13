@@ -37,6 +37,7 @@ export default class PinVerification extends Component {
 					} catch (e) { console.log(e); }
 					Actions.presentation({type: ActionConst.REPLACE});
 				} else {
+                    Functions.showAlert(error, data);
 					Functions.showAlert('', 'An unexpected error occurred. Please try again later.');
 				}
 			}

@@ -24,13 +24,13 @@ export default class PhoneNumberVerification extends Component {
 			return;
 		this.setState({loading: true});
 		User.phone_number = this.state.phone;
-    HttpClientHelper.post( 'phone_verification_create', {phone_number: User.phone_number, email: User.email},
-      (error, data)=>{
-				this.setState({loading: false});
+        HttpClientHelper.post( 'phone_verification_create', {phone_number: User.phone_number, email: User.email},
+        (error, data)=>{
+			this.setState({loading: false});
         if(!error) {
-					Actions.pinVerification();
+			Actions.pinVerification();
         } else {
-					Functions.showAlert('', 'Please enter a valid phone number');
+			Functions.showAlert('', 'Please enter a valid phone number');
         }
       }
     );

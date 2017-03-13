@@ -208,6 +208,7 @@ export default class Presentation extends React.Component {
       return;
     } else if(this.state.pickup===null) {
       this.handleOnPressPickUp();
+      return;
     } else if(this.state.dropoff===null) {
       this.handleOnPressDropoff();
       return;
@@ -292,14 +293,14 @@ export default class Presentation extends React.Component {
           <Text>Services (select all that apply)</Text>
         </Separator>
         <ListItem onPress={this.handleOnPressWash}>
-          <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} />
+          <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} style={{ borderColor: this.state.wf ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.wf ? '#4B2D8F' : null }} />
           <Body>
             <Text>Wash & Fold</Text>
             <Text note>Everyday laundry. Returned neatly folded.</Text>
           </Body>
         </ListItem>
         <ListItem onPress={this.handleOnPressDryClean} last>
-          <CheckBox checked={this.state.dc} onPress={this.handleOnPressDryClean} />
+          <CheckBox checked={this.state.dc} onPress={this.handleOnPressDryClean} style={{ borderColor: this.state.dc ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.dc ? '#4B2D8F' : null }} />
           <Body>
             <Text>Dry Cleaning</Text>
             <Text note>Delicate garments. Returned on hangers.</Text>

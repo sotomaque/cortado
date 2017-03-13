@@ -116,14 +116,16 @@ class Payment extends React.Component {
       const { id } = await stripeClient.createToken( this.card.values.number , expiry[0], expiry[1], this.card.values.cvc);
       token = id;
     } catch (e) {
-        console.log(e);
+        this.setState({loading: false});
+        Functions.showAlert('', 'Error updating payment.');
     }
-    if(token=='') {
-      Functions.showAlert('', 'Please update a valid card to update your payment');
+    if(token == '' || token == null) {
+      this.setState({loading: false});
+      Functions.showAlert('', 'Error updating payment.');
       return;
+    } else {
+      this.updatePayment(token);
     }
-    console.log('TOKE PAYMENT', token);
-    this.updatePayment(token);
   }
 
   updatePayment(payment_token) {
@@ -134,7 +136,7 @@ class Payment extends React.Component {
         User.stripe_payment_token = payment_token;
         Actions.pop({refresh: {reload: true}});
       } else {
-        Functions.showAlert('', 'Error during add your payment. Please try again later');
+        Functions.showAlert('', 'Error updating payment. Please try again later.');
       }
     })
   }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -116,24 +117,9 @@ public class TimePickerDialog extends BaseDialog {
             picker.setCurved(false);
             picker.setVisibleItemCount(5);
         }
-        picker.setMustBeOnFuture(mustBeOnFuture);
 
         if (mainColor != null) {
             picker.setSelectedTextColor(mainColor);
-        }
-
-        if (minDate != null) {
-            picker.setMinDate(minDate);
-        }
-
-        if (maxDate != null) {
-            picker.setMaxDate(maxDate);
-        }
-
-        if (defaultDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(defaultDate);
-            picker.selectDate(calendar);
         }
     }
 
@@ -157,21 +143,6 @@ public class TimePickerDialog extends BaseDialog {
         return this;
     }
 
-    public TimePickerDialog setMustBeOnFuture(boolean mustBeOnFuture) {
-        this.mustBeOnFuture = mustBeOnFuture;
-        return this;
-    }
-
-    public TimePickerDialog setMinDateRange(Date minDate) {
-        this.minDate = minDate;
-        return this;
-    }
-
-    public TimePickerDialog setMaxDateRange(Date maxDate) {
-        this.maxDate = maxDate;
-        return this;
-    }
-
     public TimePickerDialog setDefaultDate(Date defaultDate) {
         this.defaultDate = defaultDate;
         return this;
@@ -189,12 +160,12 @@ public class TimePickerDialog extends BaseDialog {
         bottomSheetHelper.hide();
 
         if (listener != null && okClicked) {
-            listener.onDateSelected(picker.getDate());
+            listener.onDateSelected(picker.getDateAsString(), picker.getTimeAsString());
         }
     }
 
     public interface Listener {
-        void onDateSelected(Date date);
+        void onDateSelected(String dateString, String timeString);
     }
 
     public static class Builder {
@@ -210,10 +181,15 @@ public class TimePickerDialog extends BaseDialog {
         @Nullable
         private String subtitle;
 
+        @Nullable
+        private String currentDate;
+
+        @Nullable
+        private String currentTime;
+
         private boolean bottomSheet;
 
         private boolean curved;
-        private boolean mustBeOnFuture;
 
         @ColorInt
         @Nullable
@@ -227,10 +203,6 @@ public class TimePickerDialog extends BaseDialog {
         @Nullable
         private Integer titleTextColor = null;
 
-        @Nullable
-        private Date minDate;
-        @Nullable
-        private Date maxDate;
         @Nullable
         private Date defaultDate;
 
@@ -258,11 +230,6 @@ public class TimePickerDialog extends BaseDialog {
             return this;
         }
 
-        public Builder mustBeOnFuture() {
-            this.mustBeOnFuture = true;
-            return this;
-        }
-
         public Builder listener(@Nullable Listener listener) {
             this.listener = listener;
             return this;
@@ -283,21 +250,6 @@ public class TimePickerDialog extends BaseDialog {
             return this;
         }
 
-        public Builder minDateRange(Date minDate) {
-            this.minDate = minDate;
-            return this;
-        }
-
-        public Builder maxDateRange(Date maxDate) {
-            this.maxDate = maxDate;
-            return this;
-        }
-
-        public Builder defaultDate(Date defaultDate) {
-            this.defaultDate = defaultDate;
-            return this;
-        }
-
 
         public TimePickerDialog build() {
             final TimePickerDialog dialog = new TimePickerDialog(context, bottomSheet)
@@ -305,10 +257,7 @@ public class TimePickerDialog extends BaseDialog {
                     .setSubTitle(subtitle)
                     .setListener(listener)
                     .setCurved(curved)
-                    .setMaxDateRange(maxDate)
-                    .setMinDateRange(minDate)
-                    .setDefaultDate(defaultDate)
-                    .setMustBeOnFuture(mustBeOnFuture);
+                    .setDefaultDate(defaultDate);
 
             if (mainColor != null) {
                 dialog.setMainColor(mainColor);

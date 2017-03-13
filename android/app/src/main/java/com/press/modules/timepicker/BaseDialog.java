@@ -25,12 +25,7 @@ public abstract class BaseDialog {
 
     protected boolean okClicked = false;
     protected boolean curved = false;
-    protected boolean mustBeOnFuture = false;
 
-    @Nullable
-    protected Date minDate;
-    @Nullable
-    protected Date maxDate;
     @Nullable
     protected Date defaultDate;
 

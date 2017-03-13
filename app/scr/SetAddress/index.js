@@ -2,11 +2,44 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Container, Content, ListItem, Left, Body, Right, Text, Header, Form, Item, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import Spinner from 'react-native-loading-spinner-overlay';
 import MapView, { Marker } from 'react-native-maps'
 import { Metrics } from '../../themes';
 import { Button } from '../../components';
+import { Address } from '../../beans';
+import { SessionManager, HttpClientHelper } from '../../libs';
 
 export default class SetAddress extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      changed: false,
+      street: Address.street,
+      zipcode: Address.zipcode,
+      notes: Address.notes,
+      loading: false
+    };
+    this.handlePressSave = this.handlePressSave.bind(this);
+  }
+
+  handlePressSave() {
+    if(this.state.changed) {
+      this.setState({changed: false, loading: true});
+      const {street, zipcode, notes} = this.state;
+      HttpClientHelper.post('address', {street, zipcode, notes}, (error, data)=>{
+        this.setState({loading: true});
+        if(!error) {
+          Address.street = this.state.street;
+          Address.zipcode = this.state.zipcode;
+          Address.notes = this.state.notes;
+          SessionManager.saveUserInfo();
+          Actions.pop({refresh: {reload: true}});
+        }
+      });
+    }
+  }
 
   renderHeader() {
     return (
@@ -23,8 +56,8 @@ export default class SetAddress extends React.Component {
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
           <Text style={{color: '#565656', fontSize: 18}}>Set Address</Text>
         </Button>
-        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}}>
-          <Text style={{color: '#565656', fontSize: 14}}>Save</Text>
+        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={this.handlePressSave}>
+          <Text style={{color: this.state.changed?'#565656':'#ccc', fontSize: 14}}>Save</Text>
         </Button>
       </Header>
     );
@@ -33,15 +66,32 @@ export default class SetAddress extends React.Component {
   renderContent() {
     return (
       <Content>
-        <Form>
+        <Form style={{backgroundColor: '#ffffff'}}>
             <Item>
-                <Input placeholder="Street, Apt #" />
+                <Input placeholder="Street, Apt #" onChangeText={(value)=>{
+                  this.setState({
+                    changed: true,
+                    street: value
+                  })
+                }}
+                value={this.state.street}/>
             </Item>
             <Item>
-                <Input placeholder="Zipcode" />
+                <Input placeholder="Zipcode" onChangeText={(value)=>{
+                  this.setState({
+                    changed: true,
+                    zipcode: value
+                  })
+                }}
+                value={this.state.zipcode}/>
             </Item>
             <Item>
-                <Input placeholder="Notes" />
+              <Input placeholder="Zipcode" onChangeText={(value)=>{
+                this.setState({
+                  changed: true,
+                  zipcode: value
+                })
+              }} value={this.state.notes} placeholder="Notes" />
             </Item>
         </Form>
       </Content>
@@ -63,9 +113,10 @@ export default class SetAddress extends React.Component {
 
   render() {
     return <View style={styles.container}>
+      {this.renderMap()}
       {this.renderHeader()}
       {this.renderContent()}
-      {this.renderMap()}
+      <Spinner visible={this.state.loading} />
     </View>
   }
 }

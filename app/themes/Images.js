@@ -9,7 +9,8 @@ const images = {
   tileBg: require('../images/tile_bg.png'),
   background: require('../images/BG.png'),
   loginBackground: require('../images/loginBackground.png'),
-  pressMarketing: require('../images/pressMarketing.png')
+  pressMarketing: require('../images/pressMarketing.png'),
+  check: require('../images/check.png')
 }
 
 export default images

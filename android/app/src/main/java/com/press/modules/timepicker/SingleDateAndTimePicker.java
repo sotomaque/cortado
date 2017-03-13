@@ -3,7 +3,7 @@ package com.press.modules.timepicker;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.text.format.DateFormat;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +17,14 @@ import com.press.modules.timepicker.widget.WheelTimePicker;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class SingleDateAndTimePicker extends LinearLayout {
 
     public static final boolean IS_CYCLIC_DEFAULT = true;
     public static final boolean IS_CURVED_DEFAULT = false;
     public static final boolean MUST_BE_ON_FUTUR_DEFAULT = false;
-    public static final int DELAY_BEFORE_CHECK_PAST = 200;
     private static final int VISIBLE_ITEM_COUNT_DEFAULT = 3;
-
-    private static final CharSequence FORMAT_24_HOUR = "EEE d MMM H:mm";
-    private static final CharSequence FORMAT_12_HOUR = "EEE d MMM h:mm a";
 
     private WheelDayPicker daysPicker;
     private WheelTimePicker timePicker;
@@ -42,12 +39,9 @@ public class SingleDateAndTimePicker extends LinearLayout {
     private boolean isCurved;
     private int visibleItemCount;
     private View dtSelector;
-    private boolean mustBeOnFuture;
-
-    private Date minDate;
-    private Date maxDate;
 
     private int selectorHeight;
+    Handler mHandler = new Handler();
 
     public SingleDateAndTimePicker(Context context) {
         this(context, null);
@@ -72,15 +66,31 @@ public class SingleDateAndTimePicker extends LinearLayout {
 
         daysPicker.setOnDaySelectedListener(new WheelDayPicker.OnDaySelectedListener() {
             @Override
-            public void onDaySelected(WheelDayPicker picker, int position, String name, Date date) {
+            public void onDaySelected(WheelDayPicker picker, int position, String name) {
+                TimePickerModule.currentTime = null;
+                timePicker.updateTimes(name);
                 updateListener();
-                checkMinMaxDate(picker);
             }
         });
-        
+
         updatePicker();
         updateViews();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                timePicker.updateTimes(daysPicker.getCurrentDate());
+            }
+        }, 300);
     }
+    public Locale getCurrentLocale() {
+//    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//      return getResources().getConfiguration().getLocales().get(0);
+//    } else {
+        //noinspection deprecation
+        return getResources().getConfiguration().locale;
+//    }
+    }
+
 
     public void setCurved(boolean curved) {
         isCurved = curved;
@@ -117,22 +127,6 @@ public class SingleDateAndTimePicker extends LinearLayout {
         updatePicker();
     }
 
-    public Date getMinDate() {
-        return minDate;
-    }
-
-    public void setMinDate(Date minDate) {
-        this.minDate = minDate;
-    }
-
-    public Date getMaxDate() {
-        return maxDate;
-    }
-
-    public void setMaxDate(Date maxDate) {
-        this.maxDate = maxDate;
-    }
-
     private void updatePicker() {
         if (daysPicker != null && timePicker != null) {
             for (WheelPicker wheelPicker : Arrays.asList(daysPicker, timePicker)) {
@@ -140,10 +134,6 @@ public class SingleDateAndTimePicker extends LinearLayout {
                 wheelPicker.setSelectedItemTextColor(selectedTextColor);
                 wheelPicker.setItemTextSize(textSize);
                 wheelPicker.setVisibleItemCount(visibleItemCount);
-//                wheelPicker.setCurved(isCurved);
-//                if (wheelPicker != timePicker) {
-//                    wheelPicker.setCyclic(isCyclic);
-//                }
             }
         }
     }
@@ -152,73 +142,17 @@ public class SingleDateAndTimePicker extends LinearLayout {
         dtSelector.setBackgroundColor(selectorColor);
     }
 
-    private void checkMinMaxDate(final WheelPicker picker){
-        checkBeforeMinDate(picker);
-        checkAfterMaxDate(picker);
-    }
-
-    private void checkBeforeMinDate(final WheelPicker picker) {
-        picker.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (minDate != null && isBeforeMinDate(getDate())) {
-                    //scroll to Min position
-                    daysPicker.scrollTo(daysPicker.findIndexOfDate(minDate));
-                }
-            }
-        }, DELAY_BEFORE_CHECK_PAST);
-    }
-
-    private void checkAfterMaxDate(final WheelPicker picker) {
-        picker.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (maxDate != null && isAfterMaxDate(getDate())) {
-                    //scroll to Max position
-                    daysPicker.scrollTo(daysPicker.findIndexOfDate(maxDate));
-                }
-            }
-        }, DELAY_BEFORE_CHECK_PAST);
-    }
-
-    private boolean isBeforeMinDate(Date date) {
-        final Calendar minDateCalendar = Calendar.getInstance();
-        minDateCalendar.setTime(minDate);
-        minDateCalendar.set(Calendar.MILLISECOND, 0);
-        minDateCalendar.set(Calendar.SECOND, 0);
-
-        final Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTime(date);
-        dateCalendar.set(Calendar.MILLISECOND, 0);
-        dateCalendar.set(Calendar.SECOND, 0);
-
-        return dateCalendar.before(minDateCalendar);
-    }
-
-    private boolean isAfterMaxDate(Date date) {
-        final Calendar maxDateCalendar = Calendar.getInstance();
-        maxDateCalendar.setTime(maxDate);
-        maxDateCalendar.set(Calendar.MILLISECOND, 0);
-        maxDateCalendar.set(Calendar.SECOND, 0);
-
-        final Calendar dateCalendar = Calendar.getInstance();
-        dateCalendar.setTime(date);
-        dateCalendar.set(Calendar.MILLISECOND, 0);
-        dateCalendar.set(Calendar.SECOND, 0);
-
-        return dateCalendar.after(maxDateCalendar);
-    }
 
     public void setListener(Listener listener) {
         this.listener = listener;
     }
 
-    public Date getDate() {
-        final Calendar calendar = Calendar.getInstance();
-        final Date dayDate = daysPicker.getCurrentDate();
-        calendar.setTime(dayDate);
-        final Date time = calendar.getTime();
-        return time;
+    public String getTimeAsString() {
+        return  timePicker.getCurrentTime();
+    }
+
+    public String getDateAsString() {
+        return  daysPicker.getCurrentDate();
     }
 
 
@@ -234,23 +168,10 @@ public class SingleDateAndTimePicker extends LinearLayout {
     }
 
     private void updateListener() {
-        final Date date = getDate();
-        CharSequence format = FORMAT_12_HOUR;
-        String displayed = DateFormat.format(format, date).toString();
+        String displayed = daysPicker.getCurrentDate();
         if (listener != null) {
-            listener.onDateChanged(displayed, date);
+            listener.onDateChanged(displayed);
         }
-    }
-
-    public void setMustBeOnFuture(boolean mustBeOnFuture) {
-        this.mustBeOnFuture = mustBeOnFuture;
-        if(mustBeOnFuture){
-            minDate = Calendar.getInstance().getTime(); //minDate is Today
-        }
-    }
-
-    public boolean mustBeOnFuture() {
-        return mustBeOnFuture;
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -268,13 +189,12 @@ public class SingleDateAndTimePicker extends LinearLayout {
                 resources.getDimensionPixelSize(R.dimen.WheelItemTextSize));
         isCurved = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_curved, IS_CURVED_DEFAULT);
         isCyclic = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_cyclic, IS_CYCLIC_DEFAULT);
-        mustBeOnFuture = a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_mustBeOnFuture, MUST_BE_ON_FUTUR_DEFAULT);
         visibleItemCount = a.getInt(R.styleable.SingleDateAndTimePicker_picker_visibleItemCount, VISIBLE_ITEM_COUNT_DEFAULT);
 
         a.recycle();
     }
 
     public interface Listener {
-        void onDateChanged(String displayed, Date date);
+        void onDateChanged(String displayed);
     }
 }

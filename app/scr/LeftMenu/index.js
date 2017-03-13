@@ -5,15 +5,27 @@ import { Images } from '../../themes';
 import { Button } from '../../components';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { SessionManager } from '../../libs';
+import { User } from '../../beans';
 
 export default class LeftMenu extends React.Component {
+
   render() {
+
+    let avatar = Images.logo2;
+    if(User.profile_picture_url!=undefined && User.profile_picture_url!='') {
+      avatar = {uri: User.profile_picture_url};
+    }
+
     return <Container>
       <Content>
         <ListItem style={{justifyContent: 'center', paddingBottom: 50, paddingTop: 50}}>
-            <Image source={Images.logo2} style={{width: 50, height: 50}}/>
+            <Image source={avatar} style={{width: 60, height: 60, borderWidth: 0, borderRadius: 30}}/>
         </ListItem>
-        <ListItem onPress={()=>{}}>
+        <ListItem onPress={()=>{
+          GLOBAL.requestAnimationFrame(() => {
+              Actions.payment();
+          });
+        }}>
           <Body>
             <Text>Payment</Text>
           </Body>

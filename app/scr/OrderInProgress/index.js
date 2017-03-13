@@ -1,15 +1,17 @@
-// @flow
-'use strict'
-
 import React from 'react'
-import { View, StyleSheet, Linking } from 'react-native'
+import { View, StyleSheet, Linking, ListView, Image, InteractionManager } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
-import { Actions as NavigationActions } from 'react-native-router-flux'
+import { Actions, ActionConst } from 'react-native-router-flux';
 import call from 'react-native-phone-call'
-import { Container, Content, Body, ListItem, Text, CheckBox, Footer, FooterTab, Button } from 'native-base';
-
+import { Container, Content, Body, ListItem, Text, CheckBox, Footer, FooterTab, Header, Icon } from 'native-base';
+import {Address, User, Order} from '../../beans';
 import * as DataParser from '../../utils/DataParser';
-import { Fonts, Metrics, Colors, Images } from '../../themes'
+import { Fonts, Metrics, Colors, Images } from '../../themes';
+import { Button, DrawerLayoutMenu } from '../../components';
+import { HttpClientHelper } from '../../libs';
+import LeftMenu from '../LeftMenu';
+import Spinner from 'react-native-loading-spinner-overlay';
+import Modal from 'react-native-simple-modal';
 
 const args = {
   number: '5125226489', // String value with the number to call
@@ -20,98 +22,290 @@ class OrderInProgress extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.initData();
     this.state = {
       InProgress: true,
       Pickup: false,
       Cleaning: false,
-      Delivery: false
+      Delivery: false,
+      loading: false,
+      modal: false,
+      dataSource: this.ds.cloneWithRows(this.data),
     };
+
+    this.renderRow = this.renderRow.bind(this);
   }
 
-  componentDidMount(props) {
-    // hit action to get order status
-    // action should hit api at /getWorld endpoint
-    // then set order_phase in order obj = response.order_phase
-    //Actions.getWorld()
-    // if (World.order_phase = 'scheduled') {
+  initData() {
+    this.data = [
+      ['Order Confirmed', '', DataParser.getCurrentOrderStatus()==Order.CONFIRMED],
+      ['Pickup', Order.pickup_date_string, DataParser.getCurrentOrderStatus()==Order.PICKUP],
+      ['Cleaning', '', DataParser.getCurrentOrderStatus()==Order.CLEANING],
+      ['Delivery', Order.dropoff_date_string, DataParser.getCurrentOrderStatus()==Order.DELIVERY]
+    ]
 
-    // }
+    if(DataParser.getCurrentOrderStatus()==Order.DELIVERY) {
+      InteractionManager.runAfterInteractions(() => {
+        Actions.orderRating({type: ActionConst.REPLACE});
+      })
+    }
+  }
+
+  componentDidMount() {
+    this.updateOrderProgress();
+  }
+
+  componentWillUnmount() {
+    if(this.timer!=null) {
+      this.timer = setTimeout(()=>this.updateOrderProgress(), 120000);
+    }
+  }
+
+  timer = null;
+  updateOrderProgress() {
+    HttpClientHelper.get('world', {}, (error, data)=>{
+      if(!error) {
+        let current_order = data.current_order;
+        if(current_order!=null && current_order!=undefined && current_order!='') {
+          DataParser.initCurrentOrder(current_order);
+        }
+        if(data.order_phase)
+          DataParser.updateCurrentOrderStatus(data.order_phase)
+        this.initData();
+        this.setState({dataSource: this.ds.cloneWithRows(this.data)});
+      }
+    })
+    if(this.timer!=null) {
+      clearTimeout(this.timer);
+      this.timer = setTimeout(()=>this.updateOrderProgress(), 120000);
+    }
+  }
+
+  handleCancelPress() {
+    this.setState({loading: true});
+    HttpClientHelper.delete('order', null, (error, data)=>{
+      this.setState({loading: false});
+      if(!error) {
+        Actions.presentation({type:ActionConst.REPLACE});
+      }
+    })
+  }
+
+  renderHeader() {
+    return (
+      <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+        <Button containerStyle={{width: 50, justifyContent: 'center'}} onPress={()=>this.toggleMenu()}>
+          <Icon style={{color: '#565656'}} name='menu' />
+        </Button>
+        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
+          <Text style={{marginTop: -2}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>{DataParser.getAddress()}</Text>
+        </Button>
+        <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
+          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
+        </Button>
+      </Header>
+    );
+  }
+
+  renderFooter() {
+    return (
+      <Footer style={{backgroundColor: '#ffffff', height: Metrics.navBarHeight}}>
+          <Button
+            containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+            text="Chat Support"
+            onPress={() => Linking.openURL('https://www.yahoo.com')}/>
+          <View style={{width: 1, height: Metrics.navBarHeight, backgroundColor: '#f2f2f2'}}/>
+          <Button
+            containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+            text="Phone Support"
+            onPress={() => call(args).catch(console.error)}/>
+      </Footer>
+    )
+  }
+
+  renderModal() {
+    return (<Modal
+       offset={this.state.offset}
+       open={this.state.modal}
+       modalDidOpen={() => console.log('modal did open')}
+       modalDidClose={() => this.setState({modal: false})}
+       style={{alignItems: 'center'}}>
+       <View>
+          <Text style={{fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>Cancel Order?</Text>
+          <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656'}}>{`Are you sure you want to\ncancel current order?`}</Text>
+          <Button
+            containerStyle={{backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center', marginTop: 20}}
+            textStyle={{color: '#ffffff'}}
+            onPress={() => {
+              this.setState({modal: false});
+              this.handleCancelPress();
+            }}
+            text="CANCEL ORDER"/>
+          <Button
+            containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center'}}
+            textStyle={{color: '#ffffff'}}
+            onPress={() => this.setState({modal: false})}
+            text="OK"/>
+       </View>
+    </Modal>);
+  }
+
+  renderRow(rowData, sectionID, rowID, highlightRow) {
+    const total = this.state.dataSource.getRowCount();
+    let topLineStyle = undefined;
+    let bottomLineStyle = undefined;
+
+    if(rowData[2]) {
+      topLineStyle = styles.topLineActive;
+      let nextRow = this.data[parseInt(rowID)+1];
+      if(nextRow!=undefined) {
+        if(nextRow[2]) {
+          bottomLineStyle = styles.bottomLineActive;
+        } else {
+          bottomLineStyle = styles.bottomLine;
+        }
+      } else {
+        bottomLineStyle = styles.bottomLineActive;
+      }
+    } else {
+      topLineStyle = styles.topLine;
+      bottomLineStyle = styles.bottomLine;
+    }
+    topLineStyle = rowID == 0 ? [topLineStyle, styles.hiddenLine] : topLineStyle;
+    bottomLineStyle = rowID == total - 1 ? [bottomLineStyle, styles.hiddenLine] : bottomLineStyle;
+
+    return (
+      <View style={styles.row}>
+        <View style={styles.timeline}>
+          <View style={styles.line}>
+            <View style={topLineStyle} />
+            <View style={bottomLineStyle} />
+          </View>
+          <View style={rowData[2]?styles.dotActive:styles.dot} >
+            {rowData[2]&&<Image source={Images.check} style={{width: 10, height: 10, margin: 4, resizeMode: 'contain'}} />}
+          </View>
+        </View>
+        <View style={styles.content}>
+          <Text style={{fontSize: 18}}>{rowData[0]}</Text>
+          {rowData[1]!=''&&<Text style={{marginTop: -1}} note>{rowData[1]}</Text>}
+        </View>
+      </View>
+    );
+  }
+
+  toggleMenu() {
+    this._drawer.toggle()
   }
 
   render () {
+    let menu = <LeftMenu />
+    let content = <Container>
+      {this.renderHeader()}
+      <Content>
+        <MapView
+          style={styles.mapView}
+          initialRegion={{
+            latitude: 30.268908,
+            longitude: -97.740378,
+            latitudeDelta: 0.003,
+            longitudeDelta: 0.003,
+          }} />
+        <ListView style={styles.listView}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow}/>
+      </Content>
+      {this.renderFooter()}
+      {this.renderModal()}
+      <Spinner visible={this.state.loading} />
+    </Container>;
 
-    return (
-
-      <Container>
-        <Content>
-            <MapView
-              style={styles.mapView}
-              initialRegion={{
-                latitude: 30.268908,
-                longitude: -97.740378,
-                latitudeDelta: 0.003,
-                longitudeDelta: 0.003
-              }} />
-        </Content>
-        <Content>
-          <ListItem>
-              <CheckBox checked={this.state.InProgress} />
-              <Body>
-                  <Text>Order Confirmed</Text>
-              </Body>
-          </ListItem>
-          <ListItem>
-              <CheckBox checked={this.state.Pickup} />
-              <Body>
-                  <Text>Pickup</Text>
-              </Body>
-          </ListItem>
-           <ListItem>
-              <CheckBox checked={this.state.Cleaning} />
-              <Body>
-                  <Text>Cleaning</Text>
-              </Body>
-          </ListItem>
-           <ListItem>
-              <CheckBox checked={this.state.Delivery} />
-              <Body>
-                  <Text>Delivery</Text>
-              </Body>
-          </ListItem>
-        </Content>
-        <Footer >
-            <FooterTab>
-                <Button onPress={() => Linking.openURL('https://www.yahoo.com')}>
-                    <Text>Chat Support</Text>
-                </Button>
-
-                <Button onPress={() => call(args).catch(console.error)}>
-                    <Text>Phone Support</Text>
-                </Button>
-            </FooterTab>
-        </Footer>
-      </Container>
-    )
+    return (<DrawerLayoutMenu
+      menu={menu}
+      menuPosition='left'
+      ref={(ref) => this._drawer = ref}
+      openMenuOffset={Metrics.screenWidth-80}>
+        {content}
+    </DrawerLayoutMenu>);
   }
 }
 
-
-
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      marginTop: Metrics.navBarHeight
+      flex: 1
     },
     mapView: {
-      height: 1000,
+      height: 200,
       width: (Metrics.screenWidth)
     },
     buttons: {
-
       position: 'absolute',
       bottom: 0
-    }
+    },
+    listView: {
+      flex: 1,
+      paddingTop: 10,
+      paddingLeft: 15
+    },
+    row: {
+      padding: 12,
+      paddingLeft: 5
+    },
+    content: {
+      marginLeft: 40,
+    },
+    timeline: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      width: 40,
+      justifyContent: 'center', // center the dot
+      alignItems: 'center',
+    },
+    line: {
+      position: 'absolute',
+      top: 0,
+      left: 18,
+      width: 4,
+      bottom: 0,
+    },
+    topLine: {
+      flex: 1,
+      width: 3,
+      backgroundColor: '#ccc',
+    },
+    bottomLine: {
+      flex: 1,
+      width: 3,
+      backgroundColor: '#ccc',
+    },
+    topLineActive: {
+      flex: 1,
+      width: 3,
+      backgroundColor: '#51bd2b',
+    },
+    bottomLineActive: {
+      flex: 1,
+      width: 3,
+      backgroundColor: '#51bd2b',
+    },
+    hiddenLine: {
+      width: 0,
+    },
+    dot: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#ccc',
+    },
+    dotActive: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#51bd2b',
+    },
 });
 
-export default OrderInProgress
+export default OrderInProgress;

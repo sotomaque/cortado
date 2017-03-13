@@ -1,29 +1,87 @@
 import {
   User,
   Address,
+  Order,
   World
 } from '../beans';
 
 export function initializeUser(data) {
-  User.firstName = data.first_name,
-  User.lastName = data.last_name,
-  User.fullName = data.full_name,
-  User.email = data.email,
-  User.profilePicture = data.profile_picture_url,
-  User.FBID = data.fbid,
-  User.phoneNumber = data.phone_number,
-  User.isAdmin = data.is_admin,
-  User.promoCode = data.promo_code,
-  User.totalFreeCredits = data.total_free_credits
+  for(let i in User) {
+    if(data[i]!=undefined && data[i]!='' && i!='address') {
+      User[i] = data[i];
+    }
+  }
 
-  Address.ID = data.address.address_id,
-  Address.apt = data.address.apt,
-  Address.city = data.address.city,
-  Address.country = data.address.country,
-  Address.notes = data.address.notes,
-  Address.state = data.address.state,
-  Address.street = data.address.street,
-  Address.zipcode = data.address.zipcode
+  let address = data.address;
+  for(let i in Address) {
+    if(address[i]!=undefined && address[i]!='') {
+      Address[i] = address[i];
+    }
+  }
+}
+
+export function updateCurrentOrderStatus(status) {
+  Order.status = status.toUpperCase();
+}
+
+export function getCurrentOrderStatus() {
+  if(Order.status=='SCHEDULED' || Order.status=='REQUESTED') {
+    return Order.CONFIRMED;
+  } else if(Order.status=='PICKUP') {
+    return Order.PICKUP;
+  } else if(Order.status=='WASH' || Order.status=='CLEANING') {
+    return Order.CLEANING;
+  } else if(Order.status=='DROPOFF' || Order.status=='COMPLETE') {
+    return Order.DELIVERY;
+  } else {
+    return Order.IDLE;
+  }
+}
+
+export function initCurrentOrder(data) {
+  Order.order_id = data.order_id;
+  Order.pickup_date_string = data.pickup.date_string;
+  Order.dropoff_date_string = data.dropoff.date_string;
+  Order.total_price_string = data.total_price_string;
+  Order.services = data.services;
+  Order.status = data.status.toUpperCase();
+  // for(let i in User) {
+  //   if(data[i]!=undefined && data[i]!='' && i!='address') {
+  //     User[i] = data[i];
+  //   }
+  // }
+  //
+  // let address = data.address;
+  // for(let i in Address) {
+  //   if(address[i]!=undefined && address[i]!='') {
+  //     Address[i] = address[i];
+  //   }
+  // }
+}
+
+export function getUserInfo() {
+  let data = {};
+  for(let i in User) {
+    data[i] = User[i];
+  }
+  data.address = Address;
+  return data;
+}
+
+export function getAddress() {
+  if(Address.zipcode==='' || Address.street==='') return "Set Address";
+  else return Address.street;
+}
+
+export function getAddressSerialize() {
+  return {
+    street: Address.street,
+    zipcode: Address.zipcode,
+    notes: Address.notes,
+    city: Address.city,
+    country: Address.country,
+    state: Address.state,
+  };
 }
 
 export function updateUserInfo(data) {

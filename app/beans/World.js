@@ -1,5 +1,5 @@
 var World = {
-	customerSupportNumber: '',
+	customer_support_number: '',
 	current_order: '',
 	user: '',
 	order_phase: '',

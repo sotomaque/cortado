@@ -1,14 +1,18 @@
 import React from 'react';
-import { View, NativeModules } from 'react-native';
+import { View, NativeModules, InteractionManager } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Button, Touchable, DrawerLayoutMenu } from '../../components';
+import Spinner from 'react-native-loading-spinner-overlay';
 import styles from './styles';
 import Notes from './Notes';
 import LeftMenu from '../LeftMenu';
 import Modal from 'react-native-simple-modal';
 import { Metrics } from '../../themes'
 const TimePicker = NativeModules.RNTimePicker;
+import * as DataParser from '../../utils/DataParser';
+import {Address, User} from '../../beans';
+import { SessionManager, HttpClientHelper } from '../../libs';
 
 export default class Presentation extends React.Component {
 
@@ -18,52 +22,245 @@ export default class Presentation extends React.Component {
       wf: false,
       dc: false,
       modal: false,
+      pickup: null,
+      dropoff: null,
+      address: '',
+      modal_title: '',
+      modal_message: '',
+      reload: false,
+      availability: null,
+      loading: false
     };
+    this.services = '';
     this.handleOnPressPickUp = this.handleOnPressPickUp.bind(this);
     this.handleOnPressDropoff = this.handleOnPressDropoff.bind(this);
+    this.handleOnPressWash = this.handleOnPressWash.bind(this);
+    this.handleOnPressDryClean = this.handleOnPressDryClean.bind(this);
+    this.handleOnPress = this.handleOnPress.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserInfoFromPress();
+  }
+
+  componentDidUnMount() {
+    SessionManager.saveUserInfo();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.reload) {
+      this.setState({
+        reload: !this.state.reload
+      })
+      InteractionManager.runAfterInteractions(() => {
+        this.getUserInfoFromPress();
+      });
+    }
+  }
+
+  getUserInfoFromPress() {
+    HttpClientHelper.get('me', null, (error, data)=>{
+      if(!error) {
+        DataParser.initializeUser(data);
+        // console.log(DataParser.getUserInfo());
+        let current_order = data.current_order;
+        if(current_order!=null && current_order!=undefined && current_order!='') {
+          DataParser.initCurrentOrder(current_order);
+          InteractionManager.runAfterInteractions(() => {
+            Actions.orderInProgress({type: ActionConst.REPLACE})
+          });
+        } else {
+          this.setState({reload: !this.state.reload});
+        }
+      }
+    })
+  }
+
+  checkAddress() {
+    if(DataParser.getAddress()==='Set Address') {
+      this.setState({
+        modal: true,
+        modal_message: 'Please set your address\nto continue.',
+        modal_title: 'Set Address',
+      })
+      return false;
+    }
+    return true;
+  }
+
+  checkService() {
+    if(!(this.state.wf || this.state.dc)) {
+      this.setState({
+        modal: true,
+        modal_message: 'Please select at least one\nservice to continue.',
+        modal_title: 'Select Services',
+      })
+      return false;
+    }
+    if(this.state.availability==null) {
+      this.setState({loading: true});
+      return false;
+    }
+    return true;
+  }
+
+  checkPickupTime() {
+    if(!(this.state.pickup)) {
+      this.setState({
+        modal: true,
+        modal_message: 'Please set a pickup time\nto continue.',
+        modal_title: 'Set Pickup Time',
+      })
+      return false;
+    }
+    return true;
+  }
+
+  getTimeAstring(data, nodata) {
+    if(data) {
+      try {
+        return data.date+", "+data.time;
+      } catch (e) { }
+    }
+    return nodata;
   }
 
   handleOnPressWash = () => {
+    if(!this.checkAddress()) return;
     this.setState({
       wf: !(this.state.wf)
     });
+    this.getAvailability();
   }
 
   handleOnPressDryClean = () => {
+    if(!this.checkAddress()) return;
     this.setState({
       dc: !(this.state.dc)
     });
+    this.getAvailability();
   }
 
-  handleOnPress = () => {
-    var services = '';
-    if (this.state.wf && this.state.dc) {
-      services = 'wnf,dc';
-    } else if (this.state.wf) {
-      services = 'wnf'
-    } else {
-      services = 'dc'
-    }
-    console.log(services);
+  getAvailability() {
+    this.setState({availability: null});
+    InteractionManager.runAfterInteractions(() => {
+      this.services = '';
+      if(!this.state.wf && !this.state.dc) {
+        return;
+      } else {
+        if (this.state.wf && this.state.dc) {
+          this.services = 'wnf,dc';
+        } else if (this.state.wf) {
+          this.services = 'wnf'
+        } else {
+          this.services = 'dc'
+        }
+        // console.log(this.services);
+        HttpClientHelper.get('availability', {zipcode: Address.zipcode, services: this.services}, (error, data)=>{
+          if(!error) {
+            // console.log(data);
+            this.setState({
+              pickup: null,
+              dropoff: null,
+              availability: JSON.stringify(data)
+            })
+            if(this.state.loading==true) {
+              this.setState({loading: false});
+              InteractionManager.runAfterInteractions(() => {
+                this.handleOnPressPickUp();
+              });
+            }
+          }
+        })
+      }
+    });
+  }
 
-    // Actions.getAvailability(services);
-    // Actions.getWorld();
-    //NavigationActions.orderInProgress();
+  handleConfirmOrder() {
+    this.setState({loading: true});
+    Address.id = Address.address_id;
+    let params = {
+      address: DataParser.getAddressSerialize(),
+      pickup_window: this.getTimeAstring(this.state.pickup),
+      dropoff_window: this.getTimeAstring(this.state.dropoff),
+      services: this.services,
+      special_instructions: this.special_instructions.getText()
+    }
+    HttpClientHelper.post('order', params, (error, data)=>{
+      this.setState({loading: false});
+      if(!error) {
+        this.getUserInfoFromPress();
+      }
+    })
+  }
+
+  handleOnPress() {
+    if(DataParser.getAddress()==='Set Address') {
+      Actions.setAddress();
+      return;
+    } else if(!(this.state.wf || this.state.dc)) {
+      return;
+    } else if(this.state.pickup===null) {
+      this.handleOnPressPickUp();
+    } else if(this.state.dropoff===null) {
+      this.handleOnPressDropoff();
+      return;
+    } else if(User.stripe_payment_token=='' || User.stripe_payment_token==null) {
+      Actions.payment();
+      return;
+    }
+    this.handleConfirmOrder();
+  }
+
+  getCurrentDateSelected(data) {
+    let currentDate = null;
+    let currentTime = null;
+    try {
+        currentDate = data.date;
+        currentTime = data.time;
+    } catch (e) { }
+    return {currentDate, currentTime};
   }
 
   handleOnPressDropoff() {
-    // this.setState({modal: !(this.state.modal)});
-    TimePicker.show(null, null, 'Set Dropoff Window', 'When should we drop off your clean clothes?', (error, data)=>{
-
+    if(!this.checkService() || !this.checkPickupTime() ) return;
+    const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.dropoff);
+    TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Dropoff Window', 'When should we drop off your clean clothes?', (error, data)=>{
+      if(!error) {
+        this.setState({
+          dropoff: data
+        });
+      }
     });
-
   }
 
   handleOnPressPickUp() {
-    // this.setState({modal: !(this.state.modal)});
-    TimePicker.show(null, null, 'Set Pickup Window', 'When should we pick up your dirty clothes?', (error, data)=>{
-
+    if(!this.checkService()) return;
+    const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.pickup);
+    TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Pickup Window', 'When should we pick up your dirty clothes?', (error, data)=>{
+      if(!error) {
+        this.setState({
+          pickup: data,
+          dropoff: null
+        });
+      }
     });
+  }
+
+  getButtonNextTitle() {
+    if(DataParser.getAddress()==='Set Address') {
+      return "SET ADDRESS";
+    } else if(!(this.state.wf || this.state.dc)) {
+      return "SELECT SEVICE(S)";
+    } else if(this.state.pickup===null) {
+      return "SET A PICKUP TIME";
+    } else if(this.state.dropoff===null) {
+      return "SET A DROPOFF TIME";
+    } else if(User.stripe_payment_token=='' || User.stripe_payment_token==null) {
+      return "UPDATE PAYMENT";
+    } else {
+      return "CONFIRM ORDER";
+    }
   }
 
   renderHeader() {
@@ -74,23 +271,12 @@ export default class Presentation extends React.Component {
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
           <Text style={{marginTop: -2}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>Set Address</Text>
+          <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, alignItems: 'center', justifyContent: 'center'}}>
         </Button>
       </Header>
     );
-  }
-
-  renderFooter() {
-    return (<Footer>
-        <Button
-          disabled={!(this.state.wf || this.state.dc)}
-          onPress={this.handleOnPress}
-          containerStyle={{justifyContent: 'center'}}
-          textStyle={{color: '#fff'}}
-          text="Select Service(s)"/>
-    </Footer>);
   }
 
   renderContent() {
@@ -99,14 +285,14 @@ export default class Presentation extends React.Component {
         <Separator boardered>
           <Text>Services (select all that apply)</Text>
         </Separator>
-        <ListItem>
+        <ListItem onPress={this.handleOnPressWash}>
           <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} />
           <Body>
             <Text>Wash & Fold</Text>
             <Text note>Everyday laundry. Returned neatly folded.</Text>
           </Body>
         </ListItem>
-        <ListItem>
+        <ListItem onPress={this.handleOnPressDryClean} last>
           <CheckBox checked={this.state.dc} onPress={this.handleOnPressDryClean} />
           <Body>
             <Text>Dry Cleaning</Text>
@@ -124,22 +310,34 @@ export default class Presentation extends React.Component {
         }}>
           <Body>
               <Text note>Pickup Time</Text>
-              <Text>Set Pickup Time</Text>
+              <Text>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
           GLOBAL.requestAnimationFrame(() => {
               this.handleOnPressDropoff();
           });
-        }}>
+        }} last>
           <Body>
               <Text note>Dropoff Time</Text>
-              <Text>Set Dropoff Time</Text>
+              <Text>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
-        <Notes />
+        <Notes ref={(ref)=>this.special_instructions=ref} />
       </View>
     </Content>);
+  }
+
+  renderFooter() {
+    let disabled = this.getButtonNextTitle()==='SELECT SEVICE(S)';
+    return (<Footer style={{height: Metrics.navBarHeight}}>
+        <Button
+          disabled={disabled}
+          onPress={this.handleOnPress}
+          containerStyle={disabled?styles.buttonNextInActive:styles.buttonNext}
+          textStyle={{color: '#fff', fontSize: 16}}
+          text={this.getButtonNextTitle()}/>
+    </Footer>);
   }
 
   renderModal() {
@@ -147,22 +345,16 @@ export default class Presentation extends React.Component {
        offset={this.state.offset}
        open={this.state.modal}
        modalDidOpen={() => console.log('modal did open')}
-       modalDidClose={() => this.setState({open: false})}
+       modalDidClose={() => this.setState({modal: false})}
        style={{alignItems: 'center'}}>
        <View>
-          <Text style={{fontSize: 20, marginBottom: 10}}>Hello world!</Text>
+          <Text style={{fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>{this.state.modal_title}</Text>
+          <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656'}}>{this.state.modal_message}</Text>
           <Button
-            containerStyle={{margin: 5}}
-            onPress={() => this.setState({offset: -100})}
-            text="Move modal up"/>
-          <Button
-            containerStyle={{margin: 5}}
-            onPress={() => this.setState({offset: 0})}
-            text="Reset modal position"/>
-          <Button
-            containerStyle={{margin: 5}}
+            containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center', marginTop: 20}}
+            textStyle={{color: '#ffffff'}}
             onPress={() => this.setState({modal: false})}
-            text="Close modal"/>
+            text="OK"/>
        </View>
     </Modal>);
   }
@@ -176,8 +368,9 @@ export default class Presentation extends React.Component {
     let content = <Container>
      {this.renderHeader()}
      {this.renderContent()}
-     {this.renderModal()}
      {this.renderFooter()}
+     {this.renderModal()}
+     <Spinner visible={this.state.loading} />
    </Container>;
 
     return (<DrawerLayoutMenu

@@ -1,6 +1,6 @@
 var Address = {
-	
-	ID: null,
+
+	address_id: null,
 	apt: '',
 	city: '',
 	country: '',

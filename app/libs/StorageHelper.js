@@ -43,4 +43,26 @@ export default class StorageHelper {
     }
     return null;
   }
+
+  static removeUserInfo() {
+    try {
+      AsyncStorage.removeItem('user_info')
+    } catch (e) { console.log(e);}
+  }
+
+  static setUserInfo(data) {
+    try {
+      StorageHelper.set('user_info', JSON.stringify(data));
+    } catch (e) { console.log(e); }
+  }
+
+  static async getUserInfo() {
+    try {
+      let data = await StorageHelper.get('user_info');
+      return JSON.parse(data);
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
+  }
 }

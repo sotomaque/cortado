@@ -3,21 +3,39 @@ import { View, Image } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { SessionManager } from '../../libs';
 import { Images } from '../../themes';
+import * as DataParser from '../../utils/DataParser';
+import {Address, User} from '../../beans';
+import { HttpClientHelper } from '../../libs';
 
 export default class Splash extends React.Component {
 
   componentDidMount() {
-    setTimeout(()=>{
-      this.next();
-    }, 1000)
+    this.next();
+  }
+
+  handleLoggedIn() {
+    HttpClientHelper.get('me', null, (error, data)=>{
+      if(!error) {
+        DataParser.initializeUser(data);
+        let current_order = data.current_order;
+        if(current_order!=null && current_order!=undefined && current_order!='') {
+          DataParser.initCurrentOrder(current_order);
+          Actions.orderInProgress({type: ActionConst.REPLACE})
+        } else {
+          Actions.presentation({type: ActionConst.REPLACE})
+        }
+      }
+    });
   }
 
   next() {
     SessionManager.init((isLoggedIn)=>{
       if(isLoggedIn) {
-        Actions.presentation({type: ActionConst.REPLACE})
+        this.handleLoggedIn();
       } else {
-        Actions.login({type: ActionConst.REPLACE})
+        setTimeout(()=>{
+          Actions.login({type: ActionConst.REPLACE})
+        }, 1000)
       }
     });
   }

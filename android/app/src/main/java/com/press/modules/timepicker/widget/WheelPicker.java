@@ -955,7 +955,12 @@ public abstract class WheelPicker extends View {
 
     @Override
     public String getItemText(int position) {
-      return String.valueOf(data.get(position));
+      try {
+        return String.valueOf(data.get(position));
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      return "";
     }
 
     public void setData(List data) {

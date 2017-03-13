@@ -7,6 +7,9 @@ import {
   ForgotPassword,
   FreePress,
   Login,
+  OrderInProgress,
+  OrderRating,
+  Payment,
   PhoneNumberVerification,
   PinVerification,
   Presentation,
@@ -30,6 +33,9 @@ const scenes = Actions.create(
     <Scene key="pricing" component={Pricing} title="Pricing"/>
     <Scene key="freePress" component={FreePress} title="Free Press"/>
     <Scene key="setAddress" component={SetAddress} title="Set Address"/>
+    <Scene key="payment" component={Payment} title="Payment"/>
+    <Scene key="orderInProgress" component={OrderInProgress} title="Order In Progress" initial={false}/>
+    <Scene key="orderRating" component={OrderRating} title="Order Rating" initial={false}/>
   </Scene>
 );
 

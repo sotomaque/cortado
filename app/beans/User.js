@@ -5,10 +5,10 @@ var User = {
     last_name: '',
     full_name: '',
     email: '',
-    profile_picture: '',
+    profile_picture_url: '',
     fbid: '',
     phone_number: '',
-    payment_token: '',
+    stripe_payment_token: '',
     payment_last4: '',
     is_admin: false,
     customer_support_number: '',
@@ -19,7 +19,7 @@ var User = {
     total_free_credits: 0.00,
     intercom_enabled: false,
     hasPayment: function () {
-        return (payment_token != null && payment_token != "")
+        return (stripe_payment_token != null && stripe_payment_token != "")
     }
 }
 export default User

@@ -4,23 +4,19 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.press.R;
+import com.press.modules.timepicker.TimePickerModule;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 public class WheelDayPicker extends WheelPicker {
 
-    public static final int DAYS_PADDING = 7;
     private int defaultIndex;
-
-    private int todayPosition;
-
-    private SimpleDateFormat simpleDateFormat;
 
     private OnDaySelectedListener onDaySelectedListener;
 
@@ -32,22 +28,16 @@ public class WheelDayPicker extends WheelPicker {
 
     public WheelDayPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        this.simpleDateFormat = new SimpleDateFormat("EEE, d MMM", getCurrentLocale());
         this.adapter = new Adapter();
         setAdapter(adapter);
-
         updateDays();
-
-        updateDefaultDay();
     }
 
     @Override
     protected void onItemSelected(int position, Object item) {
         if (null != onDaySelectedListener) {
             final String itemText = (String) item;
-            final Date date = convertItemToDate(position);
-            onDaySelectedListener.onDaySelected(this, position, itemText, date);
+            onDaySelectedListener.onDaySelected(this, position, itemText);
         }
     }
 
@@ -57,39 +47,54 @@ public class WheelDayPicker extends WheelPicker {
     }
 
     @Override
+    protected String getFormattedValue(Object value) {
+        return value.toString();
+    }
+
+    @Override
     public int getDefaultItemPosition() {
         return defaultIndex;
     }
 
-    private void updateDays() {
+
+    public void updateDays() {
         final List<String> data = new ArrayList<>();
-
-        Calendar instance = Calendar.getInstance();
-//        instance.add(Calendar.DATE, -1 * DAYS_PADDING - 1);
-//        for (int i = (-1) * DAYS_PADDING; i < 0; ++i) {
-//            instance.add(Calendar.DAY_OF_MONTH, 1);
-//            data.add(getFormattedValue(instance.getTime()));
-//            Log.e("Days", "==="+data.size());
-//        }
-
-        todayPosition = data.size();
-        defaultIndex = data.size();
-
-        //today
-//        data.add("Today");
-
-//        instance = Calendar.getInstance();
-
-        for (int i = 0; i < DAYS_PADDING; ++i) {
-            data.add(getFormattedValue(instance.getTime()));
-            instance.add(Calendar.DATE, 1);
+        defaultIndex = 0;
+        try {
+            Log.e("DATE", TimePickerModule.current_type+"/"+TimePickerModule.currentDate);
+            if (TimePickerModule.current_type.equals("currentPickup")) {
+                for (int i = 0; i < TimePickerModule.data_picker.length(); i++) {
+                    JSONObject jso = TimePickerModule.data_picker.getJSONObject(i);
+                    String dayTitle = jso.getString("key");
+                    if (i == 0) {
+                        TimePickerModule.currentPickup = dayTitle;
+                    }
+                    if (dayTitle.equals(TimePickerModule.currentDate)) {
+                        defaultIndex = data.size();
+                        TimePickerModule.currentPickup = dayTitle;
+                    }
+                    data.add(dayTitle);
+                }
+            } else {
+                JSONArray dropoff_times = TimePickerModule.data_picker_dropoff.getJSONArray(TimePickerModule.currentPickup);
+                for (int i = 0; i < dropoff_times.length(); i++) {
+                    JSONObject jso2 = dropoff_times.getJSONObject(i);
+                    Iterator<?> keys = jso2.keys();
+                    while (keys.hasNext()) {
+                        String dayTitle = (String) keys.next();
+                        if (dayTitle.equals(TimePickerModule.currentDate)) {
+                            defaultIndex = data.size();
+                        }
+                        data.add(dayTitle);
+                        break;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
         adapter.setData(data);
-    }
-
-    protected String getFormattedValue(Object value) {
-        return simpleDateFormat.format(value);
+        updateDefaultDay();
     }
 
     public void setOnDaySelectedListener(OnDaySelectedListener onDaySelectedListener) {
@@ -104,43 +109,11 @@ public class WheelDayPicker extends WheelPicker {
         return defaultIndex;
     }
 
-    public Date getCurrentDate() {
-        return convertItemToDate(super.getCurrentItemPosition());
-    }
-
-    private Date convertItemToDate(int itemPosition) {
-        Date date = null;
-        String itemText = adapter.getItemText(itemPosition);
-        final Calendar todayCalendar = Calendar.getInstance();
-        if (itemPosition == todayPosition) {
-            date = todayCalendar.getTime();
-        } else {
-            try {
-                date = simpleDateFormat.parse(itemText);
-            } catch (ParseException e) {
-                e.printStackTrace();    
-            }
-        }
-
-        if (date != null) {
-            //try to know the year
-            final Calendar dateCalendar = Calendar.getInstance();
-            dateCalendar.setTime(date);
-
-            todayCalendar.add(Calendar.DATE, (itemPosition - todayPosition));
-
-            dateCalendar.set(Calendar.YEAR, todayCalendar.get(Calendar.YEAR));
-            date = dateCalendar.getTime();
-        }
-
-        return date;
-    }
-
-    public String getCurrentDay() {
+    public String getCurrentDate() {
         return adapter.getItemText(getCurrentItemPosition());
     }
 
     public interface OnDaySelectedListener {
-        void onDaySelected(WheelDayPicker picker, int position, String name, Date date);
+        void onDaySelected(WheelDayPicker picker, int position, String name);
     }
 }

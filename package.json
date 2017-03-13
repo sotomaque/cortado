@@ -8,6 +8,11 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
+    "card-validator": "^4.0.0",
+    "lodash.compact": "^3.0.1",
+    "lodash.every": "^4.6.0",
+    "lodash.pick": "^4.4.0",
+    "lodash.values": "^4.3.0",
     "native-base": "^2.0.12",
     "react": "^15.4.2",
     "react-native": "0.42.0",
@@ -17,7 +22,9 @@
     "react-native-phone-call": "^1.0.2",
     "react-native-router-flux": "^3.38.0",
     "react-native-share": "^1.0.20",
-    "react-native-simple-modal": "^4.0.2"
+    "react-native-simple-modal": "^4.0.2",
+    "react-native-star-rating": "^1.0.7",
+    "react-native-stripe-api": "0.0.6"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

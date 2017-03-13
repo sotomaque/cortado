@@ -15,7 +15,11 @@ const API_URL = {
   phone_verification_create:   BASE_URL + '/phone_verification/create/',
   phone_verification:   BASE_URL + '/phone_verification/',
   world:                BASE_URL + '/world/',
-  availability:         BASE_URL + '/availability/'
+  availability:         BASE_URL + '/availability/',
+  payment:              BASE_URL + '/payment/',
+  address:              BASE_URL + '/address/',
+  order:                BASE_URL + '/order/',
+  order_rating:         BASE_URL + '/order/{order_id}/rating/',
 }
 
 export default class HttpClientHelper {
@@ -40,6 +44,14 @@ export default class HttpClientHelper {
         headers[i] = HttpClientHelper.mHeaders[i]
       }
 
+      if(params!=null && params.url_params != undefined) {
+        let url_params = params.url_params;
+        for(let i in url_params) {
+          url = url.replace("{"+i+"}", url_params[i]);
+        }
+        delete params.url_params;
+      }
+
       try {
         if(HttpClientHelper.authorization==null || HttpClientHelper.authorization=='') {
           let token = await SessionManager.getToken();
@@ -60,7 +72,7 @@ export default class HttpClientHelper {
 
       // Method GET
       if(method == "GET") {
-        if(Object.keys(params).length) _url += "?" + Object.keys(params).map((k) => k + "=" + encodeURIComponent(params[k])).join("&")
+        if(params!=null && Object.keys(params).length) url += "?" + Object.keys(params).map((k) => k + "=" + encodeURIComponent(params[k])).join("&")
       } else { // Method POST
         let formData  = new FormData()
         if(headers!=null && headers["Content-Type"] == "application/json") {
@@ -75,7 +87,8 @@ export default class HttpClientHelper {
       }
       console.log(opts);
       let response = await fetch(url, opts)
-      console.log(response);
+      if(type=='me')
+        console.log('meeeeeeeeeeeee',response);
       let responseJson= await response.json()
       if(callback!=undefined) {
         callback(null, responseJson);
@@ -93,26 +106,38 @@ export default class HttpClientHelper {
   }
 
   static async post(type, params, callback) {
-    let headers = params.headers;
-    delete params.headers;
+    let headers = null;
+    if(params!=null && params.headers!=undefined) {
+      headers = params.headers;
+      delete params.headers;
+    }
     return await HttpClientHelper.sendRequest(type, params, "POST", headers, callback);
   }
 
   static async get(type, params, callback) {
-    let headers = params.headers;
-    delete params.headers;
+    let headers = null;
+    if(params!=null && params.headers!=undefined) {
+      headers = params.headers;
+      delete params.headers;
+    }
     return await HttpClientHelper.sendRequest(type, params, "GET", headers, callback);
   }
 
   static async put(type, params, callback) {
-    let headers = params.headers;
-    delete params.headers;
+    let headers = null;
+    if(params!=null && params.headers!=undefined) {
+      headers = params.headers;
+      delete params.headers;
+    }
     return await HttpClientHelper.sendRequest(type, params, "PUT", headers, callback);
   }
 
   static async delete(type, params, callback) {
-    let headers = params.headers;
-    delete params.headers;
+    let headers = null;
+    if(params!=null && params.headers!=undefined) {
+      headers = params.headers;
+      delete params.headers;
+    }
     return await HttpClientHelper.sendRequest(type, params, "DELETE", headers, callback);
   }
 

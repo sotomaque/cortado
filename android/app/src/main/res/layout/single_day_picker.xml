@@ -15,14 +15,16 @@
 
         <com.press.modules.timepicker.widget.WheelDayPicker
             android:id="@+id/daysPicker"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             app:wheel_atmospheric="true"
             app:wheel_item_align="right" />
 
         <com.press.modules.timepicker.widget.WheelTimePicker
             android:id="@+id/timePicker"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
             android:paddingLeft="30dp"

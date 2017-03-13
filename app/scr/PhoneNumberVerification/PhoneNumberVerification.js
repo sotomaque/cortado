@@ -30,7 +30,7 @@ export default class PhoneNumberVerification extends Component {
         if(!error) {
 					Actions.pinVerification();
         } else {
-					Functions.showAlert('', 'Error during register with your phone number.\nPlease try again later.');
+					Functions.showAlert('', 'Error during register with your phone number. Please try again later.');
         }
       }
     );

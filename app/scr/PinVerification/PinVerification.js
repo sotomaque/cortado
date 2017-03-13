@@ -32,7 +32,7 @@ export default class PinVerification extends Component {
 					} catch (e) { console.log(e); }
 					Actions.presentation({type: ActionConst.REPLACE});
         } else {
-					Functions.showAlert('', 'Your verification number is invalid.\nPlease try again later.');
+					Functions.showAlert('', 'Your verification number is invalid. Please try again later.');
         }
       }
     );

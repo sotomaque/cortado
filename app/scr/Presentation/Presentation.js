@@ -195,7 +195,7 @@ export default class Presentation extends React.Component {
       if(!error) {
         this.getUserInfoFromPress();
       } else {
-        Functions.showAlert('', 'Error during order creation.\nPlease try again later');
+        Functions.showAlert('', 'Error during order creation. Please try again later');
       }
     })
   }

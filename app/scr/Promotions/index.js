@@ -33,7 +33,7 @@ class Promotion extends React.Component {
 			if(!error) {
 
 			} else {
-				Functions.showAlert('', 'Your promo code is invalid or expired.\nPlease try again later');
+				Functions.showAlert('', 'Your promo code is invalid or expired. Please try again later');
 			}
 		})
 	}

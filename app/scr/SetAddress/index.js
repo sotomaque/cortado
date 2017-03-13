@@ -8,6 +8,7 @@ import { Metrics } from '../../themes';
 import { Button } from '../../components';
 import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
+import * as Functions from '../../utils/Functions';
 
 export default class SetAddress extends React.Component {
 
@@ -29,13 +30,15 @@ export default class SetAddress extends React.Component {
       this.setState({changed: false, loading: true});
       const {street, zipcode, notes} = this.state;
       HttpClientHelper.post('address', {street, zipcode, notes}, (error, data)=>{
-        this.setState({loading: true});
+        this.setState({loading: false});
         if(!error) {
           Address.street = this.state.street;
           Address.zipcode = this.state.zipcode;
           Address.notes = this.state.notes;
           SessionManager.saveUserInfo();
           Actions.pop({refresh: {reload: true, address_changed: true}});
+        } else {
+          Functions.showAlert('', 'Please enter a valid zipcode. Please try again.');
         }
       });
     }

@@ -130,7 +130,7 @@ class Payment extends React.Component {
         User.stripe_payment_token = payment_token;
         Actions.pop({refresh: {reload: true}});
       } else {
-        Functions.showAlert('', 'Error during add your payment.\nPlease try again later');
+        Functions.showAlert('', 'Error during add your payment. Please try again later');
       }
     })
   }

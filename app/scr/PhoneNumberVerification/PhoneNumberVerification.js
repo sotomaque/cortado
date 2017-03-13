@@ -23,14 +23,14 @@ export default class PhoneNumberVerification extends Component {
 		if(!Functions.validateForm('Phone number', this.state.phone))
 			return;
 		this.setState({loading: true});
-		User.phoneNumber = this.state.phone;
-    HttpClientHelper.post( 'phone_verification_create', {phone_number: User.phoneNumber, email: User.email},
+		User.phone_number = this.state.phone;
+    HttpClientHelper.post( 'phone_verification_create', {phone_number: User.phone_number, email: User.email},
       (error, data)=>{
 				this.setState({loading: false});
         if(!error) {
 					Actions.pinVerification();
         } else {
-					Functions.showAlert('', 'Error during register with your phone number. Please try again later.');
+					Functions.showAlert('', 'Please enter a valid phone number');
         }
       }
     );

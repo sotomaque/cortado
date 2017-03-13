@@ -10,7 +10,7 @@ const API_URL = {
   login:                BASE_URL + '/login/',
   login_fb:             BASE_URL + '/fb_login/',
   register:             BASE_URL + '/customer/register/',
-  forgot_password:      BASE_URL + '/customer/register/',
+  forgot_password:      BASE_URL + '/password_reset_request/',
   me:                   BASE_URL + '/customer/me/',
   phone_verification_create:   BASE_URL + '/phone_verification/create/',
   phone_verification:   BASE_URL + '/phone_verification/',

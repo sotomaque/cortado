@@ -6,6 +6,8 @@ import { Button } from '../../components'
 import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper } from '../../libs';
 import styles from './styles'
+import * as Functions from '../../utils/Functions';
+import * as EmailValidator from 'email-validator';
 
 export default class ForgotPassword extends React.Component {
 
@@ -22,9 +24,27 @@ export default class ForgotPassword extends React.Component {
     Actions.pop();
   }
 
-  async onForgotPasswordPressed() {
-    HttpClientHelper.post('forgotPassword', {}, (error, data)=>{
+  async handlePressForgotPassword() {
+    if(!Functions.validateForm('Email', this.state.email))
+      return;
 
+    if(this.state.email.indexOf("@")<0) {
+      Functions.showAlert('', 'An email address must contain a single @');
+      return;
+    }
+
+    let isEmailValid = await EmailValidator.validate(this.state.email);
+    if(!isEmailValid) {
+      Functions.showAlert('', 'Please enter a valid email');
+      return;
+    }
+
+    HttpClientHelper.get('forgot_password', {email: this.state.email}, (error, data)=>{
+      if(!error) {
+        Actions.pop();
+      } else {
+        Functions.showAlert('', `User with email ${this.state.email} does not exist.`)
+      }
     })
   }
 
@@ -43,13 +63,13 @@ export default class ForgotPassword extends React.Component {
             containerStyle={styles.button}
             textStyle={styles.buttonText}
             text="SEND PASSWORD RESET EMAIL"
-            onPress={this.handlePressForgotPassword} />
+            onPress={()=>this.handlePressForgotPassword()} />
         </View>
         <Button
           containerStyle={styles.cancelButton}
           textStyle={styles.cancelButtonText}
           text="Cancel"
-          onPress={this.handlePressCancel} />
+          onPress={()=>this.handlePressCancel()} />
       </View>
     )
   }

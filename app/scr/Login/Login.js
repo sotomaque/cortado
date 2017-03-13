@@ -9,14 +9,16 @@ import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper, SessionManager } from '../../libs';
 import styles from './styles';
 import * as DataParser from '../../utils/DataParser';
+import * as Functions from '../../utils/Functions';
+import { User } from '../../beans';
 
 export default class Login extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: 'enrique@presscleaners.com',
+      password: 'por!Qkikei7',
       error: '',
       loading: false
     }
@@ -38,9 +40,13 @@ export default class Login extends React.Component {
     HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data)=>{
       this.setState({loading: false});
       if(!error) {
-        console.log(data);
-        Actions.presentation({type: ActionConst.REPLACE});
+        SessionManager.setToken(HttpClientHelper.genBasicAuth(User.email, data.token));
+        setTimeout(()=>{
+          Actions.presentation({type: ActionConst.REPLACE});
+        }, 200);
       } else {
+        //show error
+        Functions.showAlert('', "An unknown error has occurred. Please try again later");
       }
     })
   }
@@ -48,6 +54,7 @@ export default class Login extends React.Component {
   onLoginFBPressed() {
     FBLoginManager.loginWithPermissions(["email","user_friends"], (error, data)=>{
       if (!error) {
+        console.log(data);
         const { email, first_name, last_name } = JSON.parse(data.profile);
         const { token, userId } = data.credentials;
         fb_token = token;
@@ -56,6 +63,7 @@ export default class Login extends React.Component {
         this.handleLoginFB();
       } else {
         console.log("Error: ", error);
+        Functions.showAlert('', "An unknown error has occurred. Please try again later");
       }
     });
   }

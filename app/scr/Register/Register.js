@@ -8,6 +8,7 @@ import { Button } from '../../components';
 import styles from './styles';
 import { HttpClientHelper } from '../../libs'
 import * as Functions from '../../utils/Functions';
+import * as EmailValidator from 'email-validator';
 
 export default class Register extends React.Component {
 
@@ -22,7 +23,8 @@ export default class Register extends React.Component {
 			loading: false
 		}
 	}
-	handlePressRegister = () => {
+
+	handlePressRegister = async () => {
 
 		let data = {
 			first_name: this.state.first_name,
@@ -39,18 +41,19 @@ export default class Register extends React.Component {
 			return;
 		}
 
-		this.setState({ loading: true });
+		if(data.email.indexOf("@")<0) {
+      Functions.showAlert('', 'An email address must contain a single @');
+      return;
+    }
+
+    let isEmailValid = await EmailValidator.validate(data.email);
+    if(!isEmailValid) {
+      Functions.showAlert('', 'Please enter a valid email');
+      return;
+    }
+
 		DataParser.updateUserInfo(data);
-		HttpClientHelper.post('register', DataParser.getRegistrationData(),
-			(error, data)=>{
-				this.setState({ loading: false });
-				if(!error) {
-					console.log(data);
-					Actions.phoneNumberVerification();
-				} else {
-				}
-			}
-		);
+		Actions.phoneNumberVerification();
 	}
 
 	handlePressCancel = () => {

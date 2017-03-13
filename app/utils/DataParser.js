@@ -122,7 +122,7 @@ export function getRegistrationData() {
     full_name: User.full_name,
     first_name: User.first_name,
     last_name: User.last_name,
-    phone_number: "",
+    phone_number: User.phone_number,
     fb_token: User.fb_token,
     fbid: User.fbid
   };

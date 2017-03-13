@@ -118,6 +118,10 @@ class Payment extends React.Component {
     } catch (e) {
         console.log(e);
     }
+    if(token=='') {
+      Functions.showAlert('', 'Please update a valid card to update your payment');
+      return;
+    }
     console.log('TOKE PAYMENT', token);
     this.updatePayment(token);
   }

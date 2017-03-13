@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { SessionManager } from '../../libs';
 import { Images } from '../../themes';
 import * as DataParser from '../../utils/DataParser';
 import {Address, User} from '../../beans';
-import { HttpClientHelper } from '../../libs';
+import { HttpClientHelper, SessionManager } from '../../libs';
 
 export default class Splash extends React.Component {
 
@@ -24,6 +23,9 @@ export default class Splash extends React.Component {
         } else {
           Actions.presentation({type: ActionConst.REPLACE})
         }
+      } else {
+        SessionManager.setToken('');
+        Actions.login({type: ActionConst.REPLACE})
       }
     });
   }

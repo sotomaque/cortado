@@ -9,6 +9,7 @@
   "dependencies": {
     "base-64": "^0.1.0",
     "card-validator": "^4.0.0",
+    "email-validator": "^1.0.7",
     "lodash.compact": "^3.0.1",
     "lodash.every": "^4.6.0",
     "lodash.pick": "^4.4.0",

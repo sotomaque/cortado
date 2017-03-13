@@ -1,346 +1,109 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Container, Content, ListItem, Left, Body, Right, Text } from 'native-base';
+import { View, StyleSheet, InteractionManager } from 'react-native';
+import { Container, Content, ListItem, Left, Body, Right, Text, List } from 'native-base';
 import { Metrics } from '../../themes';
 import { NavigationBar } from '../../components';
+import { HttpClientHelper } from '../../libs';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class Pricing extends React.Component {
+
+	items = [];
+	static data = [];
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			reload: false,
+			loading: false,
+		};
+		this.renderRow = this.renderRow.bind(this);
+	}
+
+	componentDidMount() {
+		InteractionManager.runAfterInteractions(() => {
+			this.getPricing();
+		});
+	}
+
+	processData() {
+		let data = Pricing.data;
+		for(let i in data) {
+			let group_products = data[i];
+			let is_hidden = group_products.is_hidden;
+			if(is_hidden) continue; // ignore hidden item
+			let products = group_products.products;
+			let name = group_products.name;
+			let header_item = {
+				type: 'header',
+				name: name,
+				price: '',
+			}
+			this.items.push(header_item) // add header item
+			for(let j in products) {
+				let item = {
+					type: 'item',
+					name: products[j]['name'],
+					price: products[j]['price_string'],
+				}
+				this.items.push(item)
+			}
+		}
+		this.setState({reload: !this.state.reload});
+	}
+
+	getPricing() {
+		if(Pricing.data!=undefined && Pricing.data.length>0) {
+			this.processData();
+		} else {
+			this.setState({loading: true});
+		}
+
+		HttpClientHelper.get('pricing', null, (error, data)=>{
+			this.setState({loading: false});
+			if(!error) {
+				Pricing.data = data;
+				InteractionManager.runAfterInteractions(() => {
+					this.processData();
+				});
+			} else {
+			}
+		})
+	}
+
+	renderRow(data, section, id, highlight) {
+		let nextData = this.items[parseInt(id)+1];
+		let isLastItem = nextData==undefined || nextData.type==='header';
+		if(data.type==='item') {
+			return (
+				<ListItem last={isLastItem}>
+						<Body>
+							<Text>{data.name}</Text>
+						</Body>
+						<Right>
+							<Text>${data.price}</Text>
+						</Right>
+				</ListItem>
+			)
+		} else {
+			return (
+				<ListItem itemDivider>
+						<Text>{data.name}</Text>
+				</ListItem>
+			)
+		}
+	}
+
 	render() {
-        return (
-            <Container>
-							<NavigationBar title='Pricing' />
-            	<View style={styles.container}>
-	                <Content>
-	                    <ListItem itemHeader first>
-	                        <Text>Popular</Text>
-	                    </ListItem>
-
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Dry Cleaned Blouse</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                     <ListItem >
-	                    	<Body>
-	                        	<Text>Dry Cleaned Pants</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                     <ListItem >
-	                    	<Body>
-	                        	<Text>Laurndered & Pressed - Shirt</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$2.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                      <ListItem >
-	                    	<Body>
-	                        	<Text>Semester Subscription</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$345.00</Text>
-	                        </Right>
-	                    </ListItem>
-	                     <ListItem >
-	                    	<Body>
-	                        	<Text>Wash & Fold Per LB - Regular</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$1.99</Text>
-	                        </Right>
-	                    </ListItem>
-
-
-	                    <ListItem itemHeader>
-	                        <Text>Wash and Fold</Text>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Per LB</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$1.99</Text>
-	                        </Right>
-	                    </ListItem>
-
-	                    <ListItem itemHeader>
-	                        <Text>Dry Cleaning</Text>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Belts</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$4.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Blouses</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Cardigans</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Coats</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$15.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Coats - Long</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$21.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Cummberbun</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$5.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Dresses</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$13.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Fux Leather Jackets</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$45.00</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Hats</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jackets - Light</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$8.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jackets - Medium</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$12.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jackets - Suit</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jeans</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jumpsuit - Rompers</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$11.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Laundered & Pressed Shirts</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$2.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Leather Jackets</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$64.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Night Gown</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$12.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Pants</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Jackets - Light</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$8.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Polos</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Robes</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$15.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Scarfs</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Shirts - Button Down</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Shorts</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Skirts</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Socks</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$5.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Suit (2-piece)</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$15.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Suit (3-piece)</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$23.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Sweater</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Ties</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$4.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Tuxedos (2-piece)</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$19.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Uniforms</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$15.99</Text>
-	                        </Right>
-	                    </ListItem>
-	                    <ListItem >
-	                    	<Body>
-	                        	<Text>Vests</Text>
-	                        </Body>
-	                        <Right>
-	                        	<Text>$7.99</Text>
-	                        </Right>
-	                    </ListItem>
-
-	                </Content>
-	            </View>
-            </Container>
-        );
+    return (
+      <Container>
+				<NavigationBar title='Pricing' />
+        <Content>
+					<List dataArray={this.items} renderRow={this.renderRow} />
+        </Content>
+				<Spinner visible={this.state.loading} />
+      </Container>
+    );
     }
 }
 

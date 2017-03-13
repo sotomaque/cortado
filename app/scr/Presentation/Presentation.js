@@ -54,6 +54,9 @@ export default class Presentation extends React.Component {
       })
       InteractionManager.runAfterInteractions(() => {
         this.getUserInfoFromPress();
+        if(nextProps.address_changed && (this.state.wf || this.state.dc)) {
+          this.getAvailability();
+        }
       });
     }
   }
@@ -251,7 +254,7 @@ export default class Presentation extends React.Component {
     if(DataParser.getAddress()==='Set Address') {
       return "SET ADDRESS";
     } else if(!(this.state.wf || this.state.dc)) {
-      return "SELECT SEVICE(S)";
+      return "SELECT SERVICE(S)";
     } else if(this.state.pickup===null) {
       return "SET A PICKUP TIME";
     } else if(this.state.dropoff===null) {
@@ -309,8 +312,8 @@ export default class Presentation extends React.Component {
           });
         }}>
           <Body>
-              <Text note>Pickup Time</Text>
-              <Text>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+              <Text style={{marginLeft: 0}} note>Pickup Time</Text>
+              <Text style={{marginLeft: 0}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
@@ -319,8 +322,8 @@ export default class Presentation extends React.Component {
           });
         }} last>
           <Body>
-              <Text note>Dropoff Time</Text>
-              <Text>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+              <Text style={{marginLeft: 0}} note>Dropoff Time</Text>
+              <Text style={{marginLeft: 0}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
         <Notes ref={(ref)=>this.special_instructions=ref} />
@@ -329,7 +332,7 @@ export default class Presentation extends React.Component {
   }
 
   renderFooter() {
-    let disabled = this.getButtonNextTitle()==='SELECT SEVICE(S)';
+    let disabled = this.getButtonNextTitle()==='SELECT SERVICE(S)';
     return (<Footer style={{height: Metrics.navBarHeight}}>
         <Button
           disabled={disabled}

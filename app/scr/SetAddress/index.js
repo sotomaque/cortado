@@ -35,7 +35,7 @@ export default class SetAddress extends React.Component {
           Address.zipcode = this.state.zipcode;
           Address.notes = this.state.notes;
           SessionManager.saveUserInfo();
-          Actions.pop({refresh: {reload: true}});
+          Actions.pop({refresh: {reload: true, address_changed: true}});
         }
       });
     }

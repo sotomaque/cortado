@@ -7,6 +7,7 @@ import { Button } from '../../components';
 import { HttpClientHelper } from '../../libs'
 import { User } from '../../beans';
 import styles from './styles';
+import * as Functions from '../../utils/Functions';
 
 export default class PhoneNumberVerification extends Component {
 
@@ -19,6 +20,8 @@ export default class PhoneNumberVerification extends Component {
 	}
 
 	onContinuePressed = () => {
+		if(!Functions.validateForm('Phone number', this.state.phone))
+			return;
 		this.setState({loading: true});
 		User.phoneNumber = this.state.phone;
     HttpClientHelper.post( 'phone_verification_create', {phone_number: User.phoneNumber, email: User.email},
@@ -27,7 +30,7 @@ export default class PhoneNumberVerification extends Component {
         if(!error) {
 					Actions.pinVerification();
         } else {
-
+					Functions.showAlert('', 'Error during register with your phone number.\nPlease try again later.');
         }
       }
     );

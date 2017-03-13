@@ -7,6 +7,7 @@ import { Button } from '../../components';
 import { HttpClientHelper } from '../../libs';
 import { User } from '../../beans';
 import styles from './styles';
+import * as Functions from '../../utils/Functions';
 
 export default class PinVerification extends Component {
 
@@ -19,15 +20,19 @@ export default class PinVerification extends Component {
 	}
 
 	onContinuePressed = () => {
+		if(!Functions.validateForm('Verification Number', this.state.pin))
+			return;
 		this.setState({loading: true});
     HttpClientHelper.post('phone_verification', {phone_number: User.phoneNumber, email: User.email, verification: this.state.pin},
       (error, data)=>{
 				this.setState({loading: false});
         if(!error) {
-					Actions.pop({popNum: 3})
+					try {
+						Actions.pop({popNum: 3})
+					} catch (e) { console.log(e); }
 					Actions.presentation({type: ActionConst.REPLACE});
         } else {
-
+					Functions.showAlert('', 'Your verification number is invalid.\nPlease try again later.');
         }
       }
     );
@@ -46,7 +51,7 @@ export default class PinVerification extends Component {
             <Button
               containerStyle={styles.button}
               textStyle={styles.buttonText}
-              onPress={this.onContinuePressed}
+              onPress={()=>this.onContinuePressed()}
               text="Finish Registration" />
 				</Content>
 				<Spinner visible={this.state.loading} />

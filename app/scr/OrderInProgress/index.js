@@ -39,13 +39,13 @@ class OrderInProgress extends React.Component {
 
   initData() {
     this.data = [
-      ['Order Confirmed', '', DataParser.getCurrentOrderStatus()==Order.CONFIRMED],
-      ['Pickup', Order.pickup_date_string, DataParser.getCurrentOrderStatus()==Order.PICKUP],
-      ['Cleaning', '', DataParser.getCurrentOrderStatus()==Order.CLEANING],
-      ['Delivery', Order.dropoff_date_string, DataParser.getCurrentOrderStatus()==Order.DELIVERY]
+      ['Order Confirmed', '', DataParser.getCurrentOrderStatus()>=Order.CONFIRMED],
+      ['Pickup', Order.pickup_date_string, DataParser.getCurrentOrderStatus()>=Order.PICKUP],
+      ['Cleaning', '', DataParser.getCurrentOrderStatus()>=Order.CLEANING],
+      ['Delivery', Order.dropoff_date_string, DataParser.getCurrentOrderStatus()>=Order.DELIVERY]
     ]
 
-    if(DataParser.getCurrentOrderStatus()==Order.DELIVERY) {
+    if(DataParser.getCurrentOrderStatus()>=Order.DELIVERY) {
       InteractionManager.runAfterInteractions(() => {
         Actions.orderRating({type: ActionConst.REPLACE});
       })
@@ -93,6 +93,7 @@ class OrderInProgress extends React.Component {
   }
 
   renderHeader() {
+    let canNotCancel = DataParser.getCurrentOrderStatus()>=Order.PICKUP;
     return (
       <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
         <Button containerStyle={{width: 50, justifyContent: 'center'}} onPress={()=>this.toggleMenu()}>
@@ -102,8 +103,8 @@ class OrderInProgress extends React.Component {
           <Text style={{marginTop: -2}} note>Delivering to</Text>
           <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>{DataParser.getAddress()}</Text>
         </Button>
-        <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
-          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
+        <Button disabled={canNotCancel} containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
+          <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14}}>Cancel</Text>
         </Button>
       </Header>
     );

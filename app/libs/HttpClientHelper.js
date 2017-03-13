@@ -20,6 +20,8 @@ const API_URL = {
   address:              BASE_URL + '/address/',
   order:                BASE_URL + '/order/',
   order_rating:         BASE_URL + '/order/{order_id}/rating/',
+  pricing:              BASE_URL + '/pricing/',
+  promotion:            BASE_URL + '/promo_code/{code}/redeem/',
 }
 
 export default class HttpClientHelper {
@@ -87,11 +89,17 @@ export default class HttpClientHelper {
       }
       console.log(opts);
       let response = await fetch(url, opts)
-      if(type=='me')
-        console.log('meeeeeeeeeeeee',response);
-      let responseJson= await response.json()
-      if(callback!=undefined) {
-        callback(null, responseJson);
+      let responseJson = null;
+      if(response.status>=200 && response.status<=299) {
+        responseJson= await response.json()
+        if(callback!=undefined) {
+          callback(null, responseJson);
+        }
+      } else {
+        if(callback!=undefined) {
+          callback(response, null);
+        }
+        console.warn("HttpError", response);
       }
       return responseJson
     } catch(e) {

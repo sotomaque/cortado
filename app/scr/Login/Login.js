@@ -15,8 +15,8 @@ export default class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: 'enrique@presscleaners.com',
+      password: 'por!Qkikei7',
       error: '',
       loading: false
     }

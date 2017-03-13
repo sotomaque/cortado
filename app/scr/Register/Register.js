@@ -7,6 +7,7 @@ import * as DataParser from '../../utils/DataParser';
 import { Button } from '../../components';
 import styles from './styles';
 import { HttpClientHelper } from '../../libs'
+import * as Functions from '../../utils/Functions';
 
 export default class Register extends React.Component {
 
@@ -21,16 +22,24 @@ export default class Register extends React.Component {
 			loading: false
 		}
 	}
-
 	handlePressRegister = () => {
-		// verify data is correctly formatted
-		this.setState({ loading: true });
+
 		let data = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			email: this.state.email,
 			password: this.state.password
 		};
+
+		// verify data is correctly formatted
+		if(!Functions.validateForm('First name', data.first_name)
+		|| !Functions.validateForm('Last name', data.last_name)
+		|| !Functions.validateForm('Email', data.email)
+		|| !Functions.validateForm('Password', data.password)) {
+			return;
+		}
+
+		this.setState({ loading: true });
 		DataParser.updateUserInfo(data);
 		HttpClientHelper.post('register', DataParser.getRegistrationData(),
 			(error, data)=>{

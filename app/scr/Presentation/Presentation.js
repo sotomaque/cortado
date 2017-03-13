@@ -11,6 +11,7 @@ import Modal from 'react-native-simple-modal';
 import { Metrics } from '../../themes'
 const TimePicker = NativeModules.RNTimePicker;
 import * as DataParser from '../../utils/DataParser';
+import * as Functions from '../../utils/Functions';
 import {Address, User} from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 
@@ -193,6 +194,8 @@ export default class Presentation extends React.Component {
       this.setState({loading: false});
       if(!error) {
         this.getUserInfoFromPress();
+      } else {
+        Functions.showAlert('', 'Error during order creation.\nPlease try again later');
       }
     })
   }

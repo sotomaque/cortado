@@ -32,6 +32,8 @@ class Promotion extends React.Component {
 			this.setState({loading: false});
 			if(!error) {
 
+			} else {
+				Functions.showAlert('', 'Your promo code is invalid or expired.\nPlease try again later');
 			}
 		})
 	}

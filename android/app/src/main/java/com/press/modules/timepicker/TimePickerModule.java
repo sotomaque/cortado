@@ -74,7 +74,7 @@ public class TimePickerModule extends ReactContextBaseJavaModule {
             current_type = "dropoff";
         }
         try {
-            TimePickerDialog.Builder builder = new TimePickerDialog.Builder(mContext.getCurrentActivity())
+            final TimePickerDialog.Builder builder = new TimePickerDialog.Builder(mContext.getCurrentActivity())
                     .bottomSheet()
                     .title(title)
                     .subtitle(subtitle)
@@ -90,6 +90,12 @@ public class TimePickerModule extends ReactContextBaseJavaModule {
                             callback.invoke(null, map);
                         }
                     });
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             builder.display();
         } catch (Exception e) {
             e.printStackTrace();

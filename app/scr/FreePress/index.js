@@ -39,7 +39,7 @@ class FreePress extends Component {
 	showShareActionSheet = () => {
 		let shareOptions = {
       title: "Free Press",
-      message: `Get free orders from Press Application. Use promtion code ${User.promo_code} to get $10`,
+      message: `Get free orders from Press Application. Use promotion code ${User.promo_code} to get $10`,
       url: this.props.url,
       subject: "Free Press" //  for email
     };

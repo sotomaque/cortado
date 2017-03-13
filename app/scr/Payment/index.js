@@ -12,6 +12,7 @@ import Configs from '../../configs';
 const stripeClient = new Stripe(Configs.StripePublishableKey);
 import { LiteCreditCardInput } from '../../components/CreditCardInput';
 import { User } from '../../beans';
+import * as Functions from '../../utils/Functions';
 
 const s = StyleSheet.create({
   container: {
@@ -128,6 +129,8 @@ class Payment extends React.Component {
         console.log('payment update', data);
         User.stripe_payment_token = payment_token;
         Actions.pop({refresh: {reload: true}});
+      } else {
+        Functions.showAlert('', 'Error during add your payment.\nPlease try again later');
       }
     })
   }

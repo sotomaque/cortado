@@ -39,7 +39,6 @@ export default class PinVerification extends Component {
 					} catch (e) { console.log(e); }
 					Actions.presentation({type: ActionConst.REPLACE});
 				} else {
-                    Functions.showAlert(error, data);
 					Functions.showAlert('', 'An unexpected error occurred. Please try again later.');
 				}
 			}
@@ -75,7 +74,7 @@ export default class PinVerification extends Component {
 							})
 						}}
 						underlineColorAndroid="transparent"
-            style={styles.input} placeholder="Verification Number"
+            style={styles.input} placeholder="Verification PIN"
             keyboardType="phone-pad"
 						underlineColorAndroid="transparent"
             dataDetectorTypes="phoneNumber" />

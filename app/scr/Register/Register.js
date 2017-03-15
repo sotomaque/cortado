@@ -58,10 +58,14 @@ export default class Register extends React.Component {
     }
 		DataParser.updateUserInfo(data);
 		this.setState({loading: true});
-		HttpClientHelper.get('validate', {email: data.email}, (error, data)=>{
+		HttpClientHelper.get('validate', {email: data.email}, (error, _data)=>{
 			this.setState({loading: false})
 			if(!error) {
-				Actions.phoneNumberVerification();
+				if(_data.is_registered) {
+					Functions.showAlert('', 'Email already registered');
+				} else {
+					Actions.phoneNumberVerification();
+				}
 			} else {
 				Functions.showAlert('', 'Email already registered');
 			}

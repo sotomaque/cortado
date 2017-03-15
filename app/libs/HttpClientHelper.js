@@ -89,6 +89,7 @@ export default class HttpClientHelper {
         }
       }
       console.log(opts);
+      console.log(url);
       let response = await fetch(url, opts)
       let responseJson = null;
       if(response.status>=200 && response.status<=299) {

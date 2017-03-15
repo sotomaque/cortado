@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, Image }	from 'react-native';
+import { StyleSheet, TextInput, Text, View, Image, Keyboard }	from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
 import { Button } from '../../components'
@@ -8,16 +8,19 @@ import { HttpClientHelper } from '../../libs';
 import styles from './styles'
 import * as Functions from '../../utils/Functions';
 import * as EmailValidator from 'email-validator';
+import { NavigationBar } from '../../components';
 
 export default class ForgotPassword extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       email: '',
-      errors: []
+      errors: [],
+      keyboardShow: false
     }
+    this._keyboardDidShow = this._keyboardDidShow.bind(this)
+		this._keyboardDidHide = this._keyboardDidHide.bind(this)
   }
 
   handlePressCancel = () => {
@@ -48,6 +51,24 @@ export default class ForgotPassword extends React.Component {
     })
   }
 
+  _keyboardDidShow () {
+		this.setState({keyboardShow: true})
+	}
+
+	_keyboardDidHide () {
+		this.setState({keyboardShow: false})
+	}
+
+	componentWillMount () {
+		this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+	}
+
+	componentWillUnmount () {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
+	}
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -65,11 +86,11 @@ export default class ForgotPassword extends React.Component {
             text="SEND PASSWORD RESET EMAIL"
             onPress={()=>this.handlePressForgotPassword()} />
         </View>
-        <Button
+        {!this.state.keyboardShow&&<Button
           containerStyle={styles.cancelButton}
           textStyle={styles.cancelButtonText}
           text="Cancel"
-          onPress={()=>this.handlePressCancel()} />
+          onPress={()=>this.handlePressCancel()} />}
       </View>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, Text, View, Image } from 'react-native';
+import { TextInput, Text, View, Image, Keyboard } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 var { FBLoginManager } = require('react-native-facebook-login');
@@ -20,12 +20,33 @@ export default class Login extends React.Component {
       email: '',
       password: '',
       error: '',
-      loading: false
+      loading: false,
+      keyboardShow: false,
     }
     this.onLoginPressed = this.onLoginPressed.bind(this);
     this.onLoginFBPressed = this.onLoginFBPressed.bind(this);
     this.handleLoginFB = this.handleLoginFB.bind(this);
+    this._keyboardDidShow = this._keyboardDidShow.bind(this)
+		this._keyboardDidHide = this._keyboardDidHide.bind(this)
   }
+
+  _keyboardDidShow () {
+		this.setState({keyboardShow: true})
+	}
+
+	_keyboardDidHide () {
+		this.setState({keyboardShow: false})
+	}
+
+	componentWillMount () {
+		this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+	}
+
+	componentWillUnmount () {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
+	}
 
   handlePressSignUp() {
     Actions.register();
@@ -129,7 +150,7 @@ export default class Login extends React.Component {
           textStyle={styles.buttonText}
           onPress={this.onLoginFBPressed}/>
         <Text style={styles.errorText}>{this.state.error}</Text>
-        <View style={styles.bottomButtons}>
+        {!this.state.keyboardShow&&<View style={styles.bottomButtons}>
           <Button
             text="FORGOT PASSWORD"
             containerStyle={styles.forgotPasswordButton}
@@ -140,7 +161,7 @@ export default class Login extends React.Component {
             containerStyle={styles.signUpButton}
             textStyle={styles.signUpButtonText}
             onPress={this.handlePressSignUp}/>
-        </View>
+        </View>}
       </View>
       <Spinner visible={this.state.loading} />
     </View>)

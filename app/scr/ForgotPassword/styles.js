@@ -33,12 +33,15 @@ const styles = StyleSheet.create({
 		fontSize: 18
   },
   button: {
-    height: 50,
-		backgroundColor: '#000',
-		alignSelf: 'stretch',
-		marginTop: 10,
-		justifyContent: 'center'
-  },
+	    height: 50,
+	    marginLeft: 5,
+			marginRight: 5,
+			marginTop: 30,
+	    backgroundColor: '#222',
+	    alignSelf: 'stretch',
+	    justifyContent: 'center',
+			borderRadius: 3
+ 	},
   buttonText: {
     fontSize: 16,
 		color: '#FFF',

@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   forgotPasswordButtonText: {
     fontSize: 12,
     color: '#000',
+    marginLeft: 10,
     alignSelf: 'center'
   },
   signUpButton: {
@@ -88,9 +89,11 @@ const styles = StyleSheet.create({
     right: 0
   },
   signUpButtonText: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#000',
-    alignSelf: 'center'
+    marginRight: 10,
+    alignSelf: 'center',
+    fontWeight: 'bold',
   },
   errorText: {
     fontSize: 15,

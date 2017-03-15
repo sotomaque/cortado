@@ -12,6 +12,7 @@ import { HttpClientHelper } from '../../libs';
 import LeftMenu from '../LeftMenu';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-simple-modal';
+import Geocoder from 'react-native-geocoder';
 
 const args = {
   number: '5125226489', // String value with the number to call
@@ -19,6 +20,8 @@ const args = {
 }
 
 class OrderInProgress extends React.Component {
+
+  autoRequestLocation = null;
 
   constructor(props) {
     super(props);
@@ -32,6 +35,8 @@ class OrderInProgress extends React.Component {
       loading: false,
       modal: false,
       dataSource: this.ds.cloneWithRows(this.data),
+      latitude: 0,
+      longitude: 0,
     };
 
     this.renderRow = this.renderRow.bind(this);
@@ -54,6 +59,7 @@ class OrderInProgress extends React.Component {
 
   componentDidMount() {
     this.updateOrderProgress();
+    this.requestLocation();
   }
 
   componentWillUnmount() {
@@ -92,6 +98,67 @@ class OrderInProgress extends React.Component {
     })
   }
 
+  getRegion() {
+    return {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+    };
+  }
+
+  getAddress() {
+    let address = Address.street;
+    if(address!='' && address!=undefined) {
+      if(Address.zipcode!='' && Address.zipcode!=undefined) {
+        address = address+", "+ Address.zipcode
+      }
+    } else {
+      address = Address.zipcode;
+    }
+    return address;
+  }
+
+  requestLocation() {
+    this.clearRequest();
+    if(Address.street=='' && Address.zipcode=='') return;
+    this.autoRequestLocation = setTimeout(()=>{
+      try {
+        console.log('address', this.getAddress());
+        Geocoder.geocodeAddress(this.getAddress()).then(res => {
+          console.log(res);
+          try {
+            let address = res[0];
+            let location = address.position;
+            this.setState({
+              latitude: location.lat,
+              longitude: location.lng,
+            });
+            this.animatedToRegion();
+          } catch (e) {
+              console.log(e);
+          }
+        })
+        .catch(err => console.log(err));
+        this.clearRequest();
+      } catch (e) { }
+    }, 300);
+  }
+
+  clearRequest() {
+    try {
+      if(this.autoRequestLocation!=null) {
+        clearTimeout(this.autoRequestLocation);
+        this.autoRequestLocation = null;
+      }
+    } catch (e) { console.log(e); }
+  }
+
+  animatedToNewRegion() {
+    if(this.map!=undefined)
+      this.map.animateToRegion(this.getRegion());
+  }
+
   renderHeader() {
     let canNotCancel = DataParser.getCurrentOrderStatus()>=Order.PICKUP;
     return (
@@ -113,15 +180,15 @@ class OrderInProgress extends React.Component {
   renderFooter() {
     return (
       <Footer style={{backgroundColor: '#ffffff', height: Metrics.navBarHeight}}>
-          <Button
-            containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-            text="Chat Support"
-            onPress={() => Linking.openURL('https://www.yahoo.com')}/>
-          <View style={{width: 1, height: Metrics.navBarHeight, backgroundColor: '#f2f2f2'}}/>
-          <Button
-            containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
-            text="Phone Support"
-            onPress={() => call(args).catch(console.error)}/>
+        <Button
+          containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          text="Chat Support"
+          onPress={() => Linking.openURL('https://www.yahoo.com')}/>
+        <View style={{width: 1, height: Metrics.navBarHeight, backgroundColor: '#f2f2f2'}}/>
+        <Button
+          containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          text="Phone Support"
+          onPress={() => call(args).catch(console.error)}/>
       </Footer>
     )
   }
@@ -206,13 +273,19 @@ class OrderInProgress extends React.Component {
       {this.renderHeader()}
       <Content>
         <MapView
+          ref={ref => { this.map = ref; }}
           style={styles.mapView}
-          initialRegion={{
-            latitude: 30.268908,
-            longitude: -97.740378,
-            latitudeDelta: 0.003,
-            longitudeDelta: 0.003,
-          }} />
+          region={this.getRegion()}>
+          <MapView.Marker
+            pinColor="#4b3486"
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+            }}
+            title={"My location"}
+            description={Address.street+", "+Address.zipcode}
+          />
+        </MapView>
         <ListView style={styles.listView}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}/>

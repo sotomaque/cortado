@@ -1,6 +1,7 @@
 import React from 'react';
-import { TextInput, Text, View, Image, ScrollView }	from 'react-native';
+import { TextInput, Text, View, Image, Keyboard }	from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { Container, Content } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { Metrics, Images, Colors } from '../../themes';
 import * as DataParser from '../../utils/DataParser';
@@ -9,6 +10,7 @@ import styles from './styles';
 import { HttpClientHelper } from '../../libs'
 import * as Functions from '../../utils/Functions';
 import * as EmailValidator from 'email-validator';
+import { NavigationBar } from '../../components';
 
 export default class Register extends React.Component {
 
@@ -20,8 +22,11 @@ export default class Register extends React.Component {
 			email: "",
 			password: "",
 			errors: [],
-			loading: false
+			loading: false,
+			keyboardShow: false,
 		}
+		this._keyboardDidShow = this._keyboardDidShow.bind(this)
+		this._keyboardDidHide = this._keyboardDidHide.bind(this)
 	}
 
 	handlePressRegister = async () => {
@@ -51,20 +56,46 @@ export default class Register extends React.Component {
       Functions.showAlert('', 'Please enter a valid email');
       return;
     }
-
 		DataParser.updateUserInfo(data);
-		Actions.phoneNumberVerification();
+		this.setState({loading: true});
+		HttpClientHelper.get('validate', {email: data.email}, (error, data)=>{
+			this.setState({loading: false})
+			if(!error) {
+				Actions.phoneNumberVerification();
+			} else {
+				Functions.showAlert('', 'Email already registered');
+			}
+		})
+
 	}
 
-	handlePressCancel = () => {
+	handlePressCancel() {
 		Actions.pop();
+	}
+
+	_keyboardDidShow () {
+		this.setState({keyboardShow: true})
+	}
+
+	_keyboardDidHide () {
+		this.setState({keyboardShow: false})
+	}
+
+	componentWillMount () {
+		this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+	}
+
+	componentWillUnmount () {
+		this.keyboardDidShowListener.remove();
+		this.keyboardDidHideListener.remove();
 	}
 
 	render() {
 		return (
 			<View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
 				<Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='contain' />
-				<ScrollView style={styles.container} ref='container' keyboardShouldPersistTaps='always'>
+				<Content style={{padding: 20, backgroundColor:'transparent'}} ref='container' keyboardShouldPersistTaps='always'>
 					<Text style={styles.heading}>SIGN UP</Text>
 					<View style={{flex: 1, flexDirection: 'row'}}>
 						<TextInput
@@ -91,14 +122,15 @@ export default class Register extends React.Component {
           <Button
             containerStyle={styles.button}
             textStyle={styles.buttonText}
-            onPress={this.handlePressRegister}
-            text="Register"/>
-				</ScrollView>
-        <Button
+            onPress={()=>this.handlePressRegister()}
+            text="REGISTER"/>
+						<View style={{height: 40, backgroundColor: 'transparent'}}/>
+				</Content>
+				{!this.state.keyboardShow&&<Button
           containerStyle={styles.cancelButton}
           textStyle={styles.cancelButtonText}
-          onPress={this.handlePressCancel}
-          text="Cancel"/>
+          onPress={()=>this.handlePressCancel()}
+          text="Cancel"/>}
 				<Spinner visible={this.state.loading} />
 			</View>);
 	}

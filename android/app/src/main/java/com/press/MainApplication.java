@@ -3,6 +3,7 @@ package com.press;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import cl.json.RNSharePackage;
 import com.facebook.react.ReactNativeHost;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                     new FacebookLoginPackage(),
                     new MainReactPackage(),
+            new RNGeocoderPackage(),
             new MapsPackage(),
             new RNSharePackage(),
                     new TimePickerPackage()

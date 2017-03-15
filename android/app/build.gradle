@@ -90,10 +90,10 @@ android {
     signingConfigs {
         release {
             // this keystore is located at module level
-            storeFile file("../press-123456.jks")
-            storePassword "123456"
-            keyAlias "press"
-            keyPassword "123456"
+            storeFile file("../my-key-alias-presscleaners.keystore")
+            storePassword "presscleaners"
+            keyAlias "my-key-alias"
+            keyPassword "presscleaners"
         }
     }
 
@@ -141,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-geocoder')
     compile project(':react-native-maps')
     compile project(':react-native-share')
     compile fileTree(dir: "libs", include: ["*.jar"])

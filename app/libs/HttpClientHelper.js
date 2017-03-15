@@ -22,6 +22,7 @@ const API_URL = {
   order_rating:         BASE_URL + '/order/{order_id}/rating/',
   pricing:              BASE_URL + '/pricing/',
   promotion:            BASE_URL + '/promo_code/{code}/redeem/',
+  validate:             BASE_URL + '/validate/',
 }
 
 export default class HttpClientHelper {

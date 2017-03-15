@@ -9,8 +9,11 @@ import { Button } from '../../components';
 import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 import * as Functions from '../../utils/Functions';
+import Geocoder from 'react-native-geocoder';
 
 export default class SetAddress extends React.Component {
+
+  autoRequestLocation = null;
 
   constructor(props) {
     super(props);
@@ -20,6 +23,8 @@ export default class SetAddress extends React.Component {
       street: Address.street,
       zipcode: Address.zipcode,
       notes: Address.notes,
+      latitude: 0,
+      longitude: 0,
       loading: false
     };
     this.handlePressSave = this.handlePressSave.bind(this);
@@ -42,6 +47,87 @@ export default class SetAddress extends React.Component {
         }
       });
     }
+  }
+
+  componentDidMount() {
+    this.requestLocation();
+  }
+
+  handleStreetChanged(value) {
+    this.setState({
+      changed: true,
+      street: value
+    })
+    this.requestLocation();
+  }
+
+  handleZipcodeChanged(value) {
+    this.setState({
+      changed: true,
+      zipcode: value
+    });
+    this.requestLocation();
+  }
+
+  clearRequest() {
+    try {
+      if(this.autoRequestLocation!=null) {
+        clearTimeout(this.autoRequestLocation);
+        this.autoRequestLocation = null;
+      }
+    } catch (e) { console.log(e); }
+  }
+
+  animatedToNewRegion() {
+    if(this.map!=undefined)
+      this.map.animateToRegion(this.getRegion());
+  }
+
+  getRegion() {
+    return {
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+    };
+  }
+
+  getAddress() {
+    let address = this.state.street;
+    if(address!='' && address!=undefined) {
+      if(this.state.zipcode!='' && this.state.zipcode!=undefined) {
+        address = address+", "+ this.state.zipcode
+      }
+    } else {
+      address = this.state.zipcode;
+    }
+    return address;
+  }
+
+  requestLocation() {
+    this.clearRequest();
+    if(this.state.street=='' && this.state.zipcode=='') return;
+    this.autoRequestLocation = setTimeout(()=>{
+      try {
+        console.log('address', this.getAddress());
+        Geocoder.geocodeAddress(this.getAddress()).then(res => {
+          console.log(res);
+          try {
+            let address = res[0];
+            let location = address.position;
+            this.setState({
+              latitude: location.lat,
+              longitude: location.lng,
+            });
+            this.animatedToRegion();
+          } catch (e) {
+              console.log(e);
+          }
+        })
+        .catch(err => console.log(err));
+        this.clearRequest();
+      } catch (e) { }
+    }, 300);
   }
 
   renderHeader() {
@@ -71,31 +157,17 @@ export default class SetAddress extends React.Component {
       <Content>
         <Form style={{backgroundColor: '#ffffff'}}>
             <Item>
-                <Input placeholder="Street, Apt #" onChangeText={(value)=>{
-                  this.setState({
-                    changed: true,
-                    street: value
-                  })
-                }}
+                <Input placeholder="Street, Apt #" onChangeText={(value)=>{this.handleStreetChanged(value)}}
                 value={this.state.street}/>
             </Item>
             <Item>
-                <Input placeholder="Zipcode" onChangeText={(value)=>{
-                  this.setState({
-                    changed: true,
-                    zipcode: value
-                  })
-                }}
-                value={this.state.zipcode}/>
+                <Input placeholder="Zipcode" onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
+                value={this.state.zipcode} placeholder="Zipcode"/>
             </Item>
-            <Item>
-              <Input placeholder="Zipcode" onChangeText={(value)=>{
-                this.setState({
-                  changed: true,
-                  zipcode: value
-                })
-              }} value={this.state.notes} placeholder="Notes" />
-            </Item>
+            <View style={{paddingLeft: 15}}>
+              <Input onChangeText={(value)=>{this.setState({notes: value})}}
+                value={this.state.notes} placeholder="Notes" />
+            </View>
         </Form>
       </Content>
     );
@@ -104,23 +176,31 @@ export default class SetAddress extends React.Component {
   renderMap() {
     return (
       <MapView
+        ref={ref => { this.map = ref; }}
         style={styles.mapView}
-        initialRegion={{
-          latitude: 30.268908,
-          longitude: -97.740378,
-          latitudeDelta: 0.003,
-          longitudeDelta: 0.003
-        }} />
+        region={this.getRegion()}>
+        <MapView.Marker
+          pinColor="#4b3486"
+          coordinate={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+          }}
+          title={"My location"}
+          description={Address.street+", "+Address.zipcode}
+        />
+      </MapView>
     );
   }
 
   render() {
-    return <View style={styles.container}>
-      {this.renderMap()}
-      {this.renderHeader()}
-      {this.renderContent()}
-      <Spinner visible={this.state.loading} />
-    </View>
+    return (
+      <View style={styles.container}>
+        {this.renderMap()}
+        {this.renderHeader()}
+        {this.renderContent()}
+        <Spinner visible={this.state.loading} />
+      </View>
+    )
   }
 }
 

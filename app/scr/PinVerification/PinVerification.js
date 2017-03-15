@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text } from 'react-native';
+import { View, TextInput } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Container, Content } from 'native-base';
+import { Container, Content, Text } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Button } from '../../components';
 import { HttpClientHelper, SessionManager } from '../../libs';
@@ -9,6 +9,7 @@ import { User } from '../../beans';
 import styles from './styles';
 import * as Functions from '../../utils/Functions';
 import * as DataParser from '../../utils/DataParser';
+import { NavigationBar } from '../../components';
 
 export default class PinVerification extends Component {
 
@@ -16,7 +17,8 @@ export default class PinVerification extends Component {
 		super(props);
 		this.state = {
 			pin: '',
-			loading: false
+			loading: false,
+			isValid: false
 		}
 	}
 
@@ -45,7 +47,7 @@ export default class PinVerification extends Component {
 	}
 
 	onContinuePressed = () => {
-		if(!Functions.validateForm('Verification Number', this.state.pin))
+		if(!Functions.validateForm('Verification PIN', this.state.pin))
 			return;
 		this.setState({loading: true});
     HttpClientHelper.post('phone_verification', {phone_number: User.phone_number, email: User.email, verification: this.state.pin},
@@ -61,23 +63,32 @@ export default class PinVerification extends Component {
 	}
 
 	render() {
-		return (<View style={styles.container}>
+		return (
 			<Container keyboardShouldPersistTaps='always'>
-				<Content keyboardShouldPersistTaps='always'>
+				<NavigationBar title="Create Account 3/3" />
+				<Content keyboardShouldPersistTaps='always' style={{backgroundColor: '#f9f9f9'}}>
 					<TextInput
-            onChangeText={(val) => this.setState({pin: val})}
+            onChangeText={(val) => {
+							this.setState({
+								pin: val,
+								isValid: val.length==6
+							})
+						}}
+						underlineColorAndroid="transparent"
             style={styles.input} placeholder="Verification Number"
             keyboardType="phone-pad"
 						underlineColorAndroid="transparent"
             dataDetectorTypes="phoneNumber" />
             <Button
-              containerStyle={styles.button}
+							disabled={!this.state.isValid}
+              containerStyle={this.state.isValid?styles.button:styles.buttonInActive}
               textStyle={styles.buttonText}
               onPress={()=>this.onContinuePressed()}
-              text="Finish Registration" />
+              text="FINISH REGISTRATION" />
+					 <Text note style={{margin: 30, marginTop: 10, textAlign: 'center'}}>{`Your PIN has been texted to the number provided.`}</Text>
 				</Content>
 				<Spinner visible={this.state.loading} />
 			</Container>
-		</View>);
+		);
 	}
 }

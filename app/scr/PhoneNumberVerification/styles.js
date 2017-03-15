@@ -14,19 +14,27 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		textAlign: 'center',
-	    height: 50,
-	    margin: 20,
-	    fontSize: 18,
-	    borderWidth: 0.5,
-    	borderColor: '#0f0f0f',
-
+	    height: 60,
+	    margin: 30,
+	    fontSize: 30
 	},
 	button: {
-	    height: 40,
-	    margin: 20,
-	    backgroundColor: '#000000',
+	    height: 50,
+	    marginLeft: 30,
+			marginRight: 30,
+	    backgroundColor: '#222',
 	    alignSelf: 'stretch',
-	    justifyContent: 'center'
+	    justifyContent: 'center',
+			borderRadius: 3
+ 	},
+	buttonInActive: {
+	    height: 50,
+			marginLeft: 30,
+			marginRight: 30,
+	    backgroundColor: '#ccc',
+	    alignSelf: 'stretch',
+	    justifyContent: 'center',
+			borderRadius: 3
  	},
  	buttonText: {
 	    fontSize: 18,

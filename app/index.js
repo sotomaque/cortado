@@ -25,7 +25,7 @@ const scenes = Actions.create(
     <Scene key="splash" component={Splash} initial={true}/>
     <Scene key="login" component={Login}/>
     <Scene key="register" component={Register}/>
-    <Scene key="phoneNumberVerification" component={PhoneNumberVerification}/>
+    <Scene key="phoneNumberVerification" component={PhoneNumberVerification} initial={false}/>
     <Scene key="pinVerification" component={PinVerification}/>
     <Scene key="forgotPassword" component={ForgotPassword}/>
     <Scene key="presentation" component={Presentation}/>

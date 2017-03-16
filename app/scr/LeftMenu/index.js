@@ -16,7 +16,7 @@ export default class LeftMenu extends React.Component {
       avatar = {uri: User.profile_picture_url};
     }
 
-    return <Container>
+    return <Container style={{backgroundColor: '#fcfcfc'}}>
       <Content>
         <ListItem style={{justifyContent: 'center', paddingBottom: 50, paddingTop: 50}}>
             <Image source={avatar} style={{width: 60, height: 60, borderWidth: 0, borderRadius: 30}}/>
@@ -58,7 +58,7 @@ export default class LeftMenu extends React.Component {
           </Body>
         </ListItem>
       </Content>
-      <Footer style={{backgroundColor: '#ffffff', height: 50, alignItems: 'center'}}>
+      <Footer style={{backgroundColor: '#fcfcfc', height: 50, alignItems: 'center'}}>
         <Button containerStyle={{padding: 10}} text="Logout" onPress={()=>{
           SessionManager.logout();
           GLOBAL.requestAnimationFrame(() => {

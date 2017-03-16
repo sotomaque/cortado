@@ -75,8 +75,13 @@ export default class Login extends React.Component {
   onLoginFBPressed() {
     FBLoginManager.loginWithPermissions(["email","user_friends"], (error, data)=>{
       if (!error) {
-        console.log(data);
-        const { email, first_name, last_name } = JSON.parse(data.profile);
+        console.log('facebook', data);
+        let profile = null;
+        if(data.profile)
+          profile = JSON.parse(data.profile);
+        if(!profile)
+          profile = {email: '', first_name: '', last_name: ''}
+        const { email, first_name, last_name } = profile;
         const { token, userId } = data.credentials;
         fb_token = token;
         fbid = userId;

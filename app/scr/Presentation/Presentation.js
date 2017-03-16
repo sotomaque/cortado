@@ -1,18 +1,17 @@
 import React from 'react';
-import { View, NativeModules, InteractionManager } from 'react-native';
+import { View, InteractionManager } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Button, Touchable, DrawerLayoutMenu } from '../../components';
+import { Button, Touchable, DrawerLayoutMenu, TimePicker } from '../../components';
 import Spinner from 'react-native-loading-spinner-overlay';
 import styles from './styles';
 import Notes from './Notes';
 import LeftMenu from '../LeftMenu';
 import Modal from 'react-native-simple-modal';
 import { Metrics } from '../../themes'
-const TimePicker = NativeModules.RNTimePicker;
 import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
-import {Address, User} from '../../beans';
+import { Address, User } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 
 export default class Presentation extends React.Component {
@@ -277,8 +276,8 @@ export default class Presentation extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
-          <Text style={{marginTop: -2}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, alignItems: 'center', justifyContent: 'center'}}>
         </Button>
@@ -372,7 +371,7 @@ export default class Presentation extends React.Component {
 
   render() {
     let menu = <LeftMenu />
-    let content = <Container>
+    let content = <Container style={{backgroundColor: '#fff'}}>
      {this.renderHeader()}
      {this.renderContent()}
      {this.renderFooter()}

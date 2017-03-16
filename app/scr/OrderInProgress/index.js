@@ -167,8 +167,8 @@ class OrderInProgress extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{marginTop: -2}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 18, marginTop: -4}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button disabled={canNotCancel} containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
           <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14}}>Cancel</Text>
@@ -269,7 +269,7 @@ class OrderInProgress extends React.Component {
 
   render () {
     let menu = <LeftMenu />
-    let content = <Container>
+    let content = <Container style={{backgroundColor: '#fff'}}>
       {this.renderHeader()}
       <Content>
         <MapView

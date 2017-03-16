@@ -164,10 +164,10 @@ export default class SetAddress extends React.Component {
                 <Input placeholder="Zipcode" onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
                 value={this.state.zipcode} placeholder="Zipcode"/>
             </Item>
-            <View style={{paddingLeft: 15}}>
+            <Item>
               <Input onChangeText={(value)=>{this.setState({notes: value})}}
                 value={this.state.notes} placeholder="Notes" />
-            </View>
+            </Item>
         </Form>
       </Content>
     );

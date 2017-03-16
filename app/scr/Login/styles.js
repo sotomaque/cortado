@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     marginTop: (Metrics.screenHeight / 10)
   },
   seperator: {
-    padding: 5,
+    padding: 10,
     alignSelf: 'center'
   },
   input: {

@@ -141,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-picker')
     compile project(':react-native-geocoder')
     compile project(':react-native-maps')
     compile project(':react-native-share')

@@ -13,6 +13,10 @@ import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
 import { Address, User } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
+import Intercom from 'react-native-intercom';
+import Geocoder from 'react-native-geocoder';
+import Configs from '../../configs';
+import call from 'react-native-phone-call'
 
 export default class Presentation extends React.Component {
 
@@ -29,7 +33,8 @@ export default class Presentation extends React.Component {
       modal_message: '',
       reload: false,
       availability: null,
-      loading: false
+      loading: false,
+      showButtonCall: false,
     };
     this.services = '';
     this.handleOnPressPickUp = this.handleOnPressPickUp.bind(this);
@@ -39,8 +44,56 @@ export default class Presentation extends React.Component {
     this.handleOnPress = this.handleOnPress.bind(this);
   }
 
+  getAddressString() {
+    let address = this.state.street;
+    if(address!='' && address!=undefined) {
+      if(this.state.zipcode!='' && this.state.zipcode!=undefined) {
+        address = address+", "+ this.state.zipcode
+      }
+    } else {
+      address = this.state.zipcode;
+    }
+    return address;
+  }
+
+  requestLocation() {
+    if((Address.street=='' && Address.zipcode=='') || Address.latitude!=0 || Address.longitude!=0) return;
+    setTimeout(()=>{
+      try {
+        Geocoder.geocodeAddress(this.getAddressString()).then(res => {
+          try {
+            let address = res[0];
+            let location = address.position;
+            Address.latitude = location.lat;
+            Address.longitude = location.lng;
+          } catch (e) {
+              console.log(e);
+          }
+        })
+        .catch(err => console.log(err));
+      } catch (e) { }
+    }, 300);
+  }
+
+  async registerIntercom() {
+    Intercom.registerIdentifiedUser({ userId: ""+User.user_id })
+    .then(() => {
+    	console.log('registerIdentifiedUser done');
+
+    	return Intercom.updateUser({
+    		email: User.email,
+    		name: User.full_name,
+    	});
+    })
+    .catch((err) => {
+    	console.log('registerIdentifiedUser ERROR', err);
+    });
+  }
+
   componentDidMount() {
     this.getUserInfoFromPress();
+    this.registerIntercom();
+    this.requestLocation();
   }
 
   componentDidUnMount() {
@@ -64,8 +117,9 @@ export default class Presentation extends React.Component {
   getUserInfoFromPress() {
     HttpClientHelper.get('me', null, (error, data)=>{
       if(!error) {
+        // console.log(data);
         DataParser.initializeUser(data);
-        // console.log(DataParser.getUserInfo());
+        console.log(DataParser.getUserInfo());
         let current_order = data.current_order;
         if(current_order!=null && current_order!=undefined && current_order!='') {
           DataParser.initCurrentOrder(current_order);
@@ -113,6 +167,19 @@ export default class Presentation extends React.Component {
         modal: true,
         modal_message: 'Please set a pickup time\nto continue.',
         modal_title: 'Set Pickup Time',
+      })
+      return false;
+    }
+    return true;
+  }
+
+  checkAvailability() {
+    if((!this.state.availability || this.state.availability.length==0) && !this.state.loading) {
+      this.setState({
+        modal: true,
+        showButtonCall: true,
+        modal_message: 'All providers for the selected services are currently at maximum capacity. To schedule a pickup, call or message our customer success team.',
+        modal_title: 'Increased Demand',
       })
       return false;
     }
@@ -194,7 +261,7 @@ export default class Presentation extends React.Component {
       if(!error) {
         this.getUserInfoFromPress();
       } else {
-        Functions.showAlert('', 'Error during order creation. Please try again later');
+        Functions.showAlert('', error.error?error.error:'Error during order creation. Please try again');
       }
     })
   }
@@ -229,7 +296,10 @@ export default class Presentation extends React.Component {
   }
 
   handleOnPressDropoff() {
-    if(!this.checkService() || !this.checkPickupTime() ) return;
+    if(!this.checkAddress()) return;
+    if(!this.checkService()) return;
+    if(!this.checkAvailability()) return;
+    if(!this.checkPickupTime()) return;
     const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.dropoff);
     TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Dropoff Window', 'When should we drop off your clean clothes?', (error, data)=>{
       if(!error) {
@@ -241,7 +311,9 @@ export default class Presentation extends React.Component {
   }
 
   handleOnPressPickUp() {
+    if(!this.checkAddress()) return;
     if(!this.checkService()) return;
+    if(!this.checkAvailability()) return;
     const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.pickup);
     TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Pickup Window', 'When should we pick up your dirty clothes?', (error, data)=>{
       if(!error) {
@@ -269,6 +341,12 @@ export default class Presentation extends React.Component {
     }
   }
 
+  toggleIntercom() {
+    GLOBAL.requestAnimationFrame(() => {
+      Intercom.displayMessageComposer();
+    });
+  }
+
   renderHeader() {
     return (
       <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
@@ -279,7 +357,8 @@ export default class Presentation extends React.Component {
           <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
           <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
         </Button>
-        <Button containerStyle={{width: 40, alignItems: 'center', justifyContent: 'center'}}>
+        <Button containerStyle={{width: 40, justifyContent: 'center'}}>
+          <Icon name='chatbubbles' onPress={()=>this.toggleIntercom()}/>
         </Button>
       </Header>
     );
@@ -351,13 +430,26 @@ export default class Presentation extends React.Component {
        offset={this.state.offset}
        open={this.state.modal}
        modalDidOpen={() => console.log('modal did open')}
-       modalDidClose={() => this.setState({modal: false})}
+       modalDidClose={() => this.setState({
+         modal: false,
+         showButtonCall: false,
+       })}
        style={{alignItems: 'center'}}>
        <View>
           <Text style={{fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>{this.state.modal_title}</Text>
-          <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656'}}>{this.state.modal_message}</Text>
+          <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656', paddingBottom: 18}}>{this.state.modal_message}</Text>
+          {this.state.showButtonCall && <Button
+            containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center'}}
+            textStyle={{color: '#ffffff'}}
+            onPress={() => {
+              call({
+                number: Configs.SupportNumber, // String value with the number to call
+                prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
+              }).catch(console.error);
+            }}
+            text="Call to Schedule"/>}
           <Button
-            containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center', marginTop: 20}}
+            containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center'}}
             textStyle={{color: '#ffffff'}}
             onPress={() => this.setState({modal: false})}
             text="OK"/>

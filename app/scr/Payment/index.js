@@ -117,11 +117,11 @@ class Payment extends React.Component {
       token = id;
     } catch (e) {
         this.setState({loading: false});
-        Functions.showAlert('', 'Error updating payment.');
+        Functions.showAlert('', 'Error updating payment. Your card is invalid');
     }
     if(token == '' || token == null) {
       this.setState({loading: false});
-      Functions.showAlert('', 'Error updating payment.');
+      Functions.showAlert('', 'Error updating payment. Your card is invalid');
       return;
     } else {
       this.updatePayment(token);
@@ -136,7 +136,7 @@ class Payment extends React.Component {
         User.stripe_payment_token = payment_token;
         Actions.pop({refresh: {reload: true}});
       } else {
-        Functions.showAlert('', 'Error updating payment. Please try again later.');
+        Functions.showAlert('', error.error?error.error:'Error updating payment. Please try again later.');
       }
     })
   }

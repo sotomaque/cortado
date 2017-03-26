@@ -13,6 +13,7 @@
 #import <React/RCTRootView.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <Intercom/intercom.h>
 
 @implementation AppDelegate
 
@@ -33,10 +34,19 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-//  return YES;
+  
+  // Intercom
+  [Intercom setApiKey:@"ios_sdk-bcd65d036ec2b42a1204c0322eb705c34dabd791" forAppId:@"uuy5q66v"];
+  //  return YES;
   return [[FBSDKApplicationDelegate sharedInstance] application:application
                                   didFinishLaunchingWithOptions:launchOptions];
 }
+
+// Intercom
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [Intercom setDeviceToken:deviceToken];
+}
+
   // Facebook SDK
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [FBSDKAppEvents activateApp];

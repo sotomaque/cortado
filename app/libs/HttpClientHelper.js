@@ -99,7 +99,7 @@ export default class HttpClientHelper {
         }
       } else {
         if(callback!=undefined) {
-          callback(response, null);
+          callback(await response.json(), null);
         }
         console.warn("HttpError", response);
       }

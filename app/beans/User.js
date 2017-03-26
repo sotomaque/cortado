@@ -1,4 +1,5 @@
 var User = {
+		user_id: '',
 		fb_token: '',
     password: '',
     first_name: '',

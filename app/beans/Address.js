@@ -7,7 +7,9 @@ var Address = {
 	notes: '',
 	state: '',
 	street: '',
-	zipcode: ''
+	zipcode: '',
+	latitude: 0,
+	longitude: 0,
 }
 
 export default Address

@@ -6,6 +6,7 @@ import { Button } from '../../components';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { SessionManager } from '../../libs';
 import { User } from '../../beans';
+import Intercom from 'react-native-intercom';
 
 export default class LeftMenu extends React.Component {
 
@@ -55,6 +56,15 @@ export default class LeftMenu extends React.Component {
         }}>
           <Body>
             <Text>Free Press</Text>
+          </Body>
+        </ListItem>
+        <ListItem onPress={()=>{
+          GLOBAL.requestAnimationFrame(() => {
+            Intercom.displayMessageComposer();
+          });
+        }}>
+          <Body>
+            <Text>Chat Support</Text>
           </Body>
         </ListItem>
       </Content>

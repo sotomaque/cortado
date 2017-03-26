@@ -10,5 +10,6 @@ var Order = {
     PICKUP: 1,
     CLEANING: 2,
     DELIVERY: 3,
+		COMPLETE: 4,
 }
 export default Order;

@@ -13,6 +13,7 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* PressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PressTests.m */; };
+		06952CF9786F448F8036725C /* libRNIntercom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D121ECF839744B0B6B1EBF7 /* libRNIntercom.a */; };
 		0D7B83F2B99949BD85709748 /* SanFranciscoBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9348C5D2D8A84E5C9929C885 /* SanFranciscoBold.ttf */; };
 		0F8981B4AF9C46FFB1A23EDA /* Microsoft Sans Serif.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8388984722741F1A38F4D1C /* Microsoft Sans Serif.ttf */; };
 		0FB928D33CD14DBEA055E78D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E793E0711FD44AA7A1E92BD0 /* Ionicons.ttf */; };
@@ -50,6 +51,9 @@
 		56E0F6AAB251413B93123B79 /* Andale Mono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B721CA2ABF464F8C86B3E994 /* Andale Mono.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		646FC86564994782ADD0D35A /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B24160E54B04CDD8B6EB6EE /* libRNShare.a */; };
+		7314762F1E868C0D00BE256B /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314762E1E868C0D00BE256B /* Intercom.framework */; };
+		731476301E868C0D00BE256B /* Intercom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7314762E1E868C0D00BE256B /* Intercom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		734CE5AF1E86897100B5C969 /* Intercom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734CE5AE1E86897100B5C969 /* Intercom.framework */; };
 		73A82F421E7ADAA300D98E9C /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A82F411E7ADA8C00D98E9C /* libRCTFBLogin.a */; };
 		73A82F451E7ADB3300D98E9C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A82F441E7ADB3200D98E9C /* Bolts.framework */; };
 		73A82F471E7ADB6A00D98E9C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A82F461E7ADB6A00D98E9C /* FBSDKCoreKit.framework */; };
@@ -257,6 +261,13 @@
 			remoteGlobalIDString = 2D2A28201D9B03D100D4039D;
 			remoteInfo = "RCTAnimation-tvOS";
 		};
+		734CE5AB1E86891D00B5C969 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64AEED1D3CE441BC9CAB356B /* RNIntercom.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 112EE36D1CC0AB8A00BF6BB8;
+			remoteInfo = RNIntercom;
+		};
 		73A82F1B1E7AD83B00D98E9C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5DE9A45226146BEB8E3A2E9 /* AirMaps.xcodeproj */;
@@ -308,6 +319,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		734CE5B11E86897100B5C969 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				731476301E868C0D00BE256B /* Intercom.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -348,9 +373,13 @@
 		50EFEA3129B2441BABC8BDD5 /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-MediumItalic.ttf"; path = "../node_modules/native-base/Fonts/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
 		5777DC133F384B3FB403B442 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		57F55204A011476987729A4D /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BoldItalic.ttf"; path = "../node_modules/native-base/Fonts/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5D121ECF839744B0B6B1EBF7 /* libRNIntercom.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNIntercom.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6380A5AAF2EC4321B864B7B0 /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
+		64AEED1D3CE441BC9CAB356B /* RNIntercom.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNIntercom.xcodeproj; path = "../node_modules/react-native-intercom/iOS/RNIntercom.xcodeproj"; sourceTree = "<group>"; };
 		6D7F3F6C11344AB482980634 /* SanFrancisco.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFrancisco.ttf; path = "../node_modules/native-base/Fonts/SanFrancisco.ttf"; sourceTree = "<group>"; };
+		7314762E1E868C0D00BE256B /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Intercom.framework; sourceTree = "<group>"; };
+		734CE5AE1E86897100B5C969 /* Intercom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intercom.framework; path = /Users/leonacky/react_native/outsource/Press/ios/Intercom.framework; sourceTree = "<absolute>"; };
 		73A82F3C1E7ADA8C00D98E9C /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		73A82F441E7ADB3200D98E9C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/Bolts.framework"; sourceTree = "<group>"; };
 		73A82F461E7ADB6A00D98E9C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
@@ -406,6 +435,8 @@
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
+				734CE5AF1E86897100B5C969 /* Intercom.framework in Frameworks */,
+				7314762F1E868C0D00BE256B /* Intercom.framework in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				73A82F4B1E7ADB7600D98E9C /* FBSDKShareKit.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
@@ -415,6 +446,7 @@
 				7B3FD22148564612863A3DBB /* libRNGeocoder.a in Frameworks */,
 				73A82F451E7ADB3300D98E9C /* Bolts.framework in Frameworks */,
 				D01BDA2869C8439982CF7259 /* libRCTBEEPickerManager.a in Frameworks */,
+				06952CF9786F448F8036725C /* libRNIntercom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +590,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		734CE58B1E86891D00B5C969 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				734CE5AC1E86891D00B5C969 /* libRNIntercom.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		73A82F141E7AD83B00D98E9C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +677,7 @@
 				B5DE9A45226146BEB8E3A2E9 /* AirMaps.xcodeproj */,
 				D6DD4B47D10144EA9C9063CD /* RNGeocoder.xcodeproj */,
 				C3BFBBDFFC1B48C895CDFF70 /* RCTBEEPickerManager.xcodeproj */,
+				64AEED1D3CE441BC9CAB356B /* RNIntercom.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -653,6 +694,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				7314762E1E868C0D00BE256B /* Intercom.framework */,
 				73A82F431E7ADAE200D98E9C /* Frameworks */,
 				13B07FAE1A68108700A75B9A /* Press */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -745,6 +787,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				734CE5B11E86897100B5C969 /* Embed Frameworks */,
+				734CE5B21E86899700B5C969 /* Run Script Intercom */,
 			);
 			buildRules = (
 			);
@@ -805,7 +849,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 79237U9E4N;
+						DevelopmentTeam = JP7T2RYGKM;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -889,6 +933,10 @@
 				{
 					ProductGroup = 73A82F181E7AD83B00D98E9C /* Products */;
 					ProjectRef = D6DD4B47D10144EA9C9063CD /* RNGeocoder.xcodeproj */;
+				},
+				{
+					ProductGroup = 734CE58B1E86891D00B5C969 /* Products */;
+					ProjectRef = 64AEED1D3CE441BC9CAB356B /* RNIntercom.xcodeproj */;
 				},
 				{
 					ProductGroup = 73A82F141E7AD83B00D98E9C /* Products */;
@@ -1067,6 +1115,13 @@
 			remoteRef = 5E9157341DD0AC6500FF2AA8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		734CE5AC1E86891D00B5C969 /* libRNIntercom.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNIntercom.a;
+			remoteRef = 734CE5AB1E86891D00B5C969 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		73A82F1C1E7AD83B00D98E9C /* libAirMaps.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1215,6 +1270,20 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		734CE5B21E86899700B5C969 /* Run Script Intercom */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script Intercom";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Intercom.framework/strip-frameworks.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1294,12 +1363,14 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1325,12 +1396,14 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1351,9 +1424,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 79237U9E4N;
+				DEVELOPMENT_TEAM = JP7T2RYGKM;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK\n/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
+					"/**",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1361,6 +1436,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1380,9 +1456,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 79237U9E4N;
+				DEVELOPMENT_TEAM = JP7T2RYGKM;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK\n/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
+					"/**",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1390,6 +1468,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1422,11 +1501,13 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = "Press-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1462,11 +1543,13 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
+					"$(SRCROOT)/../node_modules/react-native-intercom/iOS",
 				);
 				INFOPLIST_FILE = "Press-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1503,6 +1586,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Press-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1527,6 +1611,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

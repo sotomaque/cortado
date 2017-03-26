@@ -1,6 +1,7 @@
 import StorageHelper from './StorageHelper'
 import HttpClientHelper from './HttpClientHelper'
 import * as DataParser from '../utils/DataParser'
+import Intercom from 'react-native-intercom';
 
 class SessionManager {
   token = null;
@@ -18,6 +19,10 @@ class SessionManager {
     this.token = undefined;
     StorageHelper.removeToken();
     StorageHelper.removeUserInfo();
+    try {
+      Intercom.reset();
+    } catch (e) {
+    }
   }
 
   async getToken() {

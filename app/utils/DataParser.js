@@ -18,10 +18,18 @@ export function initializeUser(data) {
       Address[i] = address[i];
     }
   }
+
+  let credit_card = data.credit_card;
+  if(credit_card) {
+    if(credit_card.last4) {
+      User.payment_last4 = credit_card.last4;
+    }
+  }
 }
 
 export function updateCurrentOrderStatus(status) {
-  Order.status = status.toUpperCase();
+  if(getCurrentOrderStatus()!=Order.COMPLETE)
+    Order.status = status.toUpperCase();
 }
 
 export function getCurrentOrderStatus() {
@@ -31,8 +39,10 @@ export function getCurrentOrderStatus() {
     return Order.PICKUP;
   } else if(Order.status=='WASH' || Order.status=='CLEANING') {
     return Order.CLEANING;
-  } else if(Order.status=='DROPOFF' || Order.status=='COMPLETE') {
+  } else if(Order.status=='DROPOFF') {
     return Order.DELIVERY;
+  } else if(Order.status=='COMPLETE') {
+    return Order.COMPLETE;
   } else {
     return Order.IDLE;
   }

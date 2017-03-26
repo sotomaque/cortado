@@ -44,7 +44,7 @@ export default class OrderRating extends React.Component {
       <Content style={{marginBottom: Metrics.navBarHeight}}>
         <View style={{backgroundColor: '#f2f2f2', padding: 20, paddingBottom: 10, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{color: '#565656'}}>ORDER SUMMARY</Text>
-          <Text style={{fontSize: 40, padding: 10}}>${Order.total_price_string!=null && Order.total_price_string!=undefined && Order.total_price_string!=''?Order.total_price_string:'0.00'}</Text>
+          <Text style={{fontSize: 40, padding: 10}}>{Order.total_price_string!=null && Order.total_price_string!=undefined && Order.total_price_string!=''?Order.total_price_string:'$0.00'}</Text>
           <Text note>*You will receive an itemized receipt via email.</Text>
         </View>
         <View style={{padding: 30, paddingBottom: 10, justifyContent: 'center', alignItems: 'center'}}>

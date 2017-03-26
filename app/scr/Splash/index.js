@@ -13,17 +13,26 @@ export default class Splash extends React.Component {
   }
 
   handleLoggedIn() {
-    HttpClientHelper.get('me', null, (error, data)=>{
+    HttpClientHelper.get('world', null, (error, data)=>{
       if(!error) {
-        DataParser.initializeUser(data);
-        let current_order = data.current_order;
-        if(current_order!=null && current_order!=undefined && current_order!='') {
-          DataParser.initCurrentOrder(current_order);
-          Actions.orderInProgress({type: ActionConst.REPLACE})
-        } else {
-          Actions.presentation({type: ActionConst.REPLACE})
+        try {
+          let user = data.user;
+          if(user) {
+            user.intercom_enabled = data.intercom_enabled;
+            DataParser.initializeUser(user);
+          }
+          let current_order = data.current_order;
+          if(current_order!=null && current_order!=undefined && current_order!='') {
+            DataParser.initCurrentOrder(current_order);
+            Actions.orderInProgress({type: ActionConst.REPLACE})
+          } else {
+            Actions.presentation({type: ActionConst.REPLACE})
+          }
+        } catch (e) {
+
         }
       } else {
+        Functions.showAlert('', error.error?error.error:"An unknown error has occurred. Please try again later");
         SessionManager.setToken('');
         Actions.login({type: ActionConst.REPLACE})
       }

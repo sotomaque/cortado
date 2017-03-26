@@ -13,9 +13,11 @@ import LeftMenu from '../LeftMenu';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-simple-modal';
 import Geocoder from 'react-native-geocoder';
+import Intercom from 'react-native-intercom';
+import Configs from '../../configs';
 
 const args = {
-  number: '5125226489', // String value with the number to call
+  number: Configs.SupportNumber, // String value with the number to call
   prompt: false // Optional boolean property. Determines if the user should be prompt prior to the call
 }
 
@@ -27,6 +29,13 @@ class OrderInProgress extends React.Component {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.initData();
+    let lat = Configs.defaultLocation.lat;
+    let lng = Configs.defaultLocation.lng;
+
+    if(Address.latitude!=0 || Address.longitude!=0) {
+      lat = Address.latitude;
+      lng = Address.longitude;
+    }
     this.state = {
       InProgress: true,
       Pickup: false,
@@ -35,8 +44,8 @@ class OrderInProgress extends React.Component {
       loading: false,
       modal: false,
       dataSource: this.ds.cloneWithRows(this.data),
-      latitude: 0,
-      longitude: 0,
+      latitude: lat,
+      longitude: lng,
     };
 
     this.renderRow = this.renderRow.bind(this);
@@ -50,7 +59,7 @@ class OrderInProgress extends React.Component {
       ['Delivery', Order.dropoff_date_string, DataParser.getCurrentOrderStatus()>=Order.DELIVERY]
     ]
 
-    if(DataParser.getCurrentOrderStatus()>=Order.DELIVERY) {
+    if(DataParser.getCurrentOrderStatus()>=Order.COMPLETE) {
       InteractionManager.runAfterInteractions(() => {
         Actions.orderRating({type: ActionConst.REPLACE});
       })
@@ -59,13 +68,38 @@ class OrderInProgress extends React.Component {
 
   componentDidMount() {
     this.updateOrderProgress();
+    this.registerIntercom();
     this.requestLocation();
   }
 
   componentWillUnmount() {
     if(this.timer!=null) {
-      this.timer = setTimeout(()=>this.updateOrderProgress(), 120000);
+      clearTimeout(this.timer);
+      this.timer = null;
     }
+  }
+
+  componentWillMount() {
+    if(this.timer!=null) {
+      clearTimeout(this.timer);
+      this.timer = null;
+    }
+    this.timer = setTimeout(()=>this.updateOrderProgress(), Configs.OrderUpdateTime);
+  }
+
+  async registerIntercom() {
+    Intercom.registerIdentifiedUser({ userId: ""+User.user_id })
+    .then(() => {
+    	console.log('registerIdentifiedUser done');
+
+    	return Intercom.updateUser({
+    		email: User.email,
+    		name: User.full_name,
+    	});
+    })
+    .catch((err) => {
+    	console.log('registerIdentifiedUser ERROR', err);
+    });
   }
 
   timer = null;
@@ -84,8 +118,8 @@ class OrderInProgress extends React.Component {
     })
     if(this.timer!=null) {
       clearTimeout(this.timer);
-      this.timer = setTimeout(()=>this.updateOrderProgress(), 120000);
     }
+    this.timer = setTimeout(()=>this.updateOrderProgress(), Configs.OrderUpdateTime);
   }
 
   handleCancelPress() {
@@ -94,6 +128,8 @@ class OrderInProgress extends React.Component {
       this.setState({loading: false});
       if(!error) {
         Actions.presentation({type:ActionConst.REPLACE});
+      } else {
+        Functions.showAlert('', error.error?error.error:'Cannot cancel the order');
       }
     })
   }
@@ -183,7 +219,11 @@ class OrderInProgress extends React.Component {
         <Button
           containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
           text="Chat Support"
-          onPress={() => Linking.openURL('https://www.yahoo.com')}/>
+          onPress={() => {
+            GLOBAL.requestAnimationFrame(() => {
+              Intercom.displayMessageComposer();
+            });
+          }}/>
         <View style={{width: 1, height: Metrics.navBarHeight, backgroundColor: '#f2f2f2'}}/>
         <Button
           containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}

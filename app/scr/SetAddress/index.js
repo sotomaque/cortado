@@ -10,6 +10,8 @@ import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 import * as Functions from '../../utils/Functions';
 import Geocoder from 'react-native-geocoder';
+import * as DataParser from '../../utils/DataParser';
+import Configs from '../../configs';
 
 export default class SetAddress extends React.Component {
 
@@ -18,16 +20,34 @@ export default class SetAddress extends React.Component {
   constructor(props) {
     super(props);
 
+    let lat = Configs.defaultLocation.lat;
+    let lng = Configs.defaultLocation.lng;
+
+    if(Address.latitude!=0 || Address.longitude!=0) {
+      lat = Address.latitude;
+      lng = Address.longitude;
+    }
+
     this.state = {
       changed: false,
       street: Address.street,
       zipcode: Address.zipcode,
       notes: Address.notes,
-      latitude: 0,
-      longitude: 0,
+      latitude: lat,
+      longitude: lng,
       loading: false
     };
     this.handlePressSave = this.handlePressSave.bind(this);
+  }
+
+  getUserInfoFromPress() {
+    HttpClientHelper.get('me', null, (error, data)=>{
+      if(!error) {
+        DataParser.initializeUser(data);
+        if(!this.state.changed)
+          this.setState({reload: !this.state.reload});
+      }
+    })
   }
 
   handlePressSave() {
@@ -43,7 +63,7 @@ export default class SetAddress extends React.Component {
           SessionManager.saveUserInfo();
           Actions.pop({refresh: {reload: true, address_changed: true}});
         } else {
-          Functions.showAlert('', 'Please enter a valid zipcode. Please try again.');
+          Functions.showAlert('', error.error?error.error:'Please enter a valid zipcode. Please try again.');
         }
       });
     }
@@ -51,6 +71,7 @@ export default class SetAddress extends React.Component {
 
   componentDidMount() {
     this.requestLocation();
+    this.getUserInfoFromPress();
   }
 
   handleStreetChanged(value) {
@@ -67,6 +88,13 @@ export default class SetAddress extends React.Component {
       zipcode: value
     });
     this.requestLocation();
+  }
+
+  handleNodesChanged(value) {
+    this.setState({
+      changed: true,
+      notes: value
+    });
   }
 
   clearRequest() {
@@ -165,7 +193,7 @@ export default class SetAddress extends React.Component {
                 value={this.state.zipcode} placeholder="Zipcode"/>
             </Item>
             <Item>
-              <Input onChangeText={(value)=>{this.setState({notes: value})}}
+              <Input onChangeText={(value)=>{this.handleNodesChanged(value)}}
                 value={this.state.notes} placeholder="Notes" />
             </Item>
         </Form>

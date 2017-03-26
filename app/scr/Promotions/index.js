@@ -16,7 +16,28 @@ class Promotion extends React.Component {
 			code: '',
 			loading: false
 		}
+		this.handleLoggedIn = this.handleLoggedIn.bind(this);
 	}
+
+	handleLoggedIn() {
+    this.setState({loading: true});
+    HttpClientHelper.get('world', null, (error, data)=>{
+      this.setState({loading: false});
+      if(!error) {
+        try {
+          let user = data.user;
+          if(user) {
+            user.intercom_enabled = data.intercom_enabled;
+            DataParser.initializeUser(user);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        Functions.showAlert('', error.error?error.error:"An unknown error has occurred. Please try again later");
+      }
+    });
+  }
 
 	handleSubmit() {
 		if(!Functions.validateForm('Promotion code', this.state.code))
@@ -31,9 +52,10 @@ class Promotion extends React.Component {
 		HttpClientHelper.post('promotion', params, (error, params)=>{
 			this.setState({loading: false});
 			if(!error) {
-
+				Functions.showAlert('', 'Your code is applied');
+				this.handleLoggedIn();
 			} else {
-				Functions.showAlert('', 'Your promo code is invalid or expired. Please try again later');
+				Functions.showAlert('', error.error?error.error:'Your promo code is invalid. Please try again');
 			}
 		})
 	}

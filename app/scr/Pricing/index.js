@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, InteractionManager } from 'react-native';
-import { Container, Content, ListItem, Left, Body, Right, Text, List } from 'native-base';
+import { Container, Content, ListItem, Left, Body, Right, Text, List, Header } from 'native-base';
 import { Metrics } from '../../themes';
-import { NavigationBar } from '../../components';
+import { NavigationBar, Button } from '../../components';
+import { Actions } from 'react-native-router-flux';
 import { HttpClientHelper } from '../../libs';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -87,17 +88,39 @@ class Pricing extends React.Component {
 			)
 		} else {
 			return (
-				<ListItem itemDivider>
-						<Text>{data.name}</Text>
+				<ListItem itemDivider style={{justifyContent: 'center'}}>
+						<Text style={{color: 'grey'}}>{data.name}</Text>
 				</ListItem>
 			)
 		}
 	}
 
+	renderHeader() {
+	    return (
+	      <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+	        <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{
+	          try {
+	            Actions.pop();
+	          } catch (e) {
+	            console.log(e);
+	          }
+	        }}>
+	          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Done</Text>
+	        </Button>
+	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
+	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Pricing</Text>
+	        </Button>
+	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
+	          
+	        </Button>
+	      </Header>
+	    );
+	}
+
 	render() {
     return (
       <Container>
-				<NavigationBar title='Pricing' />
+		{this.renderHeader()}
         <Content>
 					<List dataArray={this.items} renderRow={this.renderRow} />
         </Content>

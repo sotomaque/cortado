@@ -48,13 +48,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignSelf: 'stretch',
     marginTop: Metrics.doubleBaseMargin,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 4
   },
   facebookButton: {
     height: 40,
     backgroundColor: '#3B51A1',
     alignSelf: 'stretch',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 4
   },
   buttonText: {
     fontSize: 18,

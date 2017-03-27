@@ -168,10 +168,10 @@ export default class SetAddress extends React.Component {
             console.log(e);
           }
         }}>
-          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
+          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{color: '#565656', fontSize: 18}}>Set Address</Text>
+          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Address</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={this.handlePressSave}>
           <Text style={{color: this.state.changed?'#565656':'#ccc', fontSize: 14}}>Save</Text>
@@ -186,15 +186,24 @@ export default class SetAddress extends React.Component {
         <Form style={{backgroundColor: '#ffffff'}}>
             <Item>
                 <Input placeholder="Street, Apt #" onChangeText={(value)=>{this.handleStreetChanged(value)}}
-                value={this.state.street}/>
+                value={this.state.street} style={{fontWeight: 'bold'}}/>
             </Item>
             <Item>
-                <Input placeholder="Zipcode" onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
-                value={this.state.zipcode} placeholder="Zipcode"/>
+                <Input 
+                  placeholder="Zipcode" 
+                  onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
+                  value={this.state.zipcode} 
+                  style={{fontWeight: 'bold'}}
+                /> 
             </Item>
             <Item>
-              <Input onChangeText={(value)=>{this.handleNodesChanged(value)}}
-                value={this.state.notes} placeholder="Notes" />
+              <Input 
+                placeholder="Notes (gate code, leave with the front desk, etc)" 
+                onChangeText={(value)=>{this.handleNodesChanged(value)}}
+                value={this.state.notes} 
+                style={{overflow: 'hidden'}}
+                
+              />
             </Item>
         </Form>
       </Content>
@@ -240,7 +249,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       left: 0,
       bottom: 0,
-      height: Metrics.screenHeight/2,
+      height: Metrics.screenHeight/1.5,
       width: (Metrics.screenWidth)
     }
 });

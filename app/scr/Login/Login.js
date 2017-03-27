@@ -193,6 +193,19 @@ export default class Login extends React.Component {
           containerStyle={styles.facebookButton}
           textStyle={styles.buttonText}
           onPress={this.onLoginFBPressed}/>
+        <Text style={styles.errorText}>{this.state.error}</Text>
+        {!this.state.keyboardShow&&<View style={styles.bottomButtons}>
+          <Button
+            text="FORGOT PASSWORD"
+            containerStyle={styles.forgotPasswordButton}
+            textStyle={styles.forgotPasswordButtonText}
+            onPress={this.handlePressForgotPassword}/>
+          <Button
+            text="SIGN UP"
+            containerStyle={styles.signUpButton}
+            textStyle={styles.signUpButtonText}
+            onPress={this.handlePressSignUp}/>
+        </View>}
       </View>
       <Spinner visible={this.state.loading} />
     </View>

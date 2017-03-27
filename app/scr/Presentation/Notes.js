@@ -24,15 +24,15 @@ class Notes extends Component {
 		return (
 			<View>
 				<Separator bordered>
-        	<Text>Special Instructions (optional)</Text>
+        	<Text style={{color: 'grey'}}>Special Instructions (optional)</Text>
         </Separator>
         <Item underline>
           <Input
-						style={{fontSize: 15}}
-						placeholder={'Any garments we should pay special attention to?'}
-						value={this.state.special_instructions}
-            onChangeText={(val) => this.setState({special_instructions: val})}
-					/>
+			style={{fontSize: 15}}
+			placeholder={'Any garments we should pay special attention to?'}
+			value={this.state.special_instructions}
+			onChangeText={(val) => this.setState({special_instructions: val})}
+		/>
         </Item>
 			</View>
 		)

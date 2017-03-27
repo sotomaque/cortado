@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { Container, Content, Item } from 'native-base'
+import { Container, Content, Item, Header } from 'native-base'
 import {Metrics} from '../../themes';
+import { Actions } from 'react-native-router-flux';
 import {User} from '../../beans';
 import { NavigationBar, Button } from '../../components';
 import Share from 'react-native-share';
@@ -12,10 +13,31 @@ class FreePress extends Component {
 	    super(props);
  	}
 
+ 	renderHeader() {
+	    return (
+	      <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+	        <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{
+	          try {
+	            Actions.pop();
+	          } catch (e) {
+	            console.log(e);
+	          }
+	        }}>
+	          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Done</Text>
+	        </Button>
+	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
+	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Free Press</Text>
+	        </Button>
+	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
+	        </Button>
+	      </Header>
+	    );
+	}
+
 	render() {
 		return (
 			<Container>
-				<NavigationBar title='Free Press' />
+				{this.renderHeader()}
 				<Content>
 					<View style={styles.main}>
 						<Text ref='heading' style={styles.textHeading}>Give $10, Get $10</Text>
@@ -27,9 +49,9 @@ class FreePress extends Component {
 				</Content>
 				<Button
 					disabled={User.promo_code==''}
-					containerStyle={{position: "absolute", height: 50, left: 10, bottom: 10, right: 10, backgroundColor: User.promo_code==''?'#999':'#000', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
+					containerStyle={{position: "absolute", height: 50, left: 10, bottom: 10, right: 10, backgroundColor: '#4b3486', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
 					text="SHARE"
-					textStyle={{color: '#fff', fontSize: 16}}
+					textStyle={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}
 					onPress={()=>this.showShareActionSheet()}
 				/>
 			</Container>
@@ -60,7 +82,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 30,
-		fontFamily: 'AvenirNext-UltraLight'
+		fontWeight: '200'
 	},
 	box: {
 		marginTop: 15,
@@ -68,20 +90,21 @@ const styles = StyleSheet.create({
 		borderRadius: 3,
 		marginLeft: 50,
 		marginRight: 50,
-		borderColor: '#f0f0f0',
-		backgroundColor: '#f2f2f2',
+		borderColor: 'white',
+		backgroundColor: 'white',
 	},
 	textCode: {
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 28,
-		fontFamily: 'AvenirNext-Heavy',
+		fontWeight: 'bold'
 	},
 	textSubtext: {
 		marginTop: 20,
 		alignSelf: 'center',
 		justifyContent: 'center',
-		textAlign: 'center'
+		textAlign: 'center',
+		color: 'grey'
 	}
 });
 

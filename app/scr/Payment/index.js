@@ -162,10 +162,10 @@ class Payment extends React.Component {
             console.log(e);
           }
         }}>
-          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
+          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{color: '#565656', fontSize: 18}}>Payment</Text>
+          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Payment</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handlePressSave()}>
           <Text style={{color: this.state.cardValid?'#565656':'#ccc', fontSize: 14}}>Save</Text>
@@ -201,7 +201,7 @@ class Payment extends React.Component {
 
           </View>
           <Text style={{marginTop: 30, alignSelf: 'center'}} note>Available Credit</Text>
-          <Text style={{marginTop: 2, alignSelf: 'center', fontSize: 30}}>${User.total_free_credits}</Text>
+          <Text style={{marginTop: 2, alignSelf: 'center', fontSize: 30, fontWeight :'bold'}}>${User.total_free_credits}</Text>
           <View style={{marginTop: 30, flexDirection: 'row', alignSelf: 'center'}}>
             <Text note>Credits automatically applied.</Text>
             <Text style={{fontSize: 13, color: '#000000'}} onPress={()=>Actions.freePress()}> Earn more.</Text>

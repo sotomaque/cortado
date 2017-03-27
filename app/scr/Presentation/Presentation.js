@@ -354,8 +354,8 @@ export default class Presentation extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
-          <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100'}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, justifyContent: 'center'}}>
           <Icon name='chatbubbles' onPress={()=>this.toggleIntercom()}/>
@@ -368,24 +368,24 @@ export default class Presentation extends React.Component {
     return (<Content>
       <View style={styles.container}>
         <Separator boardered>
-          <Text>Services (select all that apply)</Text>
+          <Text style={{color: 'grey'}}>Services (select all that apply)</Text>
         </Separator>
         <ListItem onPress={this.handleOnPressWash}>
           <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} style={{ borderColor: this.state.wf ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.wf ? '#4B2D8F' : null }} />
           <Body>
-            <Text>Wash & Fold</Text>
+            <Text style={{ color: this.state.wf ? 'black' : 'grey'}}>Wash & Fold</Text>
             <Text note>Everyday laundry. Returned neatly folded.</Text>
           </Body>
         </ListItem>
         <ListItem onPress={this.handleOnPressDryClean} last>
           <CheckBox checked={this.state.dc} onPress={this.handleOnPressDryClean} style={{ borderColor: this.state.dc ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.dc ? '#4B2D8F' : null }} />
           <Body>
-            <Text>Dry Cleaning</Text>
+            <Text style={{ color: this.state.dc ? 'black' : 'grey'}}>Dry Cleaning</Text>
             <Text note>Delicate garments. Returned on hangers.</Text>
           </Body>
         </ListItem>
         <Separator bordered>
-          <Text>Schedule</Text>
+          <Text style={{color: 'grey'}}>Schedule</Text>
         </Separator>
 
         <ListItem onPress={()=>{
@@ -395,7 +395,7 @@ export default class Presentation extends React.Component {
         }}>
           <Body>
               <Text style={{marginLeft: 0}} note>Pickup Time</Text>
-              <Text style={{marginLeft: 0}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+              <Text style={{marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
@@ -405,7 +405,7 @@ export default class Presentation extends React.Component {
         }} last>
           <Body>
               <Text style={{marginLeft: 0}} note>Dropoff Time</Text>
-              <Text style={{marginLeft: 0}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+              <Text style={{marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
         <Notes ref={(ref)=>this.special_instructions=ref} />

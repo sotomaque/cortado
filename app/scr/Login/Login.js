@@ -177,7 +177,7 @@ export default class Login extends React.Component {
 
           <Form>
               <Item floatingLabel>
-                  <Label>Email</Label>
+                  <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
                   <Input  
                   onChangeText={(email) => this.setState({email})}
                   value={this.state.email}
@@ -187,7 +187,7 @@ export default class Login extends React.Component {
                   />
               </Item>
               <Item floatingLabel last>
-                  <Label>Password</Label>
+                  <Label style={{fontFamily: 'OpenSans'}}>Password</Label>
                   <Input
                   value={this.state.password}
                   onChangeText={(password) => this.setState({password})}
@@ -197,7 +197,6 @@ export default class Login extends React.Component {
                   />
               </Item>
           </Form>
-
           <Button
           text="LOGIN"
           containerStyle={styles.button}

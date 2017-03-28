@@ -353,8 +353,8 @@ export default class Presentation extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
-          <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100'}} note>Delivering to</Text>
-          <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden'}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100', fontFamily: 'OpenSans'}} note>Delivering to</Text>
+          <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden', fontFamily: 'OpenSans'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, justifyContent: 'center'}}>
           <Icon name='chatbubbles' onPress={()=>this.toggleIntercom()}/>
@@ -368,24 +368,24 @@ export default class Presentation extends React.Component {
     <Content scrollEnabled={false}>
       <View style={styles.container}>
         <Separator boardered>
-          <Text style={{color: 'grey'}}>Services (select all that apply)</Text>
+          <Text style={{color: 'grey', fontFamily: 'OpenSans'}}>Services (select all that apply)</Text>
         </Separator>
         <ListItem onPress={this.handleOnPressWash}>
           <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} style={{ borderColor: this.state.wf ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.wf ? '#4B2D8F' : null }} />
           <Body>
-            <Text style={{ color: this.state.wf ? 'black' : 'grey'}}>Wash & Fold</Text>
-            <Text note>Everyday laundry. Returned neatly folded.</Text>
+            <Text style={{ fontFamily: 'OpenSans', color: this.state.wf ? 'black' : 'grey'}}>Wash & Fold</Text>
+            <Text note style={{fontFamily: 'OpenSans'}}>Everyday laundry. Returned neatly folded.</Text>
           </Body>
         </ListItem>
         <ListItem onPress={this.handleOnPressDryClean} last>
           <CheckBox checked={this.state.dc} onPress={this.handleOnPressDryClean} style={{ borderColor: this.state.dc ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.dc ? '#4B2D8F' : null }} />
           <Body>
-            <Text style={{ color: this.state.dc ? 'black' : 'grey'}}>Dry Cleaning</Text>
-            <Text note>Delicate garments. Returned on hangers.</Text>
+            <Text style={{ fontFamily: 'OpenSans', color: this.state.dc ? 'black' : 'grey'}}>Dry Cleaning</Text>
+            <Text note style={{fontFamily: 'OpenSans'}}>Delicate garments. Returned on hangers.</Text>
           </Body>
         </ListItem>
         <Separator bordered>
-          <Text style={{color: 'grey'}}>Schedule</Text>
+          <Text style={{fontFamily: 'OpenSans', color: 'grey'}}>Schedule</Text>
         </Separator>
 
         <ListItem onPress={()=>{
@@ -394,8 +394,8 @@ export default class Presentation extends React.Component {
           });
         }}>
           <Body>
-              <Text style={{marginLeft: 0}} note>Pickup Time</Text>
-              <Text style={{marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+              <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Pickup Time</Text>
+              <Text style={{fontFamily: 'OpenSans', marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
@@ -404,8 +404,8 @@ export default class Presentation extends React.Component {
           });
         }} last>
           <Body>
-              <Text style={{marginLeft: 0}} note>Dropoff Time</Text>
-              <Text style={{marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+              <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Dropoff Time</Text>
+              <Text style={{fontFamily: 'OpenSans', marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
         <Notes ref={(ref)=>this.special_instructions=ref} />
@@ -420,7 +420,7 @@ export default class Presentation extends React.Component {
           disabled={disabled}
           onPress={this.handleOnPress}
           containerStyle={disabled?styles.buttonNextInActive:styles.buttonNext}
-          textStyle={{color: '#fff', fontSize: 16}}
+          textStyle={{fontFamily: 'OpenSans', color: '#fff', fontSize: 16}}
           text={this.getButtonNextTitle()}/>
     </Footer>);
   }

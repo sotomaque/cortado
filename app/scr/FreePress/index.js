@@ -23,10 +23,10 @@ class FreePress extends Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14}}>Done</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Free Press</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Free Press</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	        </Button>
@@ -51,7 +51,7 @@ class FreePress extends Component {
 					disabled={User.promo_code==''}
 					containerStyle={{position: "absolute", height: 50, left: 10, bottom: 10, right: 10, backgroundColor: '#4b3486', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
 					text="SHARE"
-					textStyle={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}
+					textStyle={{color: '#fff', fontSize: 16, fontWeight: 'bold', fontFamily: 'OpenSans'}}
 					onPress={()=>this.showShareActionSheet()}
 				/>
 			</Container>
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 30,
-		fontWeight: '200'
+		fontWeight: '200',
+		fontFamily: 'OpenSans',
 	},
 	box: {
 		marginTop: 15,
@@ -97,14 +98,16 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 28,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		fontFamily: 'OpenSans'
 	},
 	textSubtext: {
 		marginTop: 20,
 		alignSelf: 'center',
 		justifyContent: 'center',
 		textAlign: 'center',
-		color: 'grey'
+		color: 'grey',
+		fontFamily: 'OpenSans'
 	}
 });
 

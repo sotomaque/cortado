@@ -78,12 +78,12 @@ class Pricing extends React.Component {
 		if(data.type==='item') {
 			return (
 				<ListItem last={isLastItem}>
-						<Body>
-							<Text>{data.name}</Text>
-						</Body>
-						<Right>
-							<Text>${data.price}</Text>
-						</Right>
+					<Body>
+						<Text style={{fontFamily: 'OpenSans'}}>{data.name}</Text>
+					</Body>
+					<Right>
+						<Text style={{fontFamily: 'OpenSans'}}>${data.price}</Text>
+					</Right>
 				</ListItem>
 			)
 		} else {
@@ -113,10 +113,10 @@ class Pricing extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14}}>Done</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Pricing</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Pricing</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	          

@@ -77,13 +77,13 @@ class Promotion extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Promotions</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Promotions</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handleSubmit()}>
-	          <Text style={{color: this.state.code ?'#565656':'#ccc', fontSize: 14}}>Save</Text>
+	          <Text style={{fontFamily: 'OpenSans', color: this.state.code ?'#565656':'#ccc', fontSize: 14}}>Save</Text>
 	        </Button>
 	      </Header>
 	    );
@@ -96,14 +96,14 @@ class Promotion extends React.Component {
 				<Content style={{marginBottom: Metrics.navBarHeight}}>
 					<Item underline>
 						<Input
-							style={{textAlign: 'center', fontWeight: '100', color: 'grey'}}
-							placeholder='Enter a promo code to apply discount'
+							style={{fontFamily: 'OpenSans', textAlign: 'center', fontWeight: '100', color: 'grey'}}
+							placeholder='Enter a promo code'
 							value={this.state.code}
               				onChangeText={(val) => this.setState({code: val})}
               			/>
 					</Item>
 					<View ref='text' style={styles.text}>
-						<Text style={{color: 'grey'}}>You currently have ${User.total_free_credits?User.total_free_credits:'0.00'} of credit</Text>
+						<Text style={{fontFamily: 'OpenSans', color: 'grey'}}>You currently have ${User.total_free_credits?User.total_free_credits:'0.00'} of credit</Text>
 					</View>
 				</Content>
 				<Spinner visible={this.state.loading} />

@@ -29,11 +29,12 @@ const styles = StyleSheet.create({
   heading: {
     alignSelf: 'center',
     fontSize: 30,
-    fontFamily: 'AvenirNext-UltraLight',
+    fontFamily: 'OpenSans-Regular',
     padding: 10,
     marginTop: (Metrics.screenHeight / 10)
   },
   seperator: {
+    fontFamily: 'OpenSans',
     padding: 10,
     alignSelf: 'center'
   },
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 4
   },
   buttonText: {
+    fontFamily: 'OpenSans',
     fontSize: 18,
     color: '#FFF',
     alignSelf: 'center'
@@ -68,6 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   forgotPasswordButton: {
+
     alignSelf: 'flex-start',
     height: 20,
     backgroundColor: 'rgba(255,255,255,0)',
@@ -76,6 +79,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   forgotPasswordButtonText: {
+    fontFamily: 'OpenSans',
     fontSize: 12,
     color: '#000',
     marginLeft: 10,
@@ -91,6 +95,7 @@ const styles = StyleSheet.create({
     right: 0
   },
   signUpButtonText: {
+    fontFamily: 'OpenSans',
     fontSize: 16,
     color: '#000',
     marginRight: 10,

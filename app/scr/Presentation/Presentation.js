@@ -354,7 +354,7 @@ export default class Presentation extends React.Component {
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
           <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100', fontFamily: 'OpenSans'}} note>Delivering to</Text>
-          <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden', fontFamily: 'OpenSans'}}>{DataParser.getAddress()}</Text>
+          <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', overflow: 'hidden', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, justifyContent: 'center'}}>
           <Icon name='chatbubbles' onPress={()=>this.toggleIntercom()}/>
@@ -395,7 +395,7 @@ export default class Presentation extends React.Component {
         }}>
           <Body>
               <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Pickup Time</Text>
-              <Text style={{fontFamily: 'OpenSans', marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+              <Text style={{fontFamily: 'OpenSans-SemiBold', marginLeft: 0}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
@@ -405,7 +405,7 @@ export default class Presentation extends React.Component {
         }} last>
           <Body>
               <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Dropoff Time</Text>
-              <Text style={{fontFamily: 'OpenSans', marginLeft: 0, fontWeight :'bold'}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+              <Text style={{fontFamily: 'OpenSans-SemiBold', marginLeft: 0}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
         <Notes ref={(ref)=>this.special_instructions=ref} />

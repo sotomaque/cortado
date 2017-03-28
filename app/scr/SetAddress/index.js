@@ -171,7 +171,7 @@ export default class SetAddress extends React.Component {
           <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Address</Text>
+          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Address</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={this.handlePressSave}>
           <Text style={{fontFamily: 'OpenSans', color: this.state.changed?'#565656':'#ccc', fontSize: 14}}>Save</Text>
@@ -186,14 +186,14 @@ export default class SetAddress extends React.Component {
         <Form style={{backgroundColor: '#ffffff'}}>
             <Item>
                 <Input placeholder="Street, Apt #" onChangeText={(value)=>{this.handleStreetChanged(value)}}
-                value={this.state.street} style={{fontFamily: 'OpenSans', fontWeight: 'bold'}}/>
+                value={this.state.street} style={{fontFamily: 'OpenSans-SemiBold'}}/>
             </Item>
             <Item>
                 <Input 
                   placeholder="Zipcode" 
                   onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
                   value={this.state.zipcode} 
-                  style={{fontFamily: 'OpenSans', fontWeight: 'bold'}}
+                  style={{fontFamily: 'OpenSans-SemiBold'}}
                 /> 
             </Item>
             <Item>

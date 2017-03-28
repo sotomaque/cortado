@@ -80,7 +80,7 @@ class Promotion extends React.Component {
 	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Promotions</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Promotions</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handleSubmit()}>
 	          <Text style={{fontFamily: 'OpenSans', color: this.state.code ?'#565656':'#ccc', fontSize: 14}}>Save</Text>

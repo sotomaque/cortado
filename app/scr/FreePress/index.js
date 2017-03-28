@@ -26,7 +26,7 @@ class FreePress extends Component {
 	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Free Press</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Free Press</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	        </Button>
@@ -98,8 +98,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 28,
-		fontWeight: 'bold',
-		fontFamily: 'OpenSans'
+		fontFamily: 'OpenSans-SemiBold'
 	},
 	textSubtext: {
 		marginTop: 20,

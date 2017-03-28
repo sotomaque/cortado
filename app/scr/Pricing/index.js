@@ -116,7 +116,7 @@ class Pricing extends React.Component {
 	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Pricing</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Pricing</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	          

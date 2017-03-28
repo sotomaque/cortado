@@ -167,7 +167,7 @@ class Payment extends React.Component {
           <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 18, fontWeight :'bold'}}>Payment</Text>
+          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Payment</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handlePressSave()}>
           <Text style={{fontFamily: 'OpenSans', color: this.state.cardValid?'#565656':'#ccc', fontSize: 14}}>Save</Text>

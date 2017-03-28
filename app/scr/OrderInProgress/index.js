@@ -202,11 +202,11 @@ class OrderInProgress extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent',  fontFamily: 'OpenSans'}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button disabled={canNotCancel} containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
-          <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14}}>Cancel</Text>
+          <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14, fontFamily: 'OpenSans'}}>Cancel</Text>
         </Button>
       </Header>
     );
@@ -326,7 +326,7 @@ class OrderInProgress extends React.Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={{fontSize: 18}}>{rowData[0]}</Text>
+          <Text style={{fontFamily: 'OpenSans', fontSize: 18}}>{rowData[0]}</Text>
           {rowData[1]!=''&&<Text style={{marginTop: -1}} note>{rowData[1]}</Text>}
         </View>
       </View>

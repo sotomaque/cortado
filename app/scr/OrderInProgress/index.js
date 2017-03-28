@@ -212,6 +212,37 @@ class OrderInProgress extends React.Component {
     );
   }
 
+  renderMapView() {
+    return (
+      <Content scrollEnabled={false}>
+        <MapView
+          ref={ref => { this.map = ref; }}
+          style={styles.mapView}
+          region={this.getRegion()}>
+          <MapView.Marker
+            pinColor="#4b3486"
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+            }}
+            title={"My location"}
+            description={Address.street+", "+Address.zipcode}
+          />
+        </MapView>
+      </Content>
+    )
+  }
+
+  renderOrderStatus() {
+    return (
+      <ListView 
+        scrollEnabled={false}
+        style={styles.listView}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow}/>
+    )
+  }
+
   renderFooter() {
     return (
       <Footer style={{backgroundColor: '#ffffff', height: Metrics.navBarHeight}}>
@@ -310,25 +341,8 @@ class OrderInProgress extends React.Component {
     let menu = <LeftMenu />
     let content = <Container style={{backgroundColor: '#fff'}}>
       {this.renderHeader()}
-      <Content>
-        <MapView
-          ref={ref => { this.map = ref; }}
-          style={styles.mapView}
-          region={this.getRegion()}>
-          <MapView.Marker
-            pinColor="#4b3486"
-            coordinate={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-            }}
-            title={"My location"}
-            description={Address.street+", "+Address.zipcode}
-          />
-        </MapView>
-        <ListView style={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}/>
-      </Content>
+      {this.renderMapView()}
+      {this.renderOrderStatus()}
       {this.renderFooter()}
       {this.renderModal()}
       <Spinner visible={this.state.loading} />
@@ -349,7 +363,7 @@ const styles = StyleSheet.create({
       flex: 1
     },
     mapView: {
-      height: 200,
+      height: (Metrics.screenHeight) / 2,
       width: (Metrics.screenWidth)
     },
     buttons: {
@@ -358,7 +372,7 @@ const styles = StyleSheet.create({
     },
     listView: {
       flex: 1,
-      paddingTop: 10,
+      paddingTop: 5,
       paddingLeft: 15
     },
     row: {

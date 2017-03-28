@@ -77,7 +77,7 @@ class Promotion extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Cancel</Text>
+	          <Text style={{color: '#565656', fontSize: 14}}>Cancel</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
 	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Promotions</Text>

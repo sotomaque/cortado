@@ -93,8 +93,7 @@ class OrderInProgress extends React.Component {
     	console.log('registerIdentifiedUser done');
 
     	return Intercom.updateUser({
-    		email: User.email,
-    		name: User.full_name,
+    		email: User.email
     	});
     })
     .catch((err) => {

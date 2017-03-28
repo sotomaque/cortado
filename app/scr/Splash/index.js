@@ -1,12 +1,12 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { Component } from 'react';
+import { View, TouchableHighlight, Image, Text, StyleSheet } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Images } from '../../themes';
 import * as DataParser from '../../utils/DataParser';
 import {Address, User} from '../../beans';
 import { HttpClientHelper, SessionManager } from '../../libs';
 
-export default class Splash extends React.Component {
+export default class Splash extends Component {
 
   componentDidMount() {
     this.next();
@@ -52,8 +52,9 @@ export default class Splash extends React.Component {
   }
 
   render() {
-    return <View style={{justifyContent: 'center', flex: 1}}>
+    return (<View style={{justifyContent: 'center', flex: 1}}>
       <Image source={Images.logo2} style={{ alignSelf: 'center'}}/>
     </View>
+    )
   }
 }

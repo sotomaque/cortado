@@ -95,6 +95,14 @@ class Pricing extends React.Component {
 		}
 	}
 
+	renderRows() {
+		return (
+			<Content>
+				<List dataArray={this.items} renderRow={this.renderRow} />
+	        </Content>
+		)
+	}
+
 	renderHeader() {
 	    return (
 	      <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
@@ -105,7 +113,7 @@ class Pricing extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Done</Text>
+	          <Text style={{color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
 	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Pricing</Text>
@@ -118,15 +126,13 @@ class Pricing extends React.Component {
 	}
 
 	render() {
-    return (
-      <Container>
-		{this.renderHeader()}
-        <Content>
-					<List dataArray={this.items} renderRow={this.renderRow} />
-        </Content>
-				<Spinner visible={this.state.loading} />
-      </Container>
-    );
+	    return (
+	      <Container>
+			{this.renderHeader()}
+	        {this.renderRows()}
+			<Spinner visible={this.state.loading} />
+	      </Container>
+	    );
     }
 }
 

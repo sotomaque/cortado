@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { Container, Content, Item, Header } from 'native-base'
-import {Metrics} from '../../themes';
+import { Metrics } from '../../themes';
 import { Actions } from 'react-native-router-flux';
 import {User} from '../../beans';
 import { NavigationBar, Button } from '../../components';
@@ -23,7 +23,7 @@ class FreePress extends Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{color: '#565656', fontSize: 14, fontWeight :'bold'}}>Done</Text>
+	          <Text style={{color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
 	          <Text style={{color: '#565656', fontSize: 18, fontWeight :'bold'}}>Free Press</Text>

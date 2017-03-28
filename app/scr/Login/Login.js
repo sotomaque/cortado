@@ -32,6 +32,22 @@ export default class Login extends React.Component {
     this.handleLoggedIn = this.handleLoggedIn.bind(this)
   }
 
+  startAnimateButton() {
+    this.setState({ loading: true });
+    setTimeout(()=> {
+        this.setState({
+            offesetY: this.state.clickTop - this.state.top,
+            offesetX: this.state.clickLeft - this.state.left
+        });
+    }, 0);
+    Animated.timing(this.state.buttonWidth, {toValue: 50}).start();
+    Animated.timing(this.state.opacity, { toValue: 1, duration: 10 }).start();
+    Animated.timing(this.state.bounceValue, { toValue: 300, duration: 455, easing: Easing.in(Easing.quad) }).start();
+    setTimeout(()=> {
+        Animated.timing(this.state.opacity, {toValue: 0}).start();
+    }, 280);
+  }
+
   _keyboardDidShow () {
 		this.setState({keyboardShow: true})
 	}

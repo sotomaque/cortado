@@ -81,8 +81,7 @@ export default class Presentation extends React.Component {
     	console.log('registerIdentifiedUser done');
 
     	return Intercom.updateUser({
-    		email: User.email,
-    		name: User.full_name,
+    		email: User.email
     	});
     })
     .catch((err) => {
@@ -355,7 +354,7 @@ export default class Presentation extends React.Component {
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
           <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100'}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden'}}>{DataParser.getAddress()}</Text>
+          <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontWeight: 'bold', overflow: 'hidden'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, justifyContent: 'center'}}>
           <Icon name='chatbubbles' onPress={()=>this.toggleIntercom()}/>
@@ -365,7 +364,8 @@ export default class Presentation extends React.Component {
   }
 
   renderContent() {
-    return (<Content>
+    return (
+    <Content scrollEnabled={false}>
       <View style={styles.container}>
         <Separator boardered>
           <Text style={{color: 'grey'}}>Services (select all that apply)</Text>

@@ -28,7 +28,7 @@ export default class Login extends React.Component {
     this.onLoginFBPressed = this.onLoginFBPressed.bind(this);
     this.handleLoginFB = this.handleLoginFB.bind(this);
     this._keyboardDidShow = this._keyboardDidShow.bind(this)
-		this._keyboardDidHide = this._keyboardDidHide.bind(this)
+    this._keyboardDidHide = this._keyboardDidHide.bind(this)
     this.handleLoggedIn = this.handleLoggedIn.bind(this)
   }
 
@@ -49,22 +49,22 @@ export default class Login extends React.Component {
   }
 
   _keyboardDidShow () {
-		this.setState({keyboardShow: true})
-	}
+    this.setState({keyboardShow: true})
+  }
 
-	_keyboardDidHide () {
-		this.setState({keyboardShow: false})
-	}
+  _keyboardDidHide () {
+    this.setState({keyboardShow: false})
+  }
 
-	componentWillMount () {
-		this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-		this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-	}
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
 
-	componentWillUnmount () {
-		this.keyboardDidShowListener.remove();
-		this.keyboardDidHideListener.remove();
-	}
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
 
   handlePressSignUp() {
     Actions.register();
@@ -168,14 +168,9 @@ export default class Login extends React.Component {
     });
   }
 
-  render() {
+  renderForm() {
     return (
-      <View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
-      <Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='stretch' />
-      <View style={styles.container} ref='container'>
-        <Image source={Images.pressMarketing} style={styles.logoImage} resizeMode='contain' />
-
-          <Form>
+      <Form>
               <Item floatingLabel>
                   <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
                   <Input  
@@ -186,7 +181,7 @@ export default class Login extends React.Component {
                   autoCapitalize="none"
                   />
               </Item>
-              <Item floatingLabel last>
+              <Item floatingLabel>
                   <Label style={{fontFamily: 'OpenSans'}}>Password</Label>
                   <Input
                   value={this.state.password}
@@ -197,30 +192,33 @@ export default class Login extends React.Component {
                   />
               </Item>
           </Form>
-          <Button
-          text="LOGIN"
-          containerStyle={styles.button}
-          textStyle={styles.buttonText}
-          onPress={this.onLoginPressed}/>
-        <Text style={styles.seperator}>OR</Text>
-        <Button
-          text="LOGIN WITH FACEBOOK"
-          containerStyle={styles.facebookButton}
-          textStyle={styles.buttonText}
-          onPress={this.onLoginFBPressed}/>
-        <Text style={styles.errorText}>{this.state.error}</Text>
-        {!this.state.keyboardShow&&<View style={styles.bottomButtons}>
-          <Button
-            text="FORGOT PASSWORD"
-            containerStyle={styles.forgotPasswordButton}
-            textStyle={styles.forgotPasswordButtonText}
-            onPress={this.handlePressForgotPassword}/>
-          <Button
-            text="SIGN UP"
-            containerStyle={styles.signUpButton}
-            textStyle={styles.signUpButtonText}
-            onPress={this.handlePressSignUp}/>
-        </View>}
+    )
+  }
+
+
+
+  render() {
+    return (
+      <View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
+      <Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='stretch' />
+      <View style={styles.container} ref='container'>
+        <Image source={Images.pressMarketing} style={styles.logoImage} resizeMode='contain' />
+          {this.renderForm()}
+          
+          <Button text="LOGIN" containerStyle={styles.button} textStyle={styles.buttonText} onPress={this.onLoginPressed}/>
+          <Text style={styles.seperator}>OR</Text>
+          <Button text="LOGIN WITH FACEBOOK" containerStyle={styles.facebookButton} textStyle={styles.buttonText} onPress={this.onLoginFBPressed}/>
+
+          <Text style={styles.errorText}>{this.state.error}</Text>
+          {!this.state.keyboardShow&&<View style={styles.bottomButtons}>
+            <Button text="FORGOT PASSWORD" containerStyle={styles.forgotPasswordButton} textStyle={styles.forgotPasswordButtonText}
+              onPress={this.handlePressForgotPassword}/>
+            <Button
+              text="SIGN UP"
+              containerStyle={styles.signUpButton}
+              textStyle={styles.signUpButtonText}
+              onPress={this.handlePressSignUp}/>
+          </View>}
       </View>
       <Spinner visible={this.state.loading} />
     </View>
@@ -228,44 +226,3 @@ export default class Login extends React.Component {
     )
   }
 }
-
- // <TextInput
- //          onChangeText={(email) => this.setState({email})}
- //          value={this.state.email}
- //          style={styles.input}
- //          placeholder="Email"
- //          keyboardType="email-address"
- //          returnKeyType="next"
- //          autoCapitalize="none"/>
- //        <TextInput
- //          value={this.state.password}
- //          onChangeText={(password) => this.setState({password})}
- //          style={styles.input}
- //          placeholder="Password"
- //          secureTextEntry={true}
- //          returnKeyType="go"
- //          autoCapitalize="none"/>
- //        <Button
- //          text="LOGIN"
- //          containerStyle={styles.button}
- //          textStyle={styles.buttonText}
- //          onPress={this.onLoginPressed}/>
- //        <Text style={styles.seperator}>OR</Text>
- //        <Button
- //          text="LOGIN WITH FACEBOOK"
- //          containerStyle={styles.facebookButton}
- //          textStyle={styles.buttonText}
- //          onPress={this.onLoginFBPressed}/>
- //        <Text style={styles.errorText}>{this.state.error}</Text>
- //        {!this.state.keyboardShow&&<View style={styles.bottomButtons}>
- //          <Button
- //            text="FORGOT PASSWORD"
- //            containerStyle={styles.forgotPasswordButton}
- //            textStyle={styles.forgotPasswordButtonText}
- //            onPress={this.handlePressForgotPassword}/>
- //          <Button
- //            text="SIGN UP"
- //            containerStyle={styles.signUpButton}
- //            textStyle={styles.signUpButtonText}
- //            onPress={this.handlePressSignUp}/>
- //        </View>}

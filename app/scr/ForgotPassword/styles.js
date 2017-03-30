@@ -4,25 +4,25 @@ import { Metrics, Images, Colors } from '../../themes';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-		marginTop: 0,
-		backgroundColor: Colors.transparent
+	marginTop: 0,
+	backgroundColor: Colors.transparent
   },
   backgroundImage: {
     position: 'absolute',
-		top: 0,
-		left: 0,
-		bottom: 0,
-		right: 0
+	top: 0,
+	left: 0,
+	bottom: 0,
+	right: 0
   },
   container: {
     flex: 1,
-		paddingTop: Metrics.baseMargin,
-		padding: 20
+	paddingTop: Metrics.baseMargin,
+	padding: 20
   },
   heading: {
     alignSelf: 'center',
 	fontSize: 30,
-	fontFamily: 'OpenSans',
+	fontFamily: 'AvenirNext-UltraLight',
 	padding: 10,
 	marginTop: (Metrics.screenHeight / 10)
   },
@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
     height: 50,
 	marginTop: 10,
 	padding: 10,
-	fontSize: 18
+	fontSize: 18,
+	fontFamily: 'OpenSans'
   },
   button: {
-  	height: 50,
+	height: 50,
 	marginLeft: 5,
 	marginRight: 5,
 	marginTop: 30,
@@ -41,12 +42,12 @@ const styles = StyleSheet.create({
 	alignSelf: 'stretch',
 	justifyContent: 'center',
 	borderRadius: 3
- },
+ 	},
   buttonText: {
-  	fontFamily: 'OpenSans',
     fontSize: 16,
 	color: '#FFF',
-	alignSelf: 'center'
+	alignSelf: 'center',
+	fontFamily: 'OpenSans'
   },
   cancelButton: {
     height: 50,
@@ -55,10 +56,10 @@ const styles = StyleSheet.create({
 	justifyContent: 'center'
   },
   cancelButtonText: {
-  	fontFamily: 'OpenSans',
     fontSize: 22,
 	color: '#000',
-	alignSelf: 'center'
+	alignSelf: 'center',
+	fontFamily: 'OpenSans'
   }
 });
 

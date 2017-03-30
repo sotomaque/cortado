@@ -202,45 +202,14 @@ class OrderInProgress extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{marginTop: -3, backgroundColor: 'transparent',  fontFamily: 'OpenSans'}} note>Delivering to</Text>
-          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
+          <Text style={{marginTop: -3, backgroundColor: 'transparent'}} note>Delivering to</Text>
+          <Text style={{color: '#565656', fontSize: 17, marginTop: -4, backgroundColor: 'transparent'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button disabled={canNotCancel} containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end'}} onPress={()=>this.setState({modal: true})}>
-          <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14, fontFamily: 'OpenSans'}}>Cancel</Text>
+          <Text style={{color: canNotCancel?'#ccc':'#565656', fontSize: 14}}>Cancel</Text>
         </Button>
       </Header>
     );
-  }
-
-  renderMapView() {
-    return (
-      <Content scrollEnabled={false}>
-        <MapView
-          ref={ref => { this.map = ref; }}
-          style={styles.mapView}
-          region={this.getRegion()}>
-          <MapView.Marker
-            pinColor="#4b3486"
-            coordinate={{
-              latitude: this.state.latitude,
-              longitude: this.state.longitude,
-            }}
-            title={"My location"}
-            description={Address.street+", "+Address.zipcode}
-          />
-        </MapView>
-      </Content>
-    )
-  }
-
-  renderOrderStatus() {
-    return (
-      <ListView 
-        scrollEnabled={false}
-        style={styles.listView}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow}/>
-    )
   }
 
   renderFooter() {
@@ -326,7 +295,7 @@ class OrderInProgress extends React.Component {
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={{fontFamily: 'OpenSans', fontSize: 18}}>{rowData[0]}</Text>
+          <Text style={{fontSize: 18}}>{rowData[0]}</Text>
           {rowData[1]!=''&&<Text style={{marginTop: -1}} note>{rowData[1]}</Text>}
         </View>
       </View>
@@ -341,8 +310,25 @@ class OrderInProgress extends React.Component {
     let menu = <LeftMenu />
     let content = <Container style={{backgroundColor: '#fff'}}>
       {this.renderHeader()}
-      {this.renderMapView()}
-      {this.renderOrderStatus()}
+      <Content>
+        <MapView
+          ref={ref => { this.map = ref; }}
+          style={styles.mapView}
+          region={this.getRegion()}>
+          <MapView.Marker
+            pinColor="#4b3486"
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+            }}
+            title={"My location"}
+            description={Address.street+", "+Address.zipcode}
+          />
+        </MapView>
+        <ListView style={styles.listView}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow}/>
+      </Content>
       {this.renderFooter()}
       {this.renderModal()}
       <Spinner visible={this.state.loading} />
@@ -363,7 +349,7 @@ const styles = StyleSheet.create({
       flex: 1
     },
     mapView: {
-      height: (Metrics.screenHeight) / 2,
+      height: 200,
       width: (Metrics.screenWidth)
     },
     buttons: {
@@ -372,7 +358,7 @@ const styles = StyleSheet.create({
     },
     listView: {
       flex: 1,
-      paddingTop: 5,
+      paddingTop: 10,
       paddingLeft: 15
     },
     row: {

@@ -23,10 +23,10 @@ class FreePress extends Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Free Press</Text>
+	          <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Bold'}}>Free Press</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	        </Button>
@@ -38,7 +38,7 @@ class FreePress extends Component {
 		return (
 			<Container>
 				{this.renderHeader()}
-				<Content>
+				<Content  scrollEnabled={false}>
 					<View style={styles.main}>
 						<Text ref='heading' style={styles.textHeading}>Give $10, Get $10</Text>
 						<View style={styles.box}>
@@ -51,7 +51,7 @@ class FreePress extends Component {
 					disabled={User.promo_code==''}
 					containerStyle={{position: "absolute", height: 50, left: 10, bottom: 10, right: 10, backgroundColor: '#4b3486', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
 					text="SHARE"
-					textStyle={{color: '#fff', fontSize: 16, fontWeight: 'bold', fontFamily: 'OpenSans'}}
+					textStyle={{color: '#fff', fontSize: 16, fontFamily: 'OpenSans-SemiBold' }}
 					onPress={()=>this.showShareActionSheet()}
 				/>
 			</Container>
@@ -61,7 +61,7 @@ class FreePress extends Component {
 	showShareActionSheet = () => {
 		let shareOptions = {
       title: "Free Press",
-      message: `Use my Press code: ${User.promo_code} to get $10 off your next order delivered to your door. http://presscleaners.com/`,
+      message: `Usy my Press referral code: ${User.promo_code} off your first order.`,
       url: this.props.url,
       subject: "Free Press" //  for email
     };
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		fontSize: 30,
 		fontWeight: '200',
-		fontFamily: 'OpenSans',
+		fontFamily: 'OpenSans'
 	},
 	box: {
 		marginTop: 15,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
 		fontSize: 28,
-		fontFamily: 'OpenSans-SemiBold'
+		fontFamily: 'OpenSans-SemiBold', 
 	},
 	textSubtext: {
 		marginTop: 20,

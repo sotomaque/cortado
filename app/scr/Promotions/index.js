@@ -77,13 +77,13 @@ class Promotion extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Cancel</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Promotions</Text>
+	          <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Bold', }}>Promotions</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handleSubmit()}>
-	          <Text style={{fontFamily: 'OpenSans', color: this.state.code ?'#565656':'#ccc', fontSize: 14}}>Save</Text>
+	          <Text style={{color: this.state.code ?'#565656':'#ccc', fontSize: 14, fontFamily: 'OpenSans-SemiBold'}}>Save</Text>
 	        </Button>
 	      </Header>
 	    );
@@ -93,17 +93,22 @@ class Promotion extends React.Component {
 		return (
 			<Container>
 				{this.renderHeader()}
-				<Content style={{marginBottom: Metrics.navBarHeight}}>
+				<Content style={{marginBottom: Metrics.navBarHeight}}  scrollEnabled={false}>
+				
 					<Item underline>
 						<Input
 							style={{fontFamily: 'OpenSans', textAlign: 'center', fontWeight: '100', color: 'grey'}}
-							placeholder='Enter a promo code'
+							placeholder='Enter a promo code to apply discount'
 							value={this.state.code}
               				onChangeText={(val) => this.setState({code: val})}
               			/>
 					</Item>
+		
 					<View ref='text' style={styles.text}>
-						<Text style={{fontFamily: 'OpenSans', color: 'grey'}}>You currently have ${User.total_free_credits?User.total_free_credits:'0.00'} of credit</Text>
+						<Text style={{fontFamily: 'OpenSans', marginTop: 30, alignSelf: 'center'}} note>You Have:</Text>
+	          			<Text style={{fontFamily: 'OpenSans', marginTop: 2, alignSelf: 'center', fontSize: 35}}>${User.total_free_credits}</Text>
+	          			<Text style={{fontFamily: 'OpenSans', marginTop: 2, alignSelf: 'center'}} note>in Available Credit</Text>
+
 					</View>
 				</Content>
 				<Spinner visible={this.state.loading} />
@@ -118,7 +123,8 @@ const styles = StyleSheet.create({
 		padding: 10,
 		alignSelf: 'center',
 		justifyContent: 'center'
-	}
+	},
+
 });
 
 export default Promotion

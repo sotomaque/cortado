@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Keyboard }	from 'react-native';
+import { StyleSheet, TextInput, Text, View, Image, Keyboard }	from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Form, Item, Input, Label, Icon } from 'native-base';
+
 import { Button } from '../../components'
 import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper } from '../../libs';
@@ -75,17 +75,11 @@ export default class ForgotPassword extends React.Component {
         <Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='stretch' />
         <View style={styles.container} ref='container'>
           <Text style={styles.heading}>RESET PASSWORD</Text>
-          <Form>
-              <Item floatingLabel>
-                <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
-                  <Input  
-                    onChangeText={(val) => this.setState({email: val})}
-                    keyboardType="email-address"
-                    returnKeyType='go'
-                    autoCapitalize="none"
-                  />
-              </Item>
-            </Form>
+          <TextInput
+            onChangeText={(val) => this.setState({email: val})}
+            style={styles.input} placeholder='Email'
+            returnKeyType='go'
+            autoCapitalize='none' />
           <Button
             containerStyle={styles.button}
             textStyle={styles.buttonText}

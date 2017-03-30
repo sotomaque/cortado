@@ -168,13 +168,13 @@ export default class SetAddress extends React.Component {
             console.log(e);
           }
         }}>
-          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Cancel</Text>
+          <Text style={{ fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Address</Text>
+          <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Bold', }}>Address</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={this.handlePressSave}>
-          <Text style={{fontFamily: 'OpenSans', color: this.state.changed?'#565656':'#ccc', fontSize: 14}}>Save</Text>
+          <Text style={{color: this.state.changed?'#565656':'#ccc', fontSize: 14, fontFamily: 'OpenSans-SemiBold'}}>Save</Text>
         </Button>
       </Header>
     );
@@ -193,7 +193,7 @@ export default class SetAddress extends React.Component {
                   placeholder="Zipcode" 
                   onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
                   value={this.state.zipcode} 
-                  style={{fontFamily: 'OpenSans-SemiBold'}}
+                  style={{fontFamily: 'OpenSans-SemiBold', }}
                 /> 
             </Item>
             <Item>
@@ -201,7 +201,7 @@ export default class SetAddress extends React.Component {
                 placeholder="Notes (gate code, leave with the front desk, etc)" 
                 onChangeText={(value)=>{this.handleNodesChanged(value)}}
                 value={this.state.notes} 
-                style={{fontFamily: 'OpenSans', overflow: 'hidden'}}
+                style={{overflow: 'hidden'}}
                 
               />
             </Item>

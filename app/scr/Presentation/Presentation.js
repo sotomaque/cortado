@@ -353,7 +353,7 @@ export default class Presentation extends React.Component {
           <Icon style={{color: '#565656'}} name='menu' />
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={()=>Actions.setAddress()}>
-          <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100', fontFamily: 'OpenSans'}} note>Delivering to</Text>
+            <Text style={{marginTop: -3, backgroundColor: 'transparent', fontWeight: '100', fontFamily: 'OpenSans'}} note>Delivering to</Text>
           <Text style={{color: 'black', fontSize: 17, marginTop: -4, backgroundColor: 'transparent', overflow: 'hidden', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
         </Button>
         <Button containerStyle={{width: 40, justifyContent: 'center'}}>
@@ -368,7 +368,7 @@ export default class Presentation extends React.Component {
     <Content scrollEnabled={false}>
       <View style={styles.container}>
         <Separator boardered>
-          <Text style={{color: 'grey', fontFamily: 'OpenSans'}}>Services (select all that apply)</Text>
+          <Text style={{ fontFamily: 'OpenSans', color: 'grey'}}>Services (select all that apply)</Text>
         </Separator>
         <ListItem onPress={this.handleOnPressWash}>
           <CheckBox checked={this.state.wf} onPress={this.handleOnPressWash} style={{ borderColor: this.state.wf ? '#4B2D8F' : '#CCCCCC', backgroundColor: this.state.wf ? '#4B2D8F' : null }} />
@@ -385,7 +385,7 @@ export default class Presentation extends React.Component {
           </Body>
         </ListItem>
         <Separator bordered>
-          <Text style={{fontFamily: 'OpenSans', color: 'grey'}}>Schedule</Text>
+          <Text style={{ fontFamily: 'OpenSans', color: 'grey'}}>Schedule</Text>
         </Separator>
 
         <ListItem onPress={()=>{
@@ -394,8 +394,8 @@ export default class Presentation extends React.Component {
           });
         }}>
           <Body>
-              <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Pickup Time</Text>
-              <Text style={{fontFamily: 'OpenSans-SemiBold', marginLeft: 0}}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+              <Text style={{ fontFamily: 'OpenSans', marginLeft: 0}} note>Pickup Time</Text>
+              <Text style={{marginLeft: 0, fontFamily: 'OpenSans-SemiBold' }}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
           </Body>
         </ListItem>
         <ListItem onPress={()=>{
@@ -404,8 +404,8 @@ export default class Presentation extends React.Component {
           });
         }} last>
           <Body>
-              <Text style={{fontFamily: 'OpenSans', marginLeft: 0}} note>Dropoff Time</Text>
-              <Text style={{fontFamily: 'OpenSans-SemiBold', marginLeft: 0}}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+              <Text style={{ fontFamily: 'OpenSans', marginLeft: 0}} note>Dropoff Time</Text>
+              <Text style={{marginLeft: 0, fontFamily: 'OpenSans-SemiBold' }}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
           </Body>
         </ListItem>
         <Notes ref={(ref)=>this.special_instructions=ref} />
@@ -420,7 +420,7 @@ export default class Presentation extends React.Component {
           disabled={disabled}
           onPress={this.handleOnPress}
           containerStyle={disabled?styles.buttonNextInActive:styles.buttonNext}
-          textStyle={{fontFamily: 'OpenSans', color: '#fff', fontSize: 16}}
+          textStyle={{fontFamily: 'OpenSans-SemiBold', color: '#fff', fontSize: 16}}
           text={this.getButtonNextTitle()}/>
     </Footer>);
   }
@@ -436,11 +436,11 @@ export default class Presentation extends React.Component {
        })}
        style={{alignItems: 'center'}}>
        <View>
-          <Text style={{fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>{this.state.modal_title}</Text>
-          <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656', paddingBottom: 18}}>{this.state.modal_message}</Text>
+          <Text style={{fontFamily: 'OpenSans-SemiBold', fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>{this.state.modal_title}</Text>
+          <Text style={{fontFamily: 'OpenSans', alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656', paddingBottom: 18}}>{this.state.modal_message}</Text>
           {this.state.showButtonCall && <Button
             containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center'}}
-            textStyle={{color: '#ffffff'}}
+            textStyle={{fontFamily: 'OpenSans-SemiBold', color: '#ffffff'}}
             onPress={() => {
               call({
                 number: Configs.SupportNumber, // String value with the number to call

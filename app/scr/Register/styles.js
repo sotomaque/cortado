@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
 		width: (Metrics.screenWidth / 2) - 20 ,
 		marginTop: 10,
 		padding: 10,
-		fontSize: 18
+		fontSize: 18,
+		fontFamily: 'OpenSans'
 	},
 	inputRight: {
 		height: 50,
@@ -39,28 +40,31 @@ const styles = StyleSheet.create({
 		width: (Metrics.screenWidth / 2) - 20 ,
 		marginTop: 10,
 		padding: 10,
-		fontSize: 18
+		fontSize: 18,
+		fontFamily: 'OpenSans'
 	},
 	input: {
 		height: 50,
 		marginTop: 10,
 		padding: 10,
-		fontSize: 18
+		fontSize: 18,
+		fontFamily: 'OpenSans'
 	},
 	button: {
 	    height: 50,
 	    marginLeft: 5,
-			marginRight: 5,
-			marginTop: 30,
+		marginRight: 5,
+		marginTop: 30,
 	    backgroundColor: '#222',
 	    alignSelf: 'stretch',
 	    justifyContent: 'center',
-			borderRadius: 3
+		borderRadius: 3
  	},
 	buttonText: {
 		fontSize: 22,
 		color: '#FFF',
-		alignSelf: 'center'
+		alignSelf: 'center',
+		fontFamily: 'OpenSans'
 	},
 	cancelButton: {
 		height: 50,
@@ -75,7 +79,8 @@ const styles = StyleSheet.create({
 	cancelButtonText: {
 		fontSize: 22,
 		color: '#000',
-		alignSelf: 'center'
+		alignSelf: 'center',
+		fontFamily: 'OpenSans'
 	}
 });
 

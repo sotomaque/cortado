@@ -24,11 +24,11 @@ class Notes extends Component {
 		return (
 			<View>
 				<Separator bordered>
-        	<Text style={{fontFamily: 'OpenSans', color: 'grey'}}>Special Instructions (optional)</Text>
+        	<Text style={{color: 'grey'}}>Special Instructions (optional)</Text>
         </Separator>
         <Item underline>
           <Input
-			style={{fontFamily: 'OpenSans', fontSize: 15}}
+			style={{fontSize: 15}}
 			placeholder={'Any garments we should pay special attention to?'}
 			value={this.state.special_instructions}
 			onChangeText={(val) => this.setState({special_instructions: val})}

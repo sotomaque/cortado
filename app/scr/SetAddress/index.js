@@ -218,6 +218,7 @@ export default class SetAddress extends React.Component {
         region={this.getRegion()}>
         <MapView.Marker
           pinColor="#4b3486"
+          image={require('../../images/pin.png')}
           coordinate={{
             latitude: this.state.latitude,
             longitude: this.state.longitude,

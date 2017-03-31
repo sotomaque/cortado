@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   heading: {
     alignSelf: 'center',
 	fontSize: 30,
-	fontFamily: 'AvenirNext-UltraLight',
+	fontFamily: 'OpenSans',
 	padding: 10,
 	marginTop: (Metrics.screenHeight / 10)
   },

@@ -19,6 +19,10 @@ class Button extends React.Component {
 Button.propTypes = {
   onPress: React.PropTypes.func,
   text: React.PropTypes.string,
+  textStyle: React.PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.number
+  ])
 }
 
 Button.defaultProps = {

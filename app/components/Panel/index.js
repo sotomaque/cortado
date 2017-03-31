@@ -11,7 +11,8 @@ class Panel extends React.Component {
         padding: 20,
         backgroundColor: '#FFFFFF',
         borderWidth: 0.5,
-        borderColor: '#E0E0E0'
+        borderColor: '#E0E0E0',
+        margin: 3
       }}>
       {this.props.children}
     </View>

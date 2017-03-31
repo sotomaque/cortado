@@ -69,7 +69,7 @@ export default class PhoneNumberVerification extends Component {
             textStyle={styles.buttonText}
             onPress={()=>this.onContinuePressed()}
             text="Send Verification PIN" />
-					<Text note style={{fontFamily:'OpenSans-Regular', margin: 30, marginTop: 10, textAlign: 'left'}}>{`*Your number is needed for contact during pickups and dropoffs.`}</Text>
+					<Text note style={{fontFamily:'OpenSans', margin: 30, marginTop: 10, textAlign: 'left'}}>{`*Your number is needed for contact during pickups and dropoffs.`}</Text>
 				</Content>
 				<Spinner visible={this.state.loading} />
 			</Container>

@@ -235,7 +235,7 @@ export default class SetAddress extends React.Component {
     return (
       <Form>
         <Item  style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans-Regular'}}>Street, Apt #</Label>
+            <Label style={{fontFamily: 'OpenSans'}}>Street, Apt #</Label>
             <Input 
               value={this.state.street}
               onChangeText={(value)=>{this.handleStreetChanged(value)}}
@@ -244,7 +244,7 @@ export default class SetAddress extends React.Component {
               />
         </Item>
         <Item  style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans-Regular'}}>Zipcode</Label>
+            <Label style={{fontFamily: 'OpenSans'}}>Zipcode</Label>
             <Input
               value={this.state.password}
               onChangeText={(value)=>{this.handleZipcodeChanged(value)}}

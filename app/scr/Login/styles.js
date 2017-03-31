@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   facebookButton: {
     height: 43,
-    backgroundColor: '#3B51A1',
+    backgroundColor: '#3B5998',
     alignSelf: 'stretch',
     justifyContent: 'center',
     borderRadius: 4,

@@ -76,14 +76,14 @@ export default class Login extends React.Component {
 
   handleLoginFB() {
     this.setState({loading: true});
-    HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data)=>{
-      this.setState({loading: false});
-      if(!error) {
+    HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data) => {
+      if (!error) {
         SessionManager.setToken(HttpClientHelper.genBasicAuth(User.email, data.token));
         this.handleLoggedIn();
       } else {
+        this.setState({loading: false});
         //show error
-        Functions.showAlert('', error.error?error.error:"An unknown error has occurred. Please try again later");
+        Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later.");
       }
     })
   }
@@ -120,6 +120,7 @@ export default class Login extends React.Component {
   }
 
   onLoginFBPressed() {
+    this.setState({error: ''});
     FBLoginManager.loginWithPermissions(["email", "user_friends"], (error, data) => {
       console.log('yo2');
       if (!error) {
@@ -170,13 +171,17 @@ export default class Login extends React.Component {
             // Actions.presentation({type: ActionConst.REPLACE});
             this.handleLoggedIn();
           } else {
-            this._handleLoginFailure()
+            this._handleLoginFailure();
           }
         } else {
-          this._handleLoginFailure()
+          if (error.error) {
+            this._handleLoginFailure(error.error);
+          } else {
+            this._handleLoginFailure();
+          }
         }
       } catch (e) {
-        this._handleLoginFailure()
+        this._handleLoginFailure();
       }
     });
   }
@@ -192,6 +197,7 @@ export default class Login extends React.Component {
               keyboardType="email-address"
               returnKeyType="next"
               autoCapitalize="none"
+              style={{fontFamily: 'OpenSans-Regular'}}
             />
         </Item>
         <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
@@ -201,7 +207,8 @@ export default class Login extends React.Component {
               onChangeText={(password) => this.setState({password})}
               secureTextEntry={true}
               returnKeyType="go"
-              autoCapitalize="none" 
+              autoCapitalize="none"
+              style={{fontFamily: 'OpenSans-Regular'}}
             />
         </Item>
     </Form>

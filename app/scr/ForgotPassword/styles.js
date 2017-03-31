@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
 	marginTop: 0,
-	backgroundColor: Colors.transparent
+	backgroundColor: '#F2F3F6'
   },
   backgroundImage: {
     position: 'absolute',
@@ -20,46 +20,52 @@ const styles = StyleSheet.create({
 	padding: 20
   },
   heading: {
-    alignSelf: 'center',
-	fontSize: 30,
-	fontFamily: 'OpenSans',
+	fontSize: 24,
+    textAlign: 'center',
+	fontFamily: 'OpenSans-Semibold',
 	padding: 10,
-	marginTop: (Metrics.screenHeight / 10)
+	marginTop: 20,
+    color: '#333'
+  },
+  subHeading: {
+    fontSize: 14,
+    textAlign: 'center',
+    width: 300,
+    alignSelf: 'center',
+    fontFamily: 'OpenSans-Regular',
+    padding: 10,
+    marginTop: -10,
+    marginBottom: 15,
+    color: '#999a9a'
   },
   input: {
-    height: 50,
-	marginTop: 10,
-	padding: 10,
-	fontSize: 18,
-	fontFamily: 'OpenSans'
+
   },
   button: {
-	height: 50,
-	marginLeft: 5,
-	marginRight: 5,
+	height: 43,
 	marginTop: 30,
-	backgroundColor: '#222',
+	backgroundColor: '#4B2D8F',
 	alignSelf: 'stretch',
 	justifyContent: 'center',
-	borderRadius: 3
- 	},
+	borderRadius: 4
+  },
   buttonText: {
     fontSize: 16,
 	color: '#FFF',
 	alignSelf: 'center',
-	fontFamily: 'OpenSans'
+	fontFamily: 'OpenSans-Bold'
   },
   cancelButton: {
-    height: 50,
+    height: 60,
 	alignSelf: 'stretch',
 	marginTop: 10,
 	justifyContent: 'center'
   },
   cancelButtonText: {
-    fontSize: 22,
-	color: '#000',
+    fontSize: 15,
+	color: '#555555',
 	alignSelf: 'center',
-	fontFamily: 'OpenSans'
+	fontFamily: 'OpenSans-Semibold'
   }
 });
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { StyleSheet, TextInput, Text, View, Image, Keyboard }	from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import { Item, Input, Label, Form } from 'native-base';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import { Button } from '../../components'
+import { Button, Panel } from '../../components'
 import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper } from '../../libs';
 import styles from './styles'
@@ -17,6 +19,7 @@ export default class ForgotPassword extends React.Component {
     this.state = {
       email: '',
       errors: [],
+      loading: false,
       keyboardShow: false
     }
     this._keyboardDidShow = this._keyboardDidShow.bind(this)
@@ -42,11 +45,13 @@ export default class ForgotPassword extends React.Component {
       return;
     }
 
-    HttpClientHelper.get('forgot_password', {email: this.state.email}, (error, data)=>{
-      if(!error) {
+    this.setState({loading: true});
+    HttpClientHelper.get('forgot_password', {email: this.state.email}, (error, data) => {
+      this.setState({loading: true});
+      if (!error) {
         Actions.pop();
       } else {
-        Functions.showAlert('', `User with email ${this.state.email} does not exist.`)
+        Functions.showAlert('', `User with email ${this.state.email} does not exist.`);
       }
     })
   }
@@ -72,25 +77,36 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='stretch' />
         <View style={styles.container} ref='container'>
-          <Text style={styles.heading}>RESET PASSWORD</Text>
-          <TextInput
-            onChangeText={(val) => this.setState({email: val})}
-            style={styles.input} placeholder='Email'
-            returnKeyType='go'
-            autoCapitalize='none' />
-          <Button
-            containerStyle={styles.button}
-            textStyle={styles.buttonText}
-            text="SEND PASSWORD RESET EMAIL"
-            onPress={()=>this.handlePressForgotPassword()} />
+          <Text style={styles.heading}>Reset Your Password</Text>
+          <Text style={styles.subHeading}>You'll receive an email with a link to reset your password.</Text>
+          <Panel>
+            <Form>
+              <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
+                <Label style={{fontFamily: 'OpenSans-Regular'}}>Email</Label>
+                <Input
+                  onChangeText={(val) => this.setState({email: val})}
+                  value={this.state.email}
+                  keyboardType="email-address"
+                  returnKeyType="go"
+                  autoCapitalize="none"
+                  style={{fontFamily: 'OpenSans-Regular'}}
+                />
+              </Item>
+            </Form>
+            <Button
+              containerStyle={styles.button}
+              textStyle={styles.buttonText}
+              text="Send Password Reset Link"
+              onPress={()=>this.handlePressForgotPassword()} />
+          </Panel>
         </View>
         {!this.state.keyboardShow&&<Button
           containerStyle={styles.cancelButton}
           textStyle={styles.cancelButtonText}
-          text="Cancel"
+          text="Go Back"
           onPress={()=>this.handlePressCancel()} />}
+        <Spinner visible={this.state.loading} />
       </View>
     )
   }

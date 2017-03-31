@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 300,
     alignSelf: 'center',
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans',
     padding: 10,
     marginTop: -15,
     marginBottom: 15,

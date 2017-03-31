@@ -82,14 +82,14 @@ export default class ForgotPassword extends React.Component {
           <Panel>
             <Form>
               <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-                <Label style={{fontFamily: 'OpenSans-Regular'}}>Email</Label>
+                <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
                 <Input
                   onChangeText={(val) => this.setState({email: val})}
                   value={this.state.email}
                   keyboardType="email-address"
                   returnKeyType="go"
                   autoCapitalize="none"
-                  style={{fontFamily: 'OpenSans-Regular'}}
+                  style={{fontFamily: 'OpenSans'}}
                 />
               </Item>
             </Form>

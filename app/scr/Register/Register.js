@@ -107,38 +107,38 @@ export default class Register extends React.Component {
 						<Form>
 							<View style={{flex: 1, flexDirection: 'row'}}>
 				              	<Item floatingLabel style={StyleSheet.flatten([styles.input, styles.inputLeft])}>
-					                <Label style={{fontFamily: 'OpenSans-Regular'}}>First Name</Label>
+					                <Label style={{fontFamily: 'OpenSans'}}>First Name</Label>
 					                <Input
 										onChangeText={(val) => this.setState({first_name: val})}
 										returnKeyType="next"
-										style={{fontFamily: 'OpenSans-Regular'}}
+										style={{fontFamily: 'OpenSans'}}
 					                />
 				              	</Item>
 				              	<Item floatingLabel style={StyleSheet.flatten([styles.input, styles.inputRight])}>
-					                <Label style={{fontFamily: 'OpenSans-Regular'}}>Last Name</Label>
+					                <Label style={{fontFamily: 'OpenSans'}}>Last Name</Label>
 					                <Input
 										onChangeText={(val) => this.setState({last_name: val})}
 										returnKeyType="next"
-										style={{fontFamily: 'OpenSans-Regular'}}
+										style={{fontFamily: 'OpenSans'}}
 					                />
 				              	</Item>
 				            </View>
 			              	<Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-				                <Label style={{fontFamily: 'OpenSans-Regular'}}>Email</Label>
+				                <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
 				                <Input
 									onChangeText={(val) => this.setState({email: val})}
 									returnKeyType="next"
-									style={{fontFamily: 'OpenSans-Regular'}}
+									style={{fontFamily: 'OpenSans'}}
 									autoCapitalize="none"
 									keyboardType="email-address"
 				                />
 			              	</Item>
 			              	<Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-				                <Label style={{fontFamily: 'OpenSans-Regular'}}>Password</Label>
+				                <Label style={{fontFamily: 'OpenSans'}}>Password</Label>
 				                <Input
 									onChangeText={(val) => this.setState({password: val})}
 									returnKeyType="go"
-									style={{fontFamily: 'OpenSans-Regular'}}
+									style={{fontFamily: 'OpenSans'}}
 									autoCapitalize="none"
 									secureTextEntry={true}
 				                />

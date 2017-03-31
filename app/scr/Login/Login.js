@@ -155,6 +155,15 @@ export default class Login extends React.Component {
   }
 
   onLoginPressed() {
+    let data = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    // verify data is correctly formatted
+    if(!Functions.validateForm('Email', data.email) || !Functions.validateForm('Password', data.password)) {
+      return;
+    }
     const {email, password} = this.state;
     this.setState({loading: true, error: ''});
     HttpClientHelper.login({email, password}, (error, data) => {
@@ -190,25 +199,25 @@ export default class Login extends React.Component {
     return (
       <Form>
         <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans-Regular'}}>Email</Label>
+            <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
             <Input
               onChangeText={(email) => this.setState({email})}
               value={this.state.email}
               keyboardType="email-address"
               returnKeyType="next"
               autoCapitalize="none"
-              style={{fontFamily: 'OpenSans-Regular'}}
+              style={{fontFamily: 'OpenSans'}}
             />
         </Item>
         <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans-Regular'}}>Password</Label>
+            <Label style={{fontFamily: 'OpenSans'}}>Password</Label>
             <Input
               value={this.state.password}
               onChangeText={(password) => this.setState({password})}
               secureTextEntry={true}
               returnKeyType="go"
               autoCapitalize="none"
-              style={{fontFamily: 'OpenSans-Regular'}}
+              style={{fontFamily: 'OpenSans'}}
             />
         </Item>
     </Form>

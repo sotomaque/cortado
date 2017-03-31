@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   heading: {
     alignSelf: 'center',
     fontSize: 30,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans',
     padding: 10,
     marginTop: (Metrics.screenHeight / 10)
   },
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   forgotPasswordButtonText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans',
     fontSize: 15,
     color: '#999',
     marginLeft: 10,

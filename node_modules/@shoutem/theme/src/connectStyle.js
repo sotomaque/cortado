@@ -143,25 +143,31 @@ export default (componentStyleName, componentStyle = {}, mapPropsToStyleNames, o
         // console.log(context.parentPath);
         const styleNames = this.getStyleNames(props);
         const style = props.style;
-        let resolvedStyle = {};
-        if(context.parentPath) {
-          resolvedStyle = this.getOrSetStylesInCache(context, props, styleNames, [...context.parentPath, componentStyleName, ...this.getStyleNames(props)]);
-        } else {
-          resolvedStyle = this.resolveStyle(context, props, styleNames);
-        }
-
-         const finalStyle = _.merge({}, resolvedStyle, style);
+        
+        const finalStyle = this.getFinalStyle(props, context, style, styleNames);
 
         this.setWrappedInstance = this.setWrappedInstance.bind(this);
         this.resolveConnectedComponentStyle = this.resolveConnectedComponentStyle.bind(this);
         this.state = {
-          style: getConcreteStyle(finalStyle),
+          style: finalStyle,
           // AddedProps are additional WrappedComponent props
           // Usually they are set trough alternative ways,
           // such as theme style, or trough options
           addedProps: this.resolveAddedProps(),
           styleNames,
         };
+      }
+
+      getFinalStyle(props, context, style, styleNames) {
+        let resolvedStyle = {};
+        if(context.parentPath) {
+          resolvedStyle = this.getOrSetStylesInCache(context, props, styleNames, [...context.parentPath, componentStyleName, ...styleNames]);
+        } else {
+          resolvedStyle = this.resolveStyle(context, props, styleNames);
+          themeCache[componentStyleName] = resolvedStyle;
+        }
+
+        return getConcreteStyle(_.merge({}, resolvedStyle, style));
       }
 
       getStyleNames(props) {
@@ -180,7 +186,6 @@ export default (componentStyleName, componentStyle = {}, mapPropsToStyleNames, o
       }
 
       getParentPath() {
-
         if(!this.context.parentPath) {
           return [componentStyleName];
         } else {
@@ -201,18 +206,12 @@ export default (componentStyleName, componentStyle = {}, mapPropsToStyleNames, o
       componentWillReceiveProps(nextProps, nextContext) {
         const styleNames = this.getStyleNames(nextProps);
         const style = nextProps.style;
-        let resolvedStyle = {};
         if (this.shouldRebuildStyle(nextProps, nextContext, styleNames)) {
-          if(nextContext.parentPath) {
-            resolvedStyle = this.getOrSetStylesInCache(nextContext, nextProps, styleNames, [...nextContext.parentPath, componentStyleName, ...this.getStyleNames(nextProps)]);
-          } else {
-            resolvedStyle = this.resolveStyle(nextContext, nextProps, styleNames);
-          }
 
-          const finalStyle = _.merge({}, resolvedStyle, style);
+          const finalStyle = this.getFinalStyle(nextProps, nextContext, style, styleNames);
 
           this.setState({
-            style: getConcreteStyle(finalStyle),
+            style: finalStyle,
             // childrenStyle: resolvedStyle.childrenStyle,
             styleNames,
           });
@@ -321,6 +320,11 @@ export default (componentStyleName, componentStyle = {}, mapPropsToStyleNames, o
 
       render() {
         // console.log('themeCache', themeCache);
+
+        // if(componentStyleName == 'NativeBase.Text') {
+        //   console.log(this.state.style);
+        //   console.log(themeCache);
+        // }
         
         const { addedProps, style } = this.state;
         return (

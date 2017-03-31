@@ -1,16 +1,17 @@
 import React from 'react';
-import { TextInput, Text, View, Image, Keyboard }	from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { Container, Content } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Metrics, Images, Colors } from '../../themes';
-import * as DataParser from '../../utils/DataParser';
-import { Button } from '../../components';
-import styles from './styles';
-import { HttpClientHelper } from '../../libs'
-import * as Functions from '../../utils/Functions';
+import { Actions } from 'react-native-router-flux';
+import { TextInput, Text, View, Image, Keyboard, StyleSheet } from 'react-native';
+import { Container, Content, Item, Input, Label, Form } from 'native-base';
 import * as EmailValidator from 'email-validator';
-import { NavigationBar } from '../../components';
+
+import * as DataParser from '../../utils/DataParser';
+import * as Functions from '../../utils/Functions';
+import { Metrics, Images, Colors } from '../../themes';
+import { Button } from '../../components';
+import { HttpClientHelper } from '../../libs'
+import { NavigationBar, Panel } from '../../components';
+import styles from './styles';
 
 export default class Register extends React.Component {
 
@@ -24,9 +25,9 @@ export default class Register extends React.Component {
 			errors: [],
 			loading: false,
 			keyboardShow: false,
-		}
-		this._keyboardDidShow = this._keyboardDidShow.bind(this)
-		this._keyboardDidHide = this._keyboardDidHide.bind(this)
+		};
+		this._keyboardDidShow = this._keyboardDidShow.bind(this);
+		this._keyboardDidHide = this._keyboardDidHide.bind(this);
 	}
 
 	handlePressRegister = async () => {
@@ -39,29 +40,30 @@ export default class Register extends React.Component {
 		};
 
 		// verify data is correctly formatted
-		if(!Functions.validateForm('First name', data.first_name)
+		if (!Functions.validateForm('First name', data.first_name)
 		|| !Functions.validateForm('Last name', data.last_name)
 		|| !Functions.validateForm('Email', data.email)
 		|| !Functions.validateForm('Password', data.password)) {
 			return;
 		}
 
-		if(data.email.indexOf("@")<0) {
-      Functions.showAlert('', 'An email address must contain a single @');
-      return;
+		if (data.email.indexOf("@") < 0) {
+     		Functions.showAlert('', 'An email address must contain a single @');
+     	return;
     }
 
     let isEmailValid = await EmailValidator.validate(data.email);
-    if(!isEmailValid) {
-      Functions.showAlert('', 'Please enter a valid email');
-      return;
+    if (!isEmailValid) {
+		Functions.showAlert('', 'Please enter a valid email');
+		return;
     }
 		DataParser.updateUserInfo(data);
 		this.setState({loading: true});
-		HttpClientHelper.get('validate', {email: data.email}, (error, _data)=>{
+		HttpClientHelper.get('validate', {email: data.email}, (error, _data) => {
 			this.setState({loading: false})
-			if(!error) {
-				if(_data.is_registered) {
+			// TODO: use api error message for errors
+			if (!error) {
+				if (_data.is_registered) {
 					Functions.showAlert('', 'Email already registered');
 				} else {
 					Actions.phoneNumberVerification();
@@ -97,45 +99,69 @@ export default class Register extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.mainContainer} keyboardShouldPersistTaps='always'>
-				<Image source={Images.loginBackground} style={styles.backgroundImage} resizeMode='contain' />
-				<Content style={{padding: 20, backgroundColor:'transparent'}} ref='container' keyboardShouldPersistTaps='always'>
-					<Text style={styles.heading}>SIGN UP</Text>
-					<View style={{flex: 1, flexDirection: 'row'}}>
-						<TextInput
-							onChangeText={(val) => this.setState({first_name: val})}
-							style={styles.inputLeft} placeholder="First Name"
-							returnKeyType="next"/>
-						<TextInput
-							onChangeText={(val) => this.setState({last_name: val})}
-							style={styles.inputRight} placeholder="Last Name"
-							returnKeyType="next"/>
-					</View>
-					<TextInput
-						onChangeText={(val) => this.setState({email: val})}
-						style={styles.input} placeholder="Email"
-						keyboardType="email-address"
-						returnKeyType="next"
-						autoCapitalize="none"/>
-					<TextInput
-						onChangeText={(val) => this.setState({password: val})}
-						style={styles.input} placeholder="Password"
-						secureTextEntry={true}
-						returnKeyType="go"
-						autoCapitalize="none"/>
-          <Button
-            containerStyle={styles.button}
-            textStyle={styles.buttonText}
-            onPress={()=>this.handlePressRegister()}
-            text="REGISTER"/>
-						<View style={{height: 40, backgroundColor: 'transparent'}}/>
+			<View style={styles.mainContainer}>
+				<Content style={{padding: 20, backgroundColor:'transparent'}} ref='container'>
+					<Text style={styles.heading}>Create an Account</Text>
+					<Text style={styles.subHeading}>We just need a few details to get started.</Text>
+					<Panel>
+						<Form>
+							<View style={{flex: 1, flexDirection: 'row'}}>
+				              	<Item floatingLabel style={StyleSheet.flatten([styles.input, styles.inputLeft])}>
+					                <Label style={{fontFamily: 'OpenSans-Regular'}}>First Name</Label>
+					                <Input
+										onChangeText={(val) => this.setState({first_name: val})}
+										returnKeyType="next"
+										style={{fontFamily: 'OpenSans-Regular'}}
+					                />
+				              	</Item>
+				              	<Item floatingLabel style={StyleSheet.flatten([styles.input, styles.inputRight])}>
+					                <Label style={{fontFamily: 'OpenSans-Regular'}}>Last Name</Label>
+					                <Input
+										onChangeText={(val) => this.setState({last_name: val})}
+										returnKeyType="next"
+										style={{fontFamily: 'OpenSans-Regular'}}
+					                />
+				              	</Item>
+				            </View>
+			              	<Item floatingLabel style={StyleSheet.flatten(styles.input)}>
+				                <Label style={{fontFamily: 'OpenSans-Regular'}}>Email</Label>
+				                <Input
+									onChangeText={(val) => this.setState({email: val})}
+									returnKeyType="next"
+									style={{fontFamily: 'OpenSans-Regular'}}
+									autoCapitalize="none"
+									keyboardType="email-address"
+				                />
+			              	</Item>
+			              	<Item floatingLabel style={StyleSheet.flatten(styles.input)}>
+				                <Label style={{fontFamily: 'OpenSans-Regular'}}>Password</Label>
+				                <Input
+									onChangeText={(val) => this.setState({password: val})}
+									returnKeyType="go"
+									style={{fontFamily: 'OpenSans-Regular'}}
+									autoCapitalize="none"
+									secureTextEntry={true}
+				                />
+			              	</Item>
+			            </Form>
+			            <Button
+							containerStyle={styles.button}
+							textStyle={styles.buttonText}
+							onPress={()=>this.handlePressRegister()}
+							text="Submit"
+						/>
+					</Panel>
+          			
+					<View style={{height: 40, backgroundColor: 'transparent'}} />
 				</Content>
-				{!this.state.keyboardShow&&<Button
-          containerStyle={styles.cancelButton}
-          textStyle={styles.cancelButtonText}
-          onPress={()=>this.handlePressCancel()}
-          text="Cancel"/>}
+				{!this.state.keyboardShow && <Button
+					containerStyle={styles.cancelButton}
+					textStyle={styles.cancelButtonText}
+					onPress={()=>this.handlePressCancel()}
+					text="Go Back"
+				/>}
 				<Spinner visible={this.state.loading} />
-			</View>);
+			</View>
+		);
 	}
 }

@@ -1,16 +1,15 @@
 import React from 'react';
 import { StyleSheet, TextInput, Text, View, Image, Keyboard }	from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import { Item, Input, Label, Form } from 'native-base';
+import { Item, Input, Label, Form, Content } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import { Button, Panel } from '../../components'
+import { Button, Panel, NavigationBar } from '../../components'
 import { Metrics, Images, Colors } from '../../themes';
 import { HttpClientHelper } from '../../libs';
 import styles from './styles'
 import * as Functions from '../../utils/Functions';
 import * as EmailValidator from 'email-validator';
-import { NavigationBar } from '../../components';
 
 export default class ForgotPassword extends React.Component {
 
@@ -77,7 +76,7 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <View style={styles.container} ref='container'>
+        <Content style={{padding: 20, backgroundColor:'transparent'}} ref='container'>
           <Text style={styles.heading}>Reset Your Password</Text>
           <Text style={styles.subHeading}>You'll receive an email with a link to reset your password.</Text>
           <Panel>
@@ -100,7 +99,7 @@ export default class ForgotPassword extends React.Component {
               text="Send Password Reset Link"
               onPress={()=>this.handlePressForgotPassword()} />
           </Panel>
-        </View>
+        </Content>
         {!this.state.keyboardShow&&<Button
           containerStyle={styles.cancelButton}
           textStyle={styles.cancelButtonText}

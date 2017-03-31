@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	mainContainer: {
 		flex: 1,
 		marginTop: 0,
-		backgroundColor: Colors.transparent,
+		backgroundColor: '#f2f3f6',
 	},
 	backgroundImage: {
 		position: 'absolute',
@@ -20,51 +20,49 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 	heading: {
-		alignSelf: 'center',
-		fontSize: 30,
-		fontFamily: 'OpenSans',
+		fontSize: 24,
+	    textAlign: 'center',
+		fontFamily: 'OpenSans-Semibold',
 		padding: 10,
-		marginTop: (Metrics.screenHeight / 10)
+		marginTop: 20,
+	    color: '#333'
+	},
+	subHeading: {
+		fontSize: 14,
+		textAlign: 'center',
+		width: 300,
+		alignSelf: 'center',
+		fontFamily: 'OpenSans-Regular',
+		padding: 10,
+		marginTop: -15,
+		marginBottom: 15,
+		color: '#999a9a'
 	},
 	inputLeft: {
-		height: 50,
-		width: (Metrics.screenWidth / 2) - 20 ,
-		marginTop: 10,
-		padding: 10,
-		fontSize: 18,
-		fontFamily: 'OpenSans'
+		width: '47%',
 	},
 	inputRight: {
-		height: 50,
-		alignSelf: 'flex-end',
-		width: (Metrics.screenWidth / 2) - 20 ,
-		marginTop: 10,
-		padding: 10,
-		fontSize: 18,
-		fontFamily: 'OpenSans'
+		width: '47%',
+		marginLeft: '6%'
 	},
 	input: {
-		height: 50,
-		marginTop: 10,
-		padding: 10,
-		fontSize: 18,
-		fontFamily: 'OpenSans'
+		marginLeft: 0,
+		marginTop: 0,
+		marginBottom: 10,
 	},
 	button: {
-	    height: 50,
-	    marginLeft: 5,
-		marginRight: 5,
-		marginTop: 30,
-	    backgroundColor: '#222',
-	    alignSelf: 'stretch',
-	    justifyContent: 'center',
-		borderRadius: 3
+		height: 43,
+	  	marginTop: 10,
+	  	backgroundColor: '#4B2D8F',
+	  	alignSelf: 'stretch',
+	  	justifyContent: 'center',
+	  	borderRadius: 4
  	},
 	buttonText: {
-		fontSize: 22,
-		color: '#FFF',
-		alignSelf: 'center',
-		fontFamily: 'OpenSans'
+		fontSize: 16,
+	  	color: '#FFF',
+	  	alignSelf: 'center',
+	  	fontFamily: 'OpenSans-Bold'
 	},
 	cancelButton: {
 		height: 50,
@@ -77,10 +75,10 @@ const styles = StyleSheet.create({
 		bottom: 5,
 	},
 	cancelButtonText: {
-		fontSize: 22,
-		color: '#000',
+		fontSize: 15,
+		color: '#555555',
 		alignSelf: 'center',
-		fontFamily: 'OpenSans'
+		fontFamily: 'OpenSans-Semibold'
 	}
 });
 

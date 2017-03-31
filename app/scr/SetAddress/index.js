@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Container, Content, ListItem, Left, Body, Right, Text, Header, Form, Item, Input } from 'native-base';
+import { TextInput, Text, View, Image, Keyboard, StyleSheet } from 'react-native';
+import { Container, Content, ListItem, Left, Body, Right, Header, Form, Item, Input, Label, Icon} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import MapView, { Marker } from 'react-native-maps'
 import { Metrics } from '../../themes';
-import { Button } from '../../components';
+import { Touchable, Button, Panel } from '../../components';
 import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 import * as Functions from '../../utils/Functions';
@@ -231,12 +231,50 @@ export default class SetAddress extends React.Component {
     );
   }
 
+  renderForm() {
+    return (
+      <Form>
+        <Item  style={StyleSheet.flatten(styles.input)}>
+            <Label style={{fontFamily: 'OpenSans-Regular'}}>Street, Apt #</Label>
+            <Input 
+              value={this.state.street}
+              onChangeText={(value)=>{this.handleStreetChanged(value)}}
+              style={{fontFamily: 'OpenSans-SemiBold'}}
+              returnKeyType="next"
+              />
+        </Item>
+        <Item  style={StyleSheet.flatten(styles.input)}>
+            <Label style={{fontFamily: 'OpenSans-Regular'}}>Zipcode</Label>
+            <Input
+              value={this.state.password}
+              onChangeText={(value)=>{this.handleZipcodeChanged(value)}}
+              value={this.state.zipcode}
+              style={{fontFamily: 'OpenSans-SemiBold' }}
+              returnKeyType="next"
+            />
+        </Item>
+        <Item>
+              <Input 
+                placeholder="Notes (gate code, leave with the front desk, etc)" 
+                onChangeText={(value)=>{this.handleNodesChanged(value)}}
+                value={this.state.notes} 
+                style={{overflow: 'hidden'}}
+                
+              />
+            </Item>
+    </Form>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
         {this.renderMap()}
         {this.renderHeader()}
-        {this.renderContent()}
+        <Panel>
+          {this.renderForm()}
+        </Panel>
+        
         <Spinner visible={this.state.loading} />
       </View>
     )

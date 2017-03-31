@@ -90,14 +90,14 @@ class OrderInProgress extends React.Component {
   async registerIntercom() {
     Intercom.registerIdentifiedUser({ userId: ""+User.user_id })
     .then(() => {
-    	console.log('registerIdentifiedUser done');
+      console.log('registerIdentifiedUser done');
 
-    	return Intercom.updateUser({
-    		email: User.email
-    	});
+      return Intercom.updateUser({
+        email: User.email
+      });
     })
     .catch((err) => {
-    	console.log('registerIdentifiedUser ERROR', err);
+      console.log('registerIdentifiedUser ERROR', err);
     });
   }
 
@@ -302,21 +302,28 @@ class OrderInProgress extends React.Component {
     );
   }
 
-  toggleMenu() {
-    this._drawer.toggle()
+  renderRows() {
+    console.log("Metrics.screenHeight:")
+    console.log(Metrics.screenHeight)
+    return (
+      <ListView 
+        style={styles.listView}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow}
+        scrollEnabled={false}
+          />
+    )
   }
 
-  render () {
-    let menu = <LeftMenu />
-    let content = <Container style={{backgroundColor: '#fff'}}>
-      {this.renderHeader()}
-      <Content>
-        <MapView
+  renderMap() {
+    return (
+    <MapView
           ref={ref => { this.map = ref; }}
           style={styles.mapView}
           region={this.getRegion()}>
           <MapView.Marker
             pinColor="#4b3486"
+            image={require('../../images/pin.png')}
             coordinate={{
               latitude: this.state.latitude,
               longitude: this.state.longitude,
@@ -325,9 +332,20 @@ class OrderInProgress extends React.Component {
             description={Address.street+", "+Address.zipcode}
           />
         </MapView>
-        <ListView style={styles.listView}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}/>
+    )
+  }
+
+  toggleMenu() {
+    this._drawer.toggle()
+  }
+
+  render () {
+    let menu = <LeftMenu />
+    let content = <Container style={{backgroundColor: '#fff'}}>
+      {this.renderHeader()}
+      <Content scrollEnabled={false}>
+        {this.renderMap()}
+        {this.renderRows()}
       </Content>
       {this.renderFooter()}
       {this.renderModal()}
@@ -349,7 +367,8 @@ const styles = StyleSheet.create({
       flex: 1
     },
     mapView: {
-      height: 200,
+      height: (Metrics.screenHeight) * 0.40,
+      
       width: (Metrics.screenWidth)
     },
     buttons: {
@@ -357,9 +376,7 @@ const styles = StyleSheet.create({
       bottom: 0
     },
     listView: {
-      flex: 1,
-      paddingTop: 10,
-      paddingLeft: 15
+      flex: 1
     },
     row: {
       padding: 12,

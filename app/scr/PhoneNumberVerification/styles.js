@@ -14,32 +14,33 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		textAlign: 'center',
-	    height: 60,
-	    margin: 30,
-	    fontSize: 30
+		height: 60,
+		margin: 30,
+		fontSize: 30
 	},
 	button: {
-	    height: 50,
-	    marginLeft: 30,
-			marginRight: 30,
-	    backgroundColor: '#222',
-	    alignSelf: 'stretch',
-	    justifyContent: 'center',
-			borderRadius: 3
+		height: 50,
+		marginLeft: 30,
+		marginRight: 30,
+		backgroundColor: '#4B2D8F',
+		alignSelf: 'stretch',
+		justifyContent: 'center',
+		borderRadius: 4
  	},
 	buttonInActive: {
-	    height: 50,
-			marginLeft: 30,
-			marginRight: 30,
-	    backgroundColor: '#ccc',
-	    alignSelf: 'stretch',
-	    justifyContent: 'center',
-			borderRadius: 3
+		height: 50,
+		marginLeft: 30,
+		marginRight: 30,
+		backgroundColor: '#ccc',
+		alignSelf: 'stretch',
+		justifyContent: 'center',
+		borderRadius: 4
  	},
  	buttonText: {
-	    fontSize: 18,
-	    color: 'white',
-	    alignSelf: 'center'
+		fontSize: 16,
+		color: 'white',
+		alignSelf: 'center',
+		fontFamily: 'OpenSans-Bold'
 	}
 });
 

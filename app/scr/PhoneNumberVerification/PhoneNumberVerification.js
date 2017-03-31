@@ -42,9 +42,9 @@ export default class PhoneNumberVerification extends Component {
 
 	render() {
 		return (
-			<Container keyboardShouldPersistTaps='always'>
+			<Container>
 				<NavigationBar title="Create Account 2/3" />
-				<Content keyboardShouldPersistTaps='always' style={{backgroundColor: '#f9f9f9'}}>
+				<Content style={{backgroundColor: '#f2f3f6'}}>
 					<TextInputMask
 						style={styles.input}
 						placeholder="Mobile #"
@@ -65,11 +65,11 @@ export default class PhoneNumberVerification extends Component {
             type={'cel-phone'} />
           <Button
 						disabled={!this.state.isValid}
-            containerStyle={this.state.isValid?styles.button:styles.buttonInActive}
+            containerStyle={this.state.isValid ? styles.button : styles.buttonInActive}
             textStyle={styles.buttonText}
             onPress={()=>this.onContinuePressed()}
-            text="CONTINUE" />
-					<Text note style={{margin: 30, marginTop: 10, textAlign: 'center'}}>{`We will text you a verification pin.\nYour number is needed for contact during pickups and dropoffs.`}</Text>
+            text="Send Verification PIN" />
+					<Text note style={{fontFamily:'OpenSans-Regular', margin: 30, marginTop: 10, textAlign: 'left'}}>{`*Your number is needed for contact during pickups and dropoffs.`}</Text>
 				</Content>
 				<Spinner visible={this.state.loading} />
 			</Container>

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	button: {
-		height: 43,
+		height: 46,
 	  	marginTop: 10,
 	  	backgroundColor: '#4B2D8F',
 	  	alignSelf: 'stretch',

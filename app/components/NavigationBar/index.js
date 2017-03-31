@@ -18,7 +18,7 @@ export default class NavigationBar extends React.Component {
         <Icon style={{color: '#565656'}} name='arrow-back' />
       </Button>
       <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-        <Text style={{color: '#565656', fontSize: 18}}>{this.props.title}</Text>
+        <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Semibold'}}>{this.props.title}</Text>
       </Button>
       <Button containerStyle={{width: 40, alignItems: 'center', justifyContent: 'center'}}>
       </Button>

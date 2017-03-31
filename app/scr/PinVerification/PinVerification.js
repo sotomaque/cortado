@@ -63,9 +63,9 @@ export default class PinVerification extends Component {
 
 	render() {
 		return (
-			<Container keyboardShouldPersistTaps='always'>
+			<Container>
 				<NavigationBar title="Create Account 3/3" />
-				<Content keyboardShouldPersistTaps='always' style={{backgroundColor: '#f9f9f9'}}>
+				<Content style={{backgroundColor: '#f2f3f6'}}>
 					<TextInput
             onChangeText={(val) => {
 							this.setState({
@@ -83,8 +83,8 @@ export default class PinVerification extends Component {
               containerStyle={this.state.isValid?styles.button:styles.buttonInActive}
               textStyle={styles.buttonText}
               onPress={()=>this.onContinuePressed()}
-              text="FINISH REGISTRATION" />
-					 <Text note style={{margin: 30, marginTop: 10, textAlign: 'center'}}>{`Your PIN has been texted to the number provided.`}</Text>
+              text="Finish Registration" />
+					 <Text note style={{margin: 30, marginTop: 10, textAlign: 'left'}}>{`*Your PIN has been texted to the number provided.`}</Text>
 				</Content>
 				<Spinner visible={this.state.loading} />
 			</Container>

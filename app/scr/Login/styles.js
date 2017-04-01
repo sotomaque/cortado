@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginTop: (Metrics.screenHeight / 10)
   },
   orSeperator: {
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-SemiBold',
     color: '#aaa',
     padding: 6,
     paddingBottom: 10,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     borderRadius: 4
   },
   loginButtonText: {
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     color: '#777',
     alignSelf: 'center',

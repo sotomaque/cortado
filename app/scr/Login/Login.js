@@ -167,8 +167,6 @@ export default class Login extends React.Component {
     const {email, password} = this.state;
     this.setState({loading: true, error: ''});
     HttpClientHelper.login({email, password}, (error, data) => {
-      console.log('noob')
-      console.log(error, data, 'yop');
       try {
         if (!error) {
           const {success} = data;

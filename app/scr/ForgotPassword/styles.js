@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   heading: {
   	fontSize: 24,
     textAlign: 'center',
-  	fontFamily: 'OpenSans-Semibold',
+  	fontFamily: 'OpenSans-SemiBold',
   	padding: 10,
   	marginTop: 20,
     color: '#333'
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   	color: '#555555',
   	alignSelf: 'center',
-  	fontFamily: 'OpenSans-Semibold'
+  	fontFamily: 'OpenSans-SemiBold'
   }
 });
 

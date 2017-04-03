@@ -1,6 +1,7 @@
 package com.press;
 
 import com.facebook.react.ReactActivity;
+import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsPackage;
 
 public class MainActivity extends ReactActivity {
 

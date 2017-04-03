@@ -1,0 +1,9 @@
+platform :ios, '8.0'
+
+target 'Press' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  pod 'Analytics', '~> 3.0'
+
+end

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -45,6 +44,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* PressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PressTests.m */; };
 		3020A4EE0B0442478249E7B7 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C634C779231C45499B6D149F /* Roboto.ttf */; };
 		3936363379AF4E1BB48A3DA3 /* Arial Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD00FA092407B81A2C417 /* Arial Black.ttf */; };
+		3F0CF94F5DE8C0AAF1446D37 /* libPods-Press.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F495BEB8727BF96F23170260 /* libPods-Press.a */; };
 		46A80FE742AB4F6BB8A7EC55 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0956E8BFCAA04017B9A9229C /* libAirMaps.a */; };
 		4C8B0AC076AA44488D32D545 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0777AAE4ED67421796BFF69A /* SF-UI-Text-Regular.otf */; };
 		4DC152C449AF4E10BAFF1086 /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BDCDBD9EB464AB73A59F3 /* Georgia.ttf */; };
@@ -63,6 +63,8 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		890480926DFD4A0688A7E984 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50EFEA3129B2441BABC8BDD5 /* Rubik-MediumItalic.ttf */; };
 		8E547077973F47D79CD83972 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11846B78D1BB4CFB88F8EA78 /* Rubik-BlackItalic.ttf */; };
+		940ACB761E92BF2A0079D762 /* libAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 940ACB751E92BF2A0079D762 /* libAnalytics.a */; };
+		9447FCAE1E92C78400536938 /* RNSegmentIOAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */; };
 		AFB4D536B1C94FFF8D064222 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27664A21F98F4BDEA92E85D2 /* Entypo.ttf */; };
 		AFFBF1F61B31431485BA3EBF /* Times New Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3E44C875E40A8ADC9A1E9 /* Times New Roman.ttf */; };
 		B0B1BB6A1A864C5FA5FD6607 /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA9931F6E666424F96777AA3 /* Rubik-Black.ttf */; };
@@ -93,6 +95,7 @@
 		F1D06548652B4E19A2736E44 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7587F437BCDF480FA02D48C7 /* Rubik-Italic.ttf */; };
 		F434BBD148DA48F4BA56F913 /* SanFrancisco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7F3F6C11344AB482980634 /* SanFrancisco.ttf */; };
 		F89C2DDF93D34693B672F7E0 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76EA4F351B5949FB8F5ACD5D /* EvilIcons.ttf */; };
+		29FB23195D2846A689CAD1E3 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C32BEAD2104544319C78359F /* OFL.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,10 +382,12 @@
 		2E2BDCDBD9EB464AB73A59F3 /* Georgia.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Georgia.ttf; path = "../node_modules/native-base/Fonts/Georgia.ttf"; sourceTree = "<group>"; };
 		3BBFCFE17ADB462C85221C0F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		3D920BB029974ED1AF284D6C /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		496AAC03499A66A100E3EC03 /* Pods-Press.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Press.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Press/Pods-Press.debug.xcconfig"; sourceTree = "<group>"; };
 		4C47FB92F695411FB2583B4E /* libRCTBEEPickerManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBEEPickerManager.a; sourceTree = "<group>"; };
 		50EFEA3129B2441BABC8BDD5 /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-MediumItalic.ttf"; path = "../node_modules/native-base/Fonts/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
 		5777DC133F384B3FB403B442 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
 		57F55204A011476987729A4D /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BoldItalic.ttf"; path = "../node_modules/native-base/Fonts/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5BAF1EBA394C5D0AD126D55A /* Pods-Press.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Press.release.xcconfig"; path = "Pods/Target Support Files/Pods-Press/Pods-Press.release.xcconfig"; sourceTree = "<group>"; };
 		5D121ECF839744B0B6B1EBF7 /* libRNIntercom.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNIntercom.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		6380A5AAF2EC4321B864B7B0 /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
@@ -401,6 +406,9 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8F3DD4032A77463FA3F60E1C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9348C5D2D8A84E5C9929C885 /* SanFranciscoBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFranciscoBold.ttf; path = "../node_modules/native-base/Fonts/SanFranciscoBold.ttf"; sourceTree = "<group>"; };
+		940ACB751E92BF2A0079D762 /* libAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAnalytics.a; path = "Pods/../build/Debug-iphoneos/Analytics/libAnalytics.a"; sourceTree = "<group>"; };
+		9447FCAC1E92C78400536938 /* RNSegmentIOAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSegmentIOAnalytics.h; sourceTree = "<group>"; };
+		9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSegmentIOAnalytics.m; sourceTree = "<group>"; };
 		99CD3AED53044642B25FCBC0 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		9BAA8A6A029D48699CFE5B93 /* Comic Sans MS.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comic Sans MS.ttf"; path = "../node_modules/native-base/Fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; };
 		A60331DADCD84FFBA3F5C0ED /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -429,6 +437,8 @@
 		E793E0711FD44AA7A1E92BD0 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		EB2DFFA43E7D4857B54FA608 /* libRNGeocoder.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGeocoder.a; sourceTree = "<group>"; };
 		EF1351FF3BF8426AA0E3F05B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		F495BEB8727BF96F23170260 /* libPods-Press.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Press.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C32BEAD2104544319C78359F /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../node_modules/native-base/Fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +454,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				940ACB761E92BF2A0079D762 /* libAnalytics.a in Frameworks */,
 				73A82F421E7ADAA300D98E9C /* libRCTFBLogin.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				73A82F491E7ADB7000D98E9C /* FBSDKLoginKit.framework in Frameworks */,
@@ -467,6 +478,7 @@
 				73A82F451E7ADB3300D98E9C /* Bolts.framework in Frameworks */,
 				D01BDA2869C8439982CF7259 /* libRCTBEEPickerManager.a in Frameworks */,
 				06952CF9786F448F8036725C /* libRNIntercom.a in Frameworks */,
+				3F0CF94F5DE8C0AAF1446D37 /* libPods-Press.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +622,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7241DEBA0B2193BDD880D3CB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				496AAC03499A66A100E3EC03 /* Pods-Press.debug.xcconfig */,
+				5BAF1EBA394C5D0AD126D55A /* Pods-Press.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		734CE58B1E86891D00B5C969 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,10 +674,12 @@
 		73A82F431E7ADAE200D98E9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				940ACB751E92BF2A0079D762 /* libAnalytics.a */,
 				73A82F4A1E7ADB7600D98E9C /* FBSDKShareKit.framework */,
 				73A82F481E7ADB7000D98E9C /* FBSDKLoginKit.framework */,
 				73A82F461E7ADB6A00D98E9C /* FBSDKCoreKit.framework */,
 				73A82F441E7ADB3200D98E9C /* Bolts.framework */,
+				F495BEB8727BF96F23170260 /* libPods-Press.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -681,6 +704,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9447FCAB1E92C78400536938 /* RNAnalytics */,
 				73A82F3C1E7ADA8C00D98E9C /* RCTFBLogin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -731,6 +755,7 @@
 				00E356EF1AD99517003FC87E /* PressTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				BFD2D287D561415186F07785 /* Resources */,
+				7241DEBA0B2193BDD880D3CB /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -745,6 +770,16 @@
 				2D02E4901E0B4A5D006451C7 /* Press-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9447FCAB1E92C78400536938 /* RNAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				9447FCAC1E92C78400536938 /* RNSegmentIOAnalytics.h */,
+				9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */,
+			);
+			name = RNAnalytics;
+			path = "../node_modules/react-native-analytics/ios/RNAnalytics";
 			sourceTree = "<group>";
 		};
 		BFD2D287D561415186F07785 /* Resources */ = {
@@ -784,6 +819,7 @@
 				2BE3E44C875E40A8ADC9A1E9 /* Times New Roman.ttf */,
 				3BBFCFE17ADB462C85221C0F /* Zocial.ttf */,
 				C13A04513938475B89E0FE29 /* rubicon-icon-font.ttf */,
+				C32BEAD2104544319C78359F /* OFL.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -813,12 +849,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Press" */;
 			buildPhases = (
+				4D976E84439EAB071DA3219E /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				734CE5B11E86897100B5C969 /* Embed Frameworks */,
 				734CE5B21E86899700B5C969 /* Run Script Intercom */,
+				B92C5DDC187A77D1093397C4 /* [CP] Embed Pods Frameworks */,
+				7341D1B0CDD752EB76DB9306 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1261,6 +1300,7 @@
 				B385E224CE9B4882B617A877 /* Zocial.ttf in Resources */,
 				EA2ED127F98B4CD2A544D9E7 /* rubicon-icon-font.ttf in Resources */,
 				CDF0BABB1E8C54B300D22CEE /* OpenSans-ExtraBold.ttf in Resources */,
+				29FB23195D2846A689CAD1E3 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1310,6 +1350,36 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		4D976E84439EAB071DA3219E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7341D1B0CDD752EB76DB9306 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Press/Pods-Press-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		734CE5B21E86899700B5C969 /* Run Script Intercom */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1323,6 +1393,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Intercom.framework/strip-frameworks.sh\"\n";
+		};
+		B92C5DDC187A77D1093397C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Press/Pods-Press-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1341,6 +1426,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				9447FCAE1E92C78400536938 /* RNSegmentIOAnalytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1460,6 +1546,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 496AAC03499A66A100E3EC03 /* Pods-Press.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1480,6 +1567,10 @@
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Analytics",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1493,6 +1584,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BAF1EBA394C5D0AD126D55A /* Pods-Press.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1512,6 +1604,10 @@
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/Analytics",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

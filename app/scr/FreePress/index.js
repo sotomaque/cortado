@@ -26,7 +26,7 @@ class FreePress extends Component {
 	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-	          <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Bold'}}>Free Press</Text>
+	          <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-SemiBold'}}>Free Press</Text>
 	        </Button>
 	        <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} >
 	        </Button>
@@ -36,22 +36,22 @@ class FreePress extends Component {
 
 	render() {
 		return (
-			<Container>
+			<Container style={{backgroundColor: '#f2f3f6'}}>
 				{this.renderHeader()}
-				<Content  scrollEnabled={false}>
+				<Content scrollEnabled={false}>
 					<View style={styles.main}>
 						<Text ref='heading' style={styles.textHeading}>Give $10, Get $10</Text>
 						<View style={styles.box}>
 							<Text ref='code' style={styles.textCode}>{User.promo_code}</Text>
 						</View>
-						<Text style={styles.textSubtext}>Give friends $10 towards their first order. After order completion, you will recieve a $10 as well.</Text>
+						<Text style={styles.textSubtext}>Give friends $10 towards their first order. After order completion, you get $10 credit too.</Text>
 					</View>
 				</Content>
 				<Button
 					disabled={User.promo_code==''}
-					containerStyle={{position: "absolute", height: 50, left: 10, bottom: 10, right: 10, backgroundColor: '#4b3486', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
-					text="SHARE"
-					textStyle={{color: '#fff', fontSize: 16, fontFamily: 'OpenSans-SemiBold' }}
+					containerStyle={{position: "absolute", height: 50, left: 20, bottom: 20, right: 20, backgroundColor: '#4B2D8F', borderRadius: 3, alignItems: 'center', justifyContent: 'center'}}
+					text="Share Code"
+					textStyle={{color: '#fff', fontSize: 16, fontFamily: 'OpenSans-Bold' }}
 					onPress={()=>this.showShareActionSheet()}
 				/>
 			</Container>
@@ -60,14 +60,14 @@ class FreePress extends Component {
 
 	showShareActionSheet = () => {
 		let shareOptions = {
-      title: "Free Press",
-      message: `Usy my Press referral code: ${User.promo_code} off your first order.`,
-      url: this.props.url,
-      subject: "Free Press" //  for email
-    };
+			title: "Free Press",
+			message: `Get $10 off your first laundry & dry cleaning delivery with Press. Sign up with my link: https://www.presscleaners.com/i/${User.promo_code}/`,
+			url: this.props.url,
+			subject: "Free Press" //  for email
+		};
 		setTimeout(() => {
-      Share.open(shareOptions);
-    },300);
+			Share.open(shareOptions);
+		}, 300);
 	}
 
 }
@@ -87,20 +87,23 @@ const styles = StyleSheet.create({
 	},
 	box: {
 		marginTop: 15,
-		padding: 14,
+		padding: 10,
 		borderRadius: 3,
-		marginLeft: 50,
-		marginRight: 50,
+		width: 180,
+		alignSelf: 'center',
 		borderColor: 'white',
 		backgroundColor: 'white',
 	},
 	textCode: {
 		alignSelf: 'center',
 		justifyContent: 'center',
-		fontSize: 28,
-		fontFamily: 'OpenSans-SemiBold', 
+		fontSize: 24,
+		color: '#333',
+		fontFamily: 'OpenSans-Bold', 
 	},
 	textSubtext: {
+		marginLeft: 20,
+		marginRight: 20,
 		marginTop: 20,
 		alignSelf: 'center',
 		justifyContent: 'center',

@@ -17,10 +17,10 @@ import * as Functions from '../../utils/Functions';
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f2f2f2'
+    backgroundColor: '#f2f3f6'
   },
   content: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#f2f3f6',
     padding: 15,
   },
   label: {
@@ -29,12 +29,13 @@ const s = StyleSheet.create({
   },
   input: {
     fontSize: 16,
+    fontFamily: 'OpenSans',
     color: "black",
   },
   card: {
-    paddingTop: 5,
+    paddingTop: 7,
     paddingBottom: 5,
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#f0f0f0',
@@ -52,8 +53,8 @@ const s = StyleSheet.create({
     flexDirection: 'row',
     borderColor: '#565656',
     borderWidth: 1,
-    padding: 8,
-    borderRadius: 5
+    padding: 4,
+    borderRadius: 3
   }
 });
 
@@ -165,7 +166,7 @@ class Payment extends React.Component {
           <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Cancel</Text>
         </Button>
         <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-          <Text style={{fontFamily: 'OpenSans-Bold', color: '#565656', fontSize: 18}}>Payment</Text>
+          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Payment</Text>
         </Button>
         <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handlePressSave()}>
           <Text style={{color: this.state.cardValid?'#565656':'#ccc', fontSize: 14, fontFamily: 'OpenSans-SemiBold'}}>Save</Text>
@@ -177,8 +178,8 @@ class Payment extends React.Component {
   renderContent() {
     return (
       <View style={s.content}>
-        <Text note style={{fontFamily: 'OpenSans'}}>Keep a card on file</Text>
-        <Text note style={{fontFamily: 'OpenSans'}}>You will not be charged until your orders are complete</Text>
+        <Text note style={{fontFamily: 'OpenSans', fontSize: 12, marginTop: 5}}>Keep a card on file.</Text>
+        <Text note style={{fontFamily: 'OpenSans', fontSize: 12}}>You will not be charged until your orders are complete.</Text>
         <View style={s.card}>
           <LiteCreditCardInput
               ref={(ref)=>this.refs=ref}
@@ -200,11 +201,11 @@ class Payment extends React.Component {
             />
 
           </View>
-          <Text style={{marginTop: 30, alignSelf: 'center'}} note>Available Credit</Text>
-          <Text style={{marginTop: 2, alignSelf: 'center', fontSize: 35}}>${User.total_free_credits}</Text>
+          <Text style={{marginTop: 30, alignSelf: 'center', fontFamily: 'OpenSans'}} note>Available Credits</Text>
+          <Text style={{marginTop: 2, alignSelf: 'center', fontSize: 35, fontFamily: 'OpenSans'}}>${User.total_free_credits}</Text>
           <View style={{marginTop: 30, flexDirection: 'row', alignSelf: 'center'}}>
-            <Text note>Credits automatically applied.</Text>
-            <Text style={{fontSize: 13, color: '#000000'}} onPress={()=>Actions.freePress()}> Earn more.</Text>
+            <Text style={{fontSize: 13, fontFamily: 'OpenSans'}} note>Credits automatically applied.</Text>
+            <Text style={{fontSize: 13, fontFamily: 'OpenSans-SemiBold', color: '#555'}} onPress={()=>Actions.freePress()}> Earn more.</Text>
           </View>
         </View>
     )

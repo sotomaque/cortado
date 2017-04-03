@@ -74,7 +74,7 @@ class Pricing extends React.Component {
 
 	renderRow(data, section, id, highlight) {
 		let nextData = this.items[parseInt(id)+1];
-		let isLastItem = nextData==undefined || nextData.type==='header';
+		let isLastItem = nextData == undefined || nextData.type === 'header';
 		if(data.type==='item') {
 			return (
 				<ListItem last={isLastItem}>
@@ -88,8 +88,8 @@ class Pricing extends React.Component {
 			)
 		} else {
 			return (
-				<ListItem itemDivider style={{justifyContent: 'center'}}>
-						<Text style={{color: 'grey'}}>{data.name}</Text>
+				<ListItem itemDivider style={{justifyContent: 'center', backgroundColor: '#f2f3f6'}}>
+						<Text style={{color: 'grey', fontFamily: 'OpenSans'}}>{data.name}</Text>
 				</ListItem>
 			)
 		}
@@ -113,7 +113,7 @@ class Pricing extends React.Component {
 	            console.log(e);
 	          }
 	        }}>
-	          <Text style={{fontFamily: 'OpenSans', color: '#565656', fontSize: 14}}>Done</Text>
+	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Done</Text>
 	        </Button>
 	        <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
 	          <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 18}}>Pricing</Text>

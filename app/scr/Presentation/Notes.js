@@ -23,17 +23,17 @@ class Notes extends Component {
 	render() {
 		return (
 			<View>
-				<Separator bordered>
-        	<Text style={{color: 'grey'}}>Special Instructions (optional)</Text>
-        </Separator>
-        <Item underline>
-          <Input
-			style={{fontSize: 15}}
-			placeholder={'Any garments we should pay special attention to?'}
-			value={this.state.special_instructions}
-			onChangeText={(val) => this.setState({special_instructions: val})}
-		/>
-        </Item>
+				<Separator style={{backgroundColor: '#f2f3f6'}} bordered>
+		        	<Text style={{color: '#AAAAAA', fontSize: 13, marginTop: 6}}>Special Instructions (optional)</Text>
+		        </Separator>
+		        <Item underline style={{borderColor: '#e0e0e0'}}>
+					<Input
+						style={{fontSize: 13, fontFamily: 'OpenSans-SemiBold', opacity: 0.5, paddingTop: 0}}
+						placeholder={'Any garments we should pay special attention to?'}
+						value={this.state.special_instructions}
+						onChangeText={(val) => this.setState({special_instructions: val})}
+					/>
+		        </Item>
 			</View>
 		)
 	}

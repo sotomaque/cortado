@@ -18,7 +18,7 @@ import {
   Register,
   SetAddress,
   Splash,
-} from './scr'
+} from './src'
 
 const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>

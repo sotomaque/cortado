@@ -10,7 +10,9 @@ const images = {
   background: require('../images/BG.png'),
   loginBackground: require('../images/loginBackground.png'),
   pressMarketing: require('../images/pressMarketing.png'),
-  check: require('../images/check.png')
+  check: require('../images/check.png'),
+  chat: require('../images/chat.png'),
+  person: require('../images/person.png')
 }
 
 export default images

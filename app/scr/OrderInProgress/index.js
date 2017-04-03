@@ -292,22 +292,22 @@ class OrderInProgress extends React.Component {
                 style={{alignItems: 'center'}}
             >
                 <View>
-                    <Text style={{fontFamily: 'OpenSans', fontSize: 20, marginBottom: 10, alignSelf: 'center'}}>Cancel Order?</Text>
-                    <Text style={{alignSelf: 'center', textAlign: 'center', fontSize: 16, color: '#565656', fontFamily: 'OpenSans'}}>{`Are you sure you want to\ncancel current order?`}</Text>
+                    <Text style={{fontFamily: 'OpenSans-SemiBold', fontSize: 20, marginBottom: 10, marginTop: 10, alignSelf: 'center'}}>Are you sure?</Text>
+                    <Text style={{fontFamily: 'OpenSans', alignSelf: 'center', textAlign: 'center', fontSize: 14, color: '#777', padding: 10, paddingTop: 0, paddingBottom: 15}}>{`If you need to reschedule, send a message to our support team.`}</Text>
                     <Button
-                        containerStyle={{backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center', marginTop: 20}}
-                        textStyle={{color: '#ffffff', fontFamily: 'OpenSans'}}
+                        containerStyle={{margin: 5, backgroundColor: '#FFFFFF', padding: 12, justifyContent: 'center', alignItems: 'center', borderRadius: 4, borderWidth: 1, borderColor: '#e0e0e0'}}
+                        textStyle={{color: '#555555', fontFamily: 'OpenSans-SemiBold', fontSize: 16}}
+                        onPress={() => this.setState({modal: false})}
+                        text="No, Take Me Back"
+                    />
+                    <Button
+                        containerStyle={{margin: 5, backgroundColor: '#da394d', padding: 12, justifyContent: 'center', alignItems: 'center', borderRadius: 4}}
+                        textStyle={{color: '#ffffff', fontFamily: 'OpenSans-Bold', fontSize: 16}}
                         onPress={() => {
                             this.setState({modal: false});
                             this.handleCancelPress();
                         }}
-                        text="CANCEL ORDER"
-                    />
-                    <Button
-                        containerStyle={{marginTop: 5, backgroundColor: '#4b3486', padding: 10, justifyContent: 'center', alignItems: 'center'}}
-                        textStyle={{color: '#ffffff', fontFamily: 'OpenSans'}}
-                        onPress={() => this.setState({modal: false})}
-                        text="OK"
+                        text="Yes, Cancel Order"
                     />
                 </View>
             </Modal>
@@ -396,7 +396,6 @@ class OrderInProgress extends React.Component {
                 {this.renderRows()}
             </Content>
             {this.renderFooter()}
-            {this.renderModal()}
             <Spinner visible={this.state.loading} />
         </Container>;
 
@@ -408,6 +407,7 @@ class OrderInProgress extends React.Component {
                 openMenuOffset={Metrics.screenWidth - 80}
             >
                 {content}
+                {this.renderModal()}
             </DrawerLayoutMenu>
         );
     }

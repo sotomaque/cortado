@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   input: {
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 0,
+    marginLeft: 0
   },
   loginButton: {
     height: 43,

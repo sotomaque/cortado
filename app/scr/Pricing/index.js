@@ -78,7 +78,7 @@ class Pricing extends React.Component {
 		if(data.type==='item') {
 			return (
 				<ListItem last={isLastItem}>
-					<Body>
+					<Body style={{marginLeft: -12}}>
 						<Text style={{fontFamily: 'OpenSans'}}>{data.name}</Text>
 					</Body>
 					<Right>

@@ -4,8 +4,8 @@ import { Metrics, Images, Colors } from '../../themes';
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-	marginTop: 0,
-	backgroundColor: '#F2F3F6'
+  	marginTop: 0,
+  	backgroundColor: '#F2F3F6'
   },
   backgroundImage: {
     position: 'absolute',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, InteractionManager, StyleSheet } from 'react-native';
+import { View, InteractionManager, StyleSheet, Image } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header, Radio } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -11,7 +11,7 @@ import call from 'react-native-phone-call';
 import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
 import { Button, Touchable, DrawerLayoutMenu, TimePicker } from '../../components';
-import { Metrics } from '../../themes'
+import { Metrics, Images } from '../../themes'
 import { Address, User } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
 import Configs from '../../configs';
@@ -174,7 +174,7 @@ export default class Presentation extends React.Component {
             this.setState({
                 modal: true,
                 showButtonCall: true,
-                modal_message: 'All providers for the selected services are currently at maximum capacity. To schedule a pickup, call or message our customer success team.',
+                modal_message: 'All providers for the selected service are currently at maximum capacity. To schedule a pickup, call or message our customer success team.',
                 modal_title: 'Increased Demand',
             })
             return false;
@@ -349,15 +349,15 @@ export default class Presentation extends React.Component {
     renderHeader() {
         return (
             <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
-                <Button containerStyle={{width: 50, justifyContent: 'center', marginLeft: 5}} onPress={() => this.toggleMenu()}>
-                    <Icon style={{color: '#565656'}} name='menu' />
+                <Button containerStyle={{width: 50, justifyContent: 'center', marginLeft: 8}} onPress={() => this.toggleMenu()}>
+                    <Image source={Images.person} style={{resizeMode: 'contain', width: 17, marginBottom: 0}}/>
                 </Button>
                 <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={() => Actions.setAddress()}>
                     <Text style={{marginTop: -5, backgroundColor: 'transparent', fontFamily: 'OpenSans', fontSize: 13, color: '#AAAAAA'}} note>Delivering to</Text>
                     <Text style={{color: '#111111', fontSize: 16, marginTop: -2, backgroundColor: 'transparent', overflow: 'hidden', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
                 </Button>
-                <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 5}}>
-                    <Icon name='chatbubbles' onPress={() => this.toggleIntercom()}/>
+                <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 8}} onPress={() => this.toggleIntercom()}>
+                    <Image source={Images.chat} style={{resizeMode: 'contain', width: 21, marginBottom: -4}}/>
                 </Button>
             </Header>
         );
@@ -428,7 +428,7 @@ export default class Presentation extends React.Component {
 
     renderFooter() {
         let disabled = this.getButtonNextTitle() === 'Choose Service';
-        return (<Footer style={{height: Metrics.navBarHeight}}>
+        return (<Footer style={{height: Metrics.navBarHeight, backgroundColor: 'black'}}>
             <Button
                 disabled={disabled}
                 onPress={this.handleOnPress}

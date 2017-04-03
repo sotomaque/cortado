@@ -273,7 +273,8 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     inputContainer: {
-        borderColor: '#e0e0e0'
+        borderColor: '#e0e0e0',
+        marginLeft: 0
     },
     mapView: {
         position: 'absolute',

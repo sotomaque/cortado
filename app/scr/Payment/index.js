@@ -226,8 +226,8 @@ class Payment extends React.Component {
     return (
       <View style={s.container}>
         {this.renderHeader()}
-        {this.renderFooter()}
         {this.renderContent()}
+        {this.renderFooter()}
         <Spinner visible={this.state.loading} />
       </View>
     )

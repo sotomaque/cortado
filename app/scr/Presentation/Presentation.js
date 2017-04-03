@@ -36,6 +36,7 @@ export default class Presentation extends React.Component {
             availability: null,
             loading: false,
             showButtonCall: false,
+            showIOSPicker: false,
         };
         this.services = '';
         this.handleOnPressPickUp = this.handleOnPressPickUp.bind(this);
@@ -300,7 +301,9 @@ export default class Presentation extends React.Component {
         if (!this.checkAvailability()) return;
         if (!this.checkPickupTime()) return;
         const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.dropoff);
+        this.setState({showIOSPicker: true});
         TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Dropoff Window', 'When should we drop off your clean clothes?', (error, data) => {
+            this.setState({showIOSPicker: false});
             if (!error) {
                 this.setState({
                     dropoff: data
@@ -314,7 +317,9 @@ export default class Presentation extends React.Component {
         if (!this.checkService()) return;
         if (!this.checkAvailability()) return;
         const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.pickup);
+        this.setState({showIOSPicker: true});
         TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Pickup Window', 'When should we pick up your dirty clothes?', (error, data) => {
+            this.setState({showIOSPicker: false});
             if (!error) {
                 this.setState({
                     pickup: data,
@@ -410,11 +415,14 @@ export default class Presentation extends React.Component {
                             <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', marginBottom: -4 }}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
                         </Body>
                     </ListItem>
-                    <ListItem onPress={() => {
-                        GLOBAL.requestAnimationFrame(() => {
-                            this.handleOnPressDropoff();
-                        });
-                    }} last>
+                    <ListItem 
+                        onPress={() => {
+                            GLOBAL.requestAnimationFrame(() => {
+                                this.handleOnPressDropoff();
+                            });
+                        }} 
+                        last
+                    >
                         <Body>
                             <Text style={{ fontFamily: 'OpenSans', marginLeft: 0, marginTop: -5 }} note>Dropoff Time</Text>
                             <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', marginBottom: -4 }}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
@@ -474,6 +482,25 @@ export default class Presentation extends React.Component {
         </Modal>);
     }
 
+    renderOverlayIOS() {
+        if (Platform.OS == 'ios' && this.state.showIOSPicker) {
+            return (
+                <Touchable
+                    onPress={() => {
+                        TimePicker.hide();
+                        this.setState({showIOSPicker: false});
+                    }}
+                    style={{
+                        position: 'absolute', top: 0, left: 0, backgroundColor: 'rgba(0,0,0,0.4)',
+                        width: Metrics.screenWidth, height: Metrics.screenHeight
+                    }}
+                />
+            );
+        } else {
+            return null;
+        }
+    }
+    
     toggleMenu() {
         this._drawer.toggle()
     }

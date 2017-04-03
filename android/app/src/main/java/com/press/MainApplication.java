@@ -3,6 +3,7 @@ package com.press;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.robinpowered.react.Intercom.IntercomPackage;
 import com.beefe.picker.PickerViewPackage;
 import com.devfd.RNGeocoder.RNGeocoderPackage;
@@ -16,6 +17,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.press.modules.timepicker.TimePickerPackage;
 import com.magus.fblogin.FacebookLoginPackage;
+import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,14 +33,16 @@ public class MainApplication extends Application implements ReactApplication {
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
-                    new FacebookLoginPackage(),
-                    new MainReactPackage(),
-            new IntercomPackage(),
-            new PickerViewPackage(),
-            new RNGeocoderPackage(),
-            new MapsPackage(),
-            new RNSharePackage(),
-                    new TimePickerPackage()
+                new FacebookLoginPackage(),
+                new MainReactPackage(),
+            new ReactNativeConfigPackage(),
+                new RNSegmentIOAnalyticsPackage(),
+                new IntercomPackage(),
+                new PickerViewPackage(),
+                new RNGeocoderPackage(),
+                new MapsPackage(),
+                new RNSharePackage(),
+                new TimePickerPackage()
             );
         }
     };

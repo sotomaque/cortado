@@ -18,6 +18,7 @@
     "react": "^15.4.2",
     "react-native": "0.42.0",
     "react-native-analytics": "^0.1.1",
+    "react-native-config": "^0.3.1",
     "react-native-facebook-login": "git+https://github.com/leonacky/react-native-facebook-login.git",
     "react-native-geocoder": "^0.4.6",
     "react-native-intercom": "^5.7.0",

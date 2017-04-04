@@ -1,0 +1,5 @@
+export const ACCOUNT_CREATED = 'Account Created'
+export const ADDRESS_UPDATED = 'Address Updated'
+export const PAYMENT_UPDATED = 'Payment Updated'
+export const ORDER_PLACED = 'Order Placed'
+export const ORDER_CANCELLED = 'Order Cancelled'

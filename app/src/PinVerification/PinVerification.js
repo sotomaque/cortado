@@ -4,14 +4,15 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { Container, Content, Text } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 
+import * as Functions from '../../utils/Functions';
+import * as DataParser from '../../utils/DataParser';
+import styles from './styles';
+import Analytics from '../../utils/analytics';
+import { ACCOUNT_CREATED } from '../../utils/analyticsEvents';
+import { NavigationBar } from '../../components';
 import { Button } from '../../components';
 import { HttpClientHelper, SessionManager } from '../../libs';
 import { User } from '../../beans';
-import styles from './styles';
-import * as Functions from '../../utils/Functions';
-import * as DataParser from '../../utils/DataParser';
-import Analytics from '../../utils/analytics';
-import { NavigationBar } from '../../components';
 
 
 export default class PinVerification extends Component {
@@ -43,6 +44,7 @@ export default class PinVerification extends Component {
                         console.log(e);
                     }
                     Analytics.identifyUserByEmail(User.email);
+                    Analytics.sendEvent(ACCOUNT_CREATED);
                     Actions.presentation({type: ActionConst.REPLACE});
                 } else {
                     Functions.showAlert('', 'An unexpected error occurred. Please try again later.');

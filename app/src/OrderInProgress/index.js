@@ -10,7 +10,9 @@ import Geocoder from 'react-native-geocoder';
 import Intercom from 'react-native-intercom';
 
 import * as DataParser from '../../utils/DataParser';
-import {Address, User, Order} from '../../beans';
+import Analytics from '../../utils/analytics';
+import { ORDER_CANCELLED } from '../../utils/analyticsEvents';
+import { Address, User, Order } from '../../beans';
 import { Fonts, Metrics, Colors, Images } from '../../themes';
 import { Button, DrawerLayoutMenu } from '../../components';
 import { HttpClientHelper } from '../../libs';
@@ -128,6 +130,7 @@ class OrderInProgress extends React.Component {
         HttpClientHelper.delete('order', null, (error, data) => {
             this.setState({loading: false});
             if (!error) {
+                Analytics.sendEvent(ORDER_CANCELLED);
                 Actions.presentation({type:ActionConst.REPLACE});
             } else {
                 Functions.showAlert('', error.error ? error.error : 'Cannot cancel the order');

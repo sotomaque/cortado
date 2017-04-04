@@ -2,16 +2,20 @@ import React from 'react';
 import { TextInput, Text, View, Image, Keyboard, StyleSheet } from 'react-native';
 import { Container, Content, ListItem, Left, Body, Right, Header, Form, Item, Input, Label, Icon} from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import Geocoder from 'react-native-geocoder';
 import Spinner from 'react-native-loading-spinner-overlay';
 import MapView, { Marker } from 'react-native-maps'
+
+import * as Functions from '../../utils/Functions';
+import * as DataParser from '../../utils/DataParser';
+import Configs from '../../configs';
+import Analytics from '../../utils/analytics';
+import { ADDRESS_UPDATED } from '../../utils/analyticsEvents';
 import { Metrics } from '../../themes';
 import { Touchable, Button, Panel } from '../../components';
 import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
-import * as Functions from '../../utils/Functions';
-import Geocoder from 'react-native-geocoder';
-import * as DataParser from '../../utils/DataParser';
-import Configs from '../../configs';
+
 
 export default class SetAddress extends React.Component {
 
@@ -58,6 +62,11 @@ export default class SetAddress extends React.Component {
             HttpClientHelper.post('address', {street, zipcode, notes}, (error, data) => {
                 this.setState({loading: false});
                 if (!error) {
+                    Analytics.sendEvent(ADDRESS_UPDATED, {
+                        street: this.state.street,
+                        zipcode: this.state.zipcode
+                    });
+
                     Address.street = this.state.street;
                     Address.zipcode = this.state.zipcode;
                     Address.notes = this.state.notes;

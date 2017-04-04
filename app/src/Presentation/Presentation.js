@@ -10,6 +10,8 @@ import call from 'react-native-phone-call';
 
 import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
+import Analytics from '../../utils/analytics';
+import { ORDER_PLACED } from '../../utils/analyticsEvents';
 import { Button, Touchable, DrawerLayoutMenu, TimePicker } from '../../components';
 import { Metrics, Images } from '../../themes'
 import { Address, User } from '../../beans';
@@ -18,6 +20,7 @@ import Configs from '../../configs';
 import styles from './styles';
 import Notes from './Notes';
 import LeftMenu from '../LeftMenu';
+
 
 export default class Presentation extends React.Component {
 
@@ -259,6 +262,11 @@ export default class Presentation extends React.Component {
         HttpClientHelper.post('order', params, (error, data) => {
             this.setState({loading: false});
             if (!error) {
+                Analytics.sendEvent(ORDER_PLACED, {
+                    is_wnf: this.state.wf,
+                    is_dc: this.state.dc,
+                    zipcode: Address.zipcode
+                });
                 this.getUserInfoFromPress();
             } else {
                 Functions.showAlert('', error.error ? error.error : 'Error during order creation. Please try again');

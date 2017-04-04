@@ -1,4 +1,4 @@
-import SegmentAnalytics from 'react-native-analytics';
+import SegmentAnalytics from 'react-native-analytics-segment';
 import Config from 'react-native-config';
 
 

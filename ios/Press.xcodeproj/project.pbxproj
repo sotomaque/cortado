@@ -67,7 +67,7 @@
 		890480926DFD4A0688A7E984 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50EFEA3129B2441BABC8BDD5 /* Rubik-MediumItalic.ttf */; };
 		8E547077973F47D79CD83972 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11846B78D1BB4CFB88F8EA78 /* Rubik-BlackItalic.ttf */; };
 		940ACB761E92BF2A0079D762 /* libAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 940ACB751E92BF2A0079D762 /* libAnalytics.a */; };
-		9447FCAE1E92C78400536938 /* RNSegmentIOAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */; };
+		94CB75F11E9462D400FBF6CD /* RNSegmentIOAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */; };
 		AFB4D536B1C94FFF8D064222 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27664A21F98F4BDEA92E85D2 /* Entypo.ttf */; };
 		AFFBF1F61B31431485BA3EBF /* Times New Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3E44C875E40A8ADC9A1E9 /* Times New Roman.ttf */; };
 		B0B1BB6A1A864C5FA5FD6607 /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA9931F6E666424F96777AA3 /* Rubik-Black.ttf */; };
@@ -417,8 +417,8 @@
 		8F3DD4032A77463FA3F60E1C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9348C5D2D8A84E5C9929C885 /* SanFranciscoBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFranciscoBold.ttf; path = "../node_modules/native-base/Fonts/SanFranciscoBold.ttf"; sourceTree = "<group>"; };
 		940ACB751E92BF2A0079D762 /* libAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAnalytics.a; path = "Pods/../build/Debug-iphoneos/Analytics/libAnalytics.a"; sourceTree = "<group>"; };
-		9447FCAC1E92C78400536938 /* RNSegmentIOAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNSegmentIOAnalytics.h; sourceTree = "<group>"; };
-		9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNSegmentIOAnalytics.m; sourceTree = "<group>"; };
+		94CB75EF1E9462D400FBF6CD /* RNSegmentIOAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNSegmentIOAnalytics.h; path = "../node_modules/react-native-analytics-segment/ios/RNAnalytics/RNSegmentIOAnalytics.h"; sourceTree = "<group>"; };
+		94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNSegmentIOAnalytics.m; path = "../node_modules/react-native-analytics-segment/ios/RNAnalytics/RNSegmentIOAnalytics.m"; sourceTree = "<group>"; };
 		99CD3AED53044642B25FCBC0 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		9BAA8A6A029D48699CFE5B93 /* Comic Sans MS.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comic Sans MS.ttf"; path = "../node_modules/native-base/Fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; };
 		A60331DADCD84FFBA3F5C0ED /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -599,6 +599,8 @@
 		13B07FAE1A68108700A75B9A /* Press */ = {
 			isa = PBXGroup;
 			children = (
+				94CB75EF1E9462D400FBF6CD /* RNSegmentIOAnalytics.h */,
+				94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -716,7 +718,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				9447FCAB1E92C78400536938 /* RNAnalytics */,
 				73A82F3C1E7ADA8C00D98E9C /* RCTFBLogin.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -783,16 +784,6 @@
 				2D02E4901E0B4A5D006451C7 /* Press-tvOSTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		9447FCAB1E92C78400536938 /* RNAnalytics */ = {
-			isa = PBXGroup;
-			children = (
-				9447FCAC1E92C78400536938 /* RNSegmentIOAnalytics.h */,
-				9447FCAD1E92C78400536938 /* RNSegmentIOAnalytics.m */,
-			);
-			name = RNAnalytics;
-			path = "../node_modules/react-native-analytics/ios/RNAnalytics";
 			sourceTree = "<group>";
 		};
 		94A6E5641E9304FD00CC2491 /* Products */ = {
@@ -1458,7 +1449,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				9447FCAE1E92C78400536938 /* RNSegmentIOAnalytics.m in Sources */,
+				94CB75F11E9462D400FBF6CD /* RNSegmentIOAnalytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

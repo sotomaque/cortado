@@ -1,5 +1,8 @@
 import DataParser from './DataParser';
+import analytics from './analytics';
 
-export {
-  DataParser
-}
+
+module.exports = {
+    DataParser,
+    analytics
+};

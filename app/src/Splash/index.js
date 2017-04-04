@@ -4,12 +4,14 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 
 import * as DataParser from '../../utils/DataParser';
 import { Images } from '../../themes';
-import {Address, User} from '../../beans';
+import { Address, User } from '../../beans';
 import { HttpClientHelper, SessionManager } from '../../libs';
+import Analytics from '../../utils/analytics';
 
 export default class Splash extends Component {
 
     componentDidMount() {
+        Analytics.setup();
         this.next();
     }
 
@@ -21,6 +23,7 @@ export default class Splash extends Component {
                     if (user) {
                         user.intercom_enabled = data.intercom_enabled;
                         DataParser.initializeUser(user);
+                        Analytics.identifyUserByEmail(user.email);
                     }
                     let current_order = data.current_order;
                     if (current_order != null && current_order != undefined && current_order != '') {

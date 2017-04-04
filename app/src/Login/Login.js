@@ -11,6 +11,7 @@ import { HttpClientHelper, SessionManager } from '../../libs';
 import styles from './styles';
 import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
+import Analytics from '../../utils/analytics';
 import { User } from '../../beans';
 
 export default class Login extends React.Component {
@@ -97,6 +98,7 @@ export default class Login extends React.Component {
           if (user) {
             user.intercom_enabled = data.intercom_enabled;
             DataParser.initializeUser(user);
+            Analytics.identifyUserByEmail(user.email);
           }
           let current_order = data.current_order;
           if (current_order != null && current_order != undefined && current_order != '') {

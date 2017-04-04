@@ -98,6 +98,7 @@ class OrderInProgress extends React.Component {
     async registerIntercom() {
         Intercom.registerIdentifiedUser({ email: "" + User.email }).then(() => {
             console.log('registerIdentifiedUser done');
+            Intercom.handlePushMessage();
         }).catch((err) => {
             console.log('registerIdentifiedUser ERROR', err);
         });

@@ -84,6 +84,7 @@ export default class Presentation extends React.Component {
         Intercom.registerIdentifiedUser({ email: "" + User.email })
         .then(() => {
             console.log('registerIdentifiedUser done');
+            Intercom.handlePushMessage();
         })
         .catch((err) => {
             console.log('registerIdentifiedUser ERROR', err);

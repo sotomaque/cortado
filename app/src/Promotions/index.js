@@ -22,12 +22,12 @@ class Promotion extends React.Component {
 
     handleLoggedIn() {
         this.setState({loading: true});
-        HttpClientHelper.get('world', null, (error, data)=>{
+        HttpClientHelper.get('world', null, (error, data) => {
           this.setState({loading: false});
-          if(!error) {
+          if (!error) {
             try {
               let user = data.user;
-              if(user) {
+              if (user) {
                 user.intercom_enabled = data.intercom_enabled;
                 DataParser.initializeUser(user);
               }
@@ -35,14 +35,13 @@ class Promotion extends React.Component {
               console.log(e);
             }
           } else {
-            Functions.showAlert('', error.error?error.error:"An unknown error has occurred. Please try again later");
+            Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later");
           }
         });
     }
 
     handleSubmit() {
-
-        if(!Functions.validateForm('Promotion code', this.state.code))
+        if (!Functions.validateForm('Promotion code', this.state.code))
             return;
 
         let params = {
@@ -61,7 +60,7 @@ class Promotion extends React.Component {
                     code: User.total_free_credits
                 })
             } else {
-                Functions.showAlert('', error.error?error.error:'Your promo code is invalid. Please try again');
+                Functions.showAlert('', error.error ? error.error : 'Your promo code is invalid. Please try again');
             }
         })
         this.setState({loading: false});
@@ -80,7 +79,7 @@ class Promotion extends React.Component {
               <Text style={{fontFamily: 'OpenSans-SemiBold', color: '#565656', fontSize: 14}}>Cancel</Text>
             </Button>
             <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-              <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-Bold', }}>Promotions</Text>
+              <Text style={{color: '#565656', fontSize: 18, fontFamily: 'OpenSans-SemiBold', }}>Promotions</Text>
             </Button>
             <Button containerStyle={{width: 80, alignItems: 'flex-end', justifyContent: 'center'}} onPress={()=>this.handleSubmit()}>
               <Text style={{color: this.state.code ?'#565656':'#ccc', fontSize: 14, fontFamily: 'OpenSans-SemiBold'}}>Save</Text>
@@ -91,24 +90,19 @@ class Promotion extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container style={{backgroundColor: '#f2f3f6'}}>
                 {this.renderHeader()}
-                <Content style={{marginBottom: Metrics.navBarHeight}}  scrollEnabled={false}>
-                
-                    <Item underline>
+                <Content style={{marginBottom: Metrics.navBarHeight}} scrollEnabled={false}>
+                    <Item style={{marginTop: 20, borderWidth: 1, borderColor: '#f3f3f3', backgroundColor: '#fff'}}>
                         <Input
-                            style={{fontFamily: 'OpenSans', textAlign: 'center', fontWeight: '100', color: 'grey'}}
-                            placeholder='Enter a promo code to apply discount'
+                            style={{fontFamily: 'OpenSans', textAlign: 'center', color: '#171717', backgroundColor: '#fff', opacity: 0.7}}
+                            placeholder='Enter Promo Code'
                             value={this.state.code}
                             onChangeText={(val) => this.setState({code: val})}
                         />
                     </Item>
-        
                     <View ref='text' style={styles.text}>
-                        <Text style={{fontFamily: 'OpenSans', marginTop: 30, alignSelf: 'center'}} note>You Have:</Text>
-                        <Text style={{fontFamily: 'OpenSans', marginTop: 2, alignSelf: 'center', fontSize: 35}}>${User.total_free_credits}</Text>
-                        <Text style={{fontFamily: 'OpenSans', marginTop: 2, alignSelf: 'center'}} note>in Available Credit</Text>
-
+                        <Text style={{fontFamily: 'OpenSans', alignSelf: 'center', color: '#aaa'}} note>You have ${User.total_free_credits} of available credit.</Text>
                     </View>
                 </Content>
                 <Spinner visible={this.state.loading} />
@@ -123,8 +117,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignSelf: 'center',
         justifyContent: 'center'
-    },
-
+    }
 });
 
-export default Promotion
+export default Promotion;

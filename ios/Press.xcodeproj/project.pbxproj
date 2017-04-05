@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -65,6 +66,7 @@
 		890480926DFD4A0688A7E984 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50EFEA3129B2441BABC8BDD5 /* Rubik-MediumItalic.ttf */; };
 		8E547077973F47D79CD83972 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11846B78D1BB4CFB88F8EA78 /* Rubik-BlackItalic.ttf */; };
 		940ACB761E92BF2A0079D762 /* libAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 940ACB751E92BF2A0079D762 /* libAnalytics.a */; };
+		94307B441E95916100C12613 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94307B431E95916100C12613 /* MapKit.framework */; };
 		94CB75F11E9462D400FBF6CD /* RNSegmentIOAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */; };
 		AFB4D536B1C94FFF8D064222 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27664A21F98F4BDEA92E85D2 /* Entypo.ttf */; };
 		AFFBF1F61B31431485BA3EBF /* Times New Roman.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE3E44C875E40A8ADC9A1E9 /* Times New Roman.ttf */; };
@@ -416,6 +418,8 @@
 		8F3DD4032A77463FA3F60E1C /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/native-base/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9348C5D2D8A84E5C9929C885 /* SanFranciscoBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SanFranciscoBold.ttf; path = "../node_modules/native-base/Fonts/SanFranciscoBold.ttf"; sourceTree = "<group>"; };
 		940ACB751E92BF2A0079D762 /* libAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAnalytics.a; path = "Pods/../build/Debug-iphoneos/Analytics/libAnalytics.a"; sourceTree = "<group>"; };
+		94307B421E95915900C12613 /* Press.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Press.entitlements; path = Press/Press.entitlements; sourceTree = "<group>"; };
+		94307B431E95916100C12613 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		94CB75EF1E9462D400FBF6CD /* RNSegmentIOAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNSegmentIOAnalytics.h; path = "../node_modules/react-native-analytics-segment/ios/RNAnalytics/RNSegmentIOAnalytics.h"; sourceTree = "<group>"; };
 		94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNSegmentIOAnalytics.m; path = "../node_modules/react-native-analytics-segment/ios/RNAnalytics/RNSegmentIOAnalytics.m"; sourceTree = "<group>"; };
 		99CD3AED53044642B25FCBC0 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
@@ -468,6 +472,7 @@
 				73A82F421E7ADAA300D98E9C /* libRCTFBLogin.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				73A82F491E7ADB7000D98E9C /* FBSDKLoginKit.framework in Frameworks */,
+				94307B441E95916100C12613 /* MapKit.framework in Frameworks */,
 				73A82F471E7ADB6A00D98E9C /* FBSDKCoreKit.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -598,6 +603,7 @@
 		13B07FAE1A68108700A75B9A /* Press */ = {
 			isa = PBXGroup;
 			children = (
+				94307B421E95915900C12613 /* Press.entitlements */,
 				94CB75EF1E9462D400FBF6CD /* RNSegmentIOAnalytics.h */,
 				94CB75F01E9462D400FBF6CD /* RNSegmentIOAnalytics.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -679,6 +685,7 @@
 		73A82F431E7ADAE200D98E9C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94307B431E95916100C12613 /* MapKit.framework */,
 				940ACB751E92BF2A0079D762 /* libAnalytics.a */,
 				73A82F4A1E7ADB7600D98E9C /* FBSDKShareKit.framework */,
 				73A82F481E7ADB7000D98E9C /* FBSDKLoginKit.framework */,
@@ -926,10 +933,20 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = MRS9345AA4;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = JP7T2RYGKM;
+						DevelopmentTeam = MRS9345AA4;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1501,6 +1518,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = MRS9345AA4;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1515,7 +1534,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1526,6 +1545,8 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Press.app/Press";
 			};
 			name = Debug;
@@ -1534,7 +1555,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = MRS9345AA4;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-share/ios",
@@ -1545,7 +1568,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1556,6 +1579,8 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Press.app/Press";
 			};
 			name = Release;
@@ -1565,9 +1590,11 @@
 			baseConfigurationReference = 496AAC03499A66A100E3EC03 /* Pods-Press.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Press/Press.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = JP7T2RYGKM;
+				DEVELOPMENT_TEAM = MRS9345AA4;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
 					"/**",
@@ -1586,6 +1613,7 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${CONFIGURATION_BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1596,7 +1624,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pressApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.presscleaners.Press;
 				PRODUCT_NAME = Press;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1607,8 +1635,9 @@
 			baseConfigurationReference = 5BAF1EBA394C5D0AD126D55A /* Pods-Press.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Press/Press.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JP7T2RYGKM;
+				DEVELOPMENT_TEAM = MRS9345AA4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/FacebookSDK",
 					"/**",
@@ -1627,6 +1656,7 @@
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
 				INFOPLIST_PREFIX_HEADER = "${CONFIGURATION_BUILD_DIR}/GeneratedInfoPlistDotEnv.h";
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1637,7 +1667,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pressApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.presscleaners.Press;
 				PRODUCT_NAME = Press;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

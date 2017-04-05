@@ -143,7 +143,7 @@ android {
 
 dependencies {
     compile project(':react-native-config')
-    compile project(':react-native-analytics')
+    compile project(':react-native-analytics-segment')
     compile project(':react-native-intercom')
     compile project(':react-native-picker')
     compile project(':react-native-geocoder')

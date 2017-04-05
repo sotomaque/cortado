@@ -35,7 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                 new FacebookLoginPackage(),
                 new MainReactPackage(),
-            new ReactNativeConfigPackage(),
+                new ReactNativeConfigPackage(),
                 new RNSegmentIOAnalyticsPackage(),
                 new IntercomPackage(),
                 new PickerViewPackage(),

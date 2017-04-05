@@ -77,4 +77,4 @@ The `.env` file is ignored by git keeping those secrets out of your repo.
 
 ## Analytics
 
-This project uses [Segment](https://segment.com/) to log analytics events. A wrapper for [this sdk](https://github.com/tonyxiao/react-native-analytics) can be found in /app/utils/analytics.js
+This project uses [Segment](https://segment.com/) to log analytics events. A wrapper for [this sdk](https://github.com/tonyxiao/react-native-analytics-segment) can be found in /app/utils/analytics.js

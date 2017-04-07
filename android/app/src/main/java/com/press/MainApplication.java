@@ -3,6 +3,8 @@ package com.press;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.robinpowered.react.Intercom.IntercomPackage;
 import com.beefe.picker.PickerViewPackage;
@@ -35,6 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                 new FacebookLoginPackage(),
                 new MainReactPackage(),
+            new ReactNativePermissionsPackage(),
+            new ReactNativePushNotificationPackage(),
                 new ReactNativeConfigPackage(),
                 new RNSegmentIOAnalyticsPackage(),
                 new IntercomPackage(),

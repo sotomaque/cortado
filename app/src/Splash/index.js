@@ -7,11 +7,14 @@ import { Images } from '../../themes';
 import { Address, User } from '../../beans';
 import { HttpClientHelper, SessionManager } from '../../libs';
 import Analytics from '../../utils/analytics';
+import PushNotifications from '../../utils/pushNotifications';
+
 
 export default class Splash extends Component {
 
     componentDidMount() {
         Analytics.setup();
+        PushNotifications.init();
         this.next();
     }
 

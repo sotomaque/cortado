@@ -6,7 +6,7 @@ import { Button } from '../../components';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { SessionManager } from '../../libs';
 import { User } from '../../beans';
-import Intercom from 'react-native-intercom';
+import ChatSupport from '../../utils/chatSupport';
 
 export default class LeftMenu extends React.Component {
 
@@ -31,11 +31,11 @@ export default class LeftMenu extends React.Component {
             <Container style={{backgroundColor: '#fff'}}>
                 <Content>
                     <ListItem style={{justifyContent: 'center', paddingBottom: 30, paddingTop: 30, borderColor: '#fff'}}>
-                            <Image source={avatar} style={{width: 70, height: 70, borderWidth: 0, borderRadius: 35}}/>
+                        <Image source={avatar} style={{width: 70, height: 70, borderWidth: 0, borderRadius: 35}}/>
                     </ListItem>
                     <ListItem style={itemStyle} onPress={()=>{
                         GLOBAL.requestAnimationFrame(() => {
-                                Actions.payment();
+                            Actions.payment();
                         });
                     }}>
                         <Body>
@@ -44,7 +44,7 @@ export default class LeftMenu extends React.Component {
                     </ListItem>
                     <ListItem style={itemStyle} onPress={()=>{
                         GLOBAL.requestAnimationFrame(() => {
-                                Actions.pricing();
+                            Actions.pricing();
                         });
                     }}>
                         <Body>
@@ -53,7 +53,7 @@ export default class LeftMenu extends React.Component {
                     </ListItem>
                     <ListItem style={itemStyle} onPress={()=>{
                         GLOBAL.requestAnimationFrame(() => {
-                                Actions.promotions();
+                            Actions.promotions();
                         });
                     }}>
                         <Body>
@@ -62,7 +62,7 @@ export default class LeftMenu extends React.Component {
                     </ListItem>
                     <ListItem style={itemStyle} onPress={()=>{
                         GLOBAL.requestAnimationFrame(() => {
-                                Actions.freePress();
+                            Actions.freePress();
                         });
                     }}>
                         <Body>
@@ -71,7 +71,7 @@ export default class LeftMenu extends React.Component {
                     </ListItem>
                     <ListItem style={itemStyle} onPress={()=>{
                         GLOBAL.requestAnimationFrame(() => {
-                            Intercom.displayMessageComposer();
+                            ChatSupport.open();
                         });
                     }}>
                         <Body>
@@ -83,7 +83,7 @@ export default class LeftMenu extends React.Component {
                     <Button containerStyle={{padding: 10}} textStyle={textStyle} text="Logout" onPress={()=>{
                         SessionManager.logout();
                         GLOBAL.requestAnimationFrame(() => {
-                                Actions.login({type: ActionConst.REPLACE});
+                            Actions.login({type: ActionConst.REPLACE});
                         });
                     }} />
                 </Footer>

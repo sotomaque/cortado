@@ -7,10 +7,10 @@ import call from 'react-native-phone-call'
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-simple-modal';
 import Geocoder from 'react-native-geocoder';
-import Intercom from 'react-native-intercom';
 
 import * as DataParser from '../../utils/DataParser';
 import Analytics from '../../utils/analytics';
+import ChatSupport from '../../utils/chatSupport';
 import { ORDER_CANCELLED } from '../../utils/analyticsEvents';
 import { Address, User, Order } from '../../beans';
 import { Fonts, Metrics, Colors, Images } from '../../themes';
@@ -76,7 +76,7 @@ class OrderInProgress extends React.Component {
 
     componentDidMount() {
         this.updateOrderProgress();
-        this.registerIntercom();
+        ChatSupport.identifyUser(User.email);
         this.requestLocation();
     }
 
@@ -93,15 +93,6 @@ class OrderInProgress extends React.Component {
             this.timer = null;
         }
         this.timer = setTimeout(()=>this.updateOrderProgress(), Configs.OrderUpdateTime);
-    }
-
-    async registerIntercom() {
-        Intercom.registerIdentifiedUser({ email: "" + User.email }).then(() => {
-            console.log('registerIdentifiedUser done');
-            Intercom.handlePushMessage();
-        }).catch((err) => {
-            console.log('registerIdentifiedUser ERROR', err);
-        });
     }
 
     timer = null;
@@ -267,10 +258,9 @@ class OrderInProgress extends React.Component {
                     text="Chat Support"
                     textStyle={styles.bottomButtonText}
                     onPress={() => {
-                        GLOBAL.requestAnimationFrame(() => {
-                        Intercom.displayMessageComposer();
-                    });
-                }}/>
+                        ChatSupport.open();
+                    }}
+                />
                 <View style={{
                     width: 1,
                     height: Metrics.navBarHeight,

@@ -4,13 +4,13 @@ import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, Footer
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Modal from 'react-native-simple-modal';
-import Intercom from 'react-native-intercom';
 import Geocoder from 'react-native-geocoder';
 import call from 'react-native-phone-call';
 
 import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
 import Analytics from '../../utils/analytics';
+import ChatSupport from '../../utils/chatSupport';
 import { ORDER_PLACED } from '../../utils/analyticsEvents';
 import { Button, Touchable, DrawerLayoutMenu, TimePicker } from '../../components';
 import { Metrics, Images } from '../../themes'
@@ -80,20 +80,9 @@ export default class Presentation extends React.Component {
         }, 300);
     }
 
-    async registerIntercom() {
-        Intercom.registerIdentifiedUser({ email: "" + User.email })
-        .then(() => {
-            console.log('registerIdentifiedUser done');
-            Intercom.handlePushMessage();
-        })
-        .catch((err) => {
-            console.log('registerIdentifiedUser ERROR', err);
-        });
-    }
-
     componentDidMount() {
         this.getUserInfoFromPress();
-        this.registerIntercom();
+        ChatSupport.identifyUser(User.email);
         this.requestLocation();
     }
 
@@ -354,12 +343,6 @@ export default class Presentation extends React.Component {
         }
     }
 
-    toggleIntercom() {
-        GLOBAL.requestAnimationFrame(() => {
-            Intercom.displayMessageComposer();
-        });
-    }
-
     renderHeader() {
         return (
             <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
@@ -370,7 +353,7 @@ export default class Presentation extends React.Component {
                     <Text style={{marginTop: -5, backgroundColor: 'transparent', fontFamily: 'OpenSans', fontSize: 13, color: '#AAAAAA'}} note>Delivering to</Text>
                     <Text style={{color: '#111111', fontSize: 16, marginTop: -2, backgroundColor: 'transparent', overflow: 'hidden', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
                 </Button>
-                <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 8}} onPress={() => this.toggleIntercom()}>
+                <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 8}} onPress={() => ChatSupport.open()}>
                     <Image source={Images.chat} style={{resizeMode: 'contain', width: 21, marginBottom: -4}}/>
                 </Button>
             </Header>

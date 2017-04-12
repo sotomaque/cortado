@@ -105,8 +105,9 @@ export function updateUserInfo(data) {
     // User.lastName = data[1],
     // User.email = data[2],
     // User.password = data[3],
-    if (User.first_name != '' && User.last_name != '')
+    if (User.first_name != '' && User.last_name != '') {
         User.full_name = User.first_name + ' ' + User.last_name;
+    }
     // User.profilePicture = '',
     // User.FBAccessToken = '',
     // User.FBID = '',

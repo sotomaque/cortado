@@ -33,8 +33,8 @@ export default class PinVerification extends Component {
                 this.setState({loading: false});
                 if (!error) {
                     try {
-                        let token = HttpClientHelper.genBasicAuth(User.email, User.password);
-                        SessionManager.setToken(token);
+                        let password = data.token ? data.token : User.password;
+                        SessionManager.setToken(HttpClientHelper.genBasicAuth(User.email, password));
                     } catch (e) {
                         console.log(e);
                     }
@@ -47,11 +47,7 @@ export default class PinVerification extends Component {
                     Analytics.sendEvent(ACCOUNT_CREATED);
                     Actions.presentation({type: ActionConst.REPLACE});
                 } else {
-                    if (error.hasOwnProperty('error')) {
-                        Functions.showAlert('', error.error);
-                    } else {
-                        Functions.showAlert('', 'Unable to complete registration. Contact support or try again later.');
-                    }
+                    Functions.showAlert('', error.error ? error.error : 'Unable to complete registration. Please contact our customer support team for assistance.');
                 }
             }
         );

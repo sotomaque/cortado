@@ -82,18 +82,18 @@ const styles = StyleSheet.create({
     },
     facebookButton: {
         height: 60,
-        backgroundColor: '#3b5998',
+        backgroundColor: '#4267b2',
         alignSelf: 'stretch',
         justifyContent: 'center',
-        borderRadius: 0,
-        left: 0,
-        right: 0,
+        borderRadius: 4,
+        left: 24,
+        right: 24,
         position: 'absolute',
-        bottom: 0
+        bottom: 24
     },
     facebookButtonText: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: 17,
+        fontSize: 18,
         color: '#FFF',
         alignSelf: 'center'
     },

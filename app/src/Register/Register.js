@@ -36,7 +36,8 @@ export default class Register extends React.Component {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			email: this.state.email,
-			password: this.state.password
+			password: this.state.password,
+			fbid: ''
 		};
 
 		// verify data is correctly formatted
@@ -49,14 +50,14 @@ export default class Register extends React.Component {
 
 		if (data.email.indexOf("@") < 0) {
      		Functions.showAlert('', 'An email address must contain a single @');
-     	return;
-    }
+	     	return;
+	    }
 
-    let isEmailValid = await EmailValidator.validate(data.email);
-    if (!isEmailValid) {
-		Functions.showAlert('', 'Please enter a valid email');
-		return;
-    }
+	    let isEmailValid = await EmailValidator.validate(data.email);
+	    if (!isEmailValid) {
+			Functions.showAlert('', 'Please enter a valid email');
+			return;
+	    }
 		DataParser.updateUserInfo(data);
 		this.setState({loading: true});
 		HttpClientHelper.get('validate', {email: data.email}, (error, _data) => {

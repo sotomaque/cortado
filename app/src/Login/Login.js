@@ -80,17 +80,43 @@ export default class Login extends React.Component {
   }
 
   handleLoginFB() {
+    if (!User.fbid || !User.fb_token) {
+      Functions.showAlert('', "Facebook login failed. Try again later.");
+      return;
+    }
+
     this.setState({loading: true});
-    HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data) => {
-      if (!error) {
-        SessionManager.setToken(HttpClientHelper.genBasicAuth(User.email, data.token));
-        this.handleLoggedIn();
-      } else {
+
+    let url = `https://graph.facebook.com/v2.3/${User.fbid}?fields=first_name,last_name,email&access_token=${User.fb_token}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        const {email, first_name, last_name} = data;
+        if (!email) {
+          this.setState({loading: false});
+          Functions.showAlert('', "Unable to log in: missing email.");
+          return;
+        } else {
+          DataParser.updateUserInfo({email, first_name, last_name});
+          HttpClientHelper.post('login_fb', DataParser.getLoginFBData(), (error, data) => {
+            if (!error) {
+              SessionManager.setToken(HttpClientHelper.genBasicAuth(User.email, data.token));
+              this.handleLoggedIn();
+            } else {
+              this.setState({loading: false});
+              if (error.error === "User does not exist.") {
+                Actions.phoneNumberVerification();
+              } else {
+                Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later.");
+              }
+            }
+          })
+        }
+      })
+      .catch((err) => {
         this.setState({loading: false});
-        //show error
-        Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later.");
-      }
-    })
+        Functions.showAlert('', "Facebook login failed. Please try again later.");
+      });
   }
 
   handleLoggedIn() {
@@ -127,21 +153,13 @@ export default class Login extends React.Component {
 
   onLoginFBPressed() {
     this.setState({error: ''});
-    FBLoginManager.loginWithPermissions(["email", "user_friends"], (error, data) => {
+    FBLoginManager.loginWithPermissions(["email", "public_profile"], (error, data) => {
       if (!error) {
         console.log('facebook', data);
-        let profile = null;
-        if (data.profile) {
-          profile = JSON.parse(data.profile);
-        }
-        if (!profile) {
-          profile = {email: '', first_name: '', last_name: ''};
-        }
-        const { email, first_name, last_name } = profile;
         const { token, userId } = data.credentials;
         fb_token = token;
         fbid = userId;
-        DataParser.updateUserInfo({email, first_name, last_name, fb_token, fbid});
+        DataParser.updateUserInfo({fb_token, fbid});
         this.handleLoginFB();
       } else {
         console.log("Error: ", error);

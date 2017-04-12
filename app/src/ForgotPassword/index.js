@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, Image, Keyboard }	from 'react-native';
+import { StyleSheet, TextInput, Text, View, Image, Keyboard, StatusBar }	from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Item, Input, Label, Form, Content } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -50,7 +50,9 @@ export default class ForgotPassword extends React.Component {
       if (!error) {
         Actions.pop();
       } else {
-        Functions.showAlert('', `User with email ${this.state.email} does not exist.`);
+        setTimeout(() => {
+          Functions.showAlert('', `User with email ${this.state.email} does not exist.`);
+        }, 100);
       }
     })
   }
@@ -76,20 +78,29 @@ export default class ForgotPassword extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <StatusBar barStyle="light-content"/>
+        <View style={{
+          backgroundColor: '#4B2D8F',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          right: 0,
+          height: 300
+        }}></View>
         <Content style={{padding: 20, backgroundColor:'transparent'}} ref='container'>
           <Text style={styles.heading}>Reset Your Password</Text>
           <Text style={styles.subHeading}>You'll receive an email with a link to reset your password.</Text>
           <Panel>
             <Form>
               <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-                <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
+                <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
                 <Input
                   onChangeText={(val) => this.setState({email: val})}
                   value={this.state.email}
                   keyboardType="email-address"
                   returnKeyType="go"
                   autoCapitalize="none"
-                  style={{fontFamily: 'OpenSans'}}
+                  style={StyleSheet.flatten(styles.inputField)}
                 />
               </Item>
             </Form>

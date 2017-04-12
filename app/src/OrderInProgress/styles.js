@@ -6,16 +6,16 @@ const styles = StyleSheet.create({
         flex: 1
     },
     mapView: {
-        height: (Metrics.screenHeight) * 0.37,
+        flex: 1,
         width: (Metrics.screenWidth)
+    },
+    listView: {
+        flex: 0,
+        paddingTop: 10
     },
     buttons: {
         position: 'absolute',
         bottom: 0
-    },
-    listView: {
-        bottom: -10,
-        position: 'relative'
     },
     row: {
         padding: 12,
@@ -64,27 +64,27 @@ const styles = StyleSheet.create({
         width: 0,
     },
     dot: {
-        width: 18,
-        height: 18,
-        borderRadius: 9,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
         backgroundColor: '#EEEEEF',
     },
     dotInProgress: {
-        width: 18,
-        height: 18,
-        borderRadius: 9,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
         backgroundColor: '#deedd7'
     },
     dotComplete: {
-        width: 18,
-        height: 18,
-        borderRadius: 9,
+        width: 20,
+        height: 20,
+        borderRadius: 10,
         backgroundColor: '#53B826',
     },
     bottomButtonText: {
         fontFamily: 'OpenSans-SemiBold',
         fontSize: 14,
-        color: '#444444'
+        color: '#222222'
     }
 });
 

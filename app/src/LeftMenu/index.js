@@ -17,7 +17,9 @@ export default class LeftMenu extends React.Component {
         }
 
         let textStyle = {
-            fontFamily: 'OpenSans'
+            fontFamily: 'OpenSans',
+            fontSize: 17,
+            color: '#565656'
         };
 
         let itemStyle = {
@@ -28,12 +30,16 @@ export default class LeftMenu extends React.Component {
         };
 
         return (
-            <Container style={{backgroundColor: '#fff'}}>
+            <Container style={{
+                backgroundColor: '#fff',
+                borderRightWidth: 1,
+                borderColor: '#e8e8e8'
+            }}>
                 <Content>
                     <ListItem style={{justifyContent: 'center', paddingBottom: 30, paddingTop: 30, borderColor: '#fff'}}>
                         <Image source={avatar} style={{width: 70, height: 70, borderWidth: 0, borderRadius: 35}}/>
                     </ListItem>
-                    <ListItem style={itemStyle} onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.payment();
                         });
@@ -42,7 +48,7 @@ export default class LeftMenu extends React.Component {
                             <Text style={textStyle}>Payment</Text>
                         </Body>
                     </ListItem>
-                    <ListItem style={itemStyle} onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.pricing();
                         });
@@ -51,7 +57,7 @@ export default class LeftMenu extends React.Component {
                             <Text style={textStyle}>Pricing</Text>
                         </Body>
                     </ListItem>
-                    <ListItem style={itemStyle} onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.promotions();
                         });
@@ -60,7 +66,7 @@ export default class LeftMenu extends React.Component {
                             <Text style={textStyle}>Promotions</Text>
                         </Body>
                     </ListItem>
-                    <ListItem style={itemStyle} onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.freePress();
                         });
@@ -69,7 +75,7 @@ export default class LeftMenu extends React.Component {
                             <Text style={textStyle}>Free Press</Text>
                         </Body>
                     </ListItem>
-                    <ListItem style={itemStyle} onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             ChatSupport.open();
                         });
@@ -78,15 +84,17 @@ export default class LeftMenu extends React.Component {
                             <Text style={textStyle}>Chat Support</Text>
                         </Body>
                     </ListItem>
-                </Content>
-                <Footer style={{backgroundColor: '#ffffff', height: 50, alignItems: 'center'}}>
-                    <Button containerStyle={{padding: 10}} textStyle={textStyle} text="Logout" onPress={()=>{
+                    <ListItem style={itemStyle} onPress={() => {
                         SessionManager.logout();
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.login({type: ActionConst.REPLACE});
                         });
-                    }} />
-                </Footer>
+                    }}>
+                        <Body>
+                            <Text style={textStyle}>Logout</Text>
+                        </Body>
+                    </ListItem>
+                </Content>
             </Container>
         )
     }

@@ -40,7 +40,7 @@ class OrderInProgress extends React.Component {
         let lat = Configs.defaultLocation.lat;
         let lng = Configs.defaultLocation.lng;
 
-        if (Address.latitude !=0 || Address.longitude != 0) {
+        if (Address.latitude != 0 || Address.longitude != 0) {
             lat = Address.latitude;
             lng = Address.longitude;
         }
@@ -201,39 +201,52 @@ class OrderInProgress extends React.Component {
             <Header style={{
                 backgroundColor: '#fff',
                 height: Metrics.navBarHeight,
-                paddingBottom: 3
+                paddingBottom: 10,
+                borderBottomColor: '#e0e0e0',
+                borderBottomWidth: 1.0
             }}>
-                <Button containerStyle={{width: 50, justifyContent: 'center', marginLeft: 5}} onPress={() => this.toggleMenu()}>
-                    <Icon style={{color: '#565656'}} name='menu' />
+                <Button onPress={() => this.toggleMenu()} containerStyle={{
+                    width: 50,
+                    justifyContent: 'center',
+                    marginLeft: 8
+                }}>
+                    <Image source={Images.person} style={{
+                        resizeMode: 'contain',
+                        width: 18,
+                        marginBottom: 0
+                    }}/>
                 </Button>
-                <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}}>
-                    <Text
-                        style={{
-                            marginTop: -5,
-                            backgroundColor: 'transparent',
-                            fontFamily: 'OpenSans',
-                            fontSize: 13,
-                            color: '#AAAAAA'
-                        }}
-                        note
-                    >
+                <Button containerStyle={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flex: 1,
+                    padding: 5
+                }}>
+                    <Text style={{
+                        marginTop: -5,
+                        backgroundColor: 'transparent',
+                        fontFamily: 'OpenSans',
+                        fontSize: 14,
+                        color: '#AAAAAA'
+                    }}>
                         Delivering to
                     </Text>
                     <Text style={{
                         color: '#111111',
-                        fontSize: 16,
-                        marginTop: -2,
+                        fontSize: 17,
+                        marginTop: -3,
                         backgroundColor: 'transparent',
                         fontFamily: 'OpenSans-SemiBold'
                     }}>
                         {DataParser.getAddress()}
                     </Text>
                 </Button>
-                <Button
-                    disabled={canNotCancel}
-                    containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 5}}
-                    onPress={() => this.setState({modal: true})}
-                >
+                <Button disabled={canNotCancel} onPress={() => this.setState({modal: true})} containerStyle={{
+                    width: 50,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                    marginRight: 5
+                }}>
                     <Text style={{
                         fontFamily: 'OpenSans-SemiBold',
                         color: canNotCancel ? '#DDDDDE' : '#444444',
@@ -248,7 +261,12 @@ class OrderInProgress extends React.Component {
 
     renderFooter() {
         return (
-            <Footer style={{backgroundColor: '#ffffff', height: Metrics.navBarHeight}}>
+            <Footer style={{
+                backgroundColor: '#ffffff',
+                height: Metrics.navBarHeight,
+                borderTopWidth: 1,
+                borderColor: '#e8e8e8'
+            }}>
                 <Button
                     containerStyle={{
                         flex: 1,
@@ -257,14 +275,13 @@ class OrderInProgress extends React.Component {
                     }}
                     text="Chat Support"
                     textStyle={styles.bottomButtonText}
-                    onPress={() => {
-                        ChatSupport.open();
+                    onPress={() => {ChatSupport.open();
                     }}
                 />
                 <View style={{
                     width: 1,
                     height: Metrics.navBarHeight,
-                    backgroundColor: '#f2f2f2'
+                    backgroundColor: '#e8e8e8'
                 }}/>
                 <Button
                     containerStyle={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
@@ -327,20 +344,22 @@ class OrderInProgress extends React.Component {
                         <View style={rowID == total - 1 ? [styles.bottomLine, styles.hiddenLine] : styles.bottomLine} />
                     </View>
                     <View style={dotStyle}>
-                        {(rowData[2] && !rowData[3]) && <Image source={Images.check} style={{width: 10, height: 10, margin: 4, resizeMode: 'contain'}} />}
+                        {(rowData[2] && !rowData[3]) && <Image source={Images.check} style={{width: 12, height: 12, margin: 4, resizeMode: 'contain'}} />}
                     </View>
                 </View>
                 <View style={styles.content}>
                     <Text style={{
                         fontFamily: 'OpenSans-SemiBold',
-                        fontSize: 16,
+                        fontSize: 17,
                         color: '#292929'
                     }}>{rowData[0]}</Text>
                     {rowData[1] != '' && <Text style={{
                         marginTop: 0,
                         fontFamily: 'OpenSans',
-                        fontSize: 13
-                    }} note>
+                        fontSize: 14,
+                        color: '#636363',
+                        opacity: 0.7
+                    }}>
                         {rowData[1]}
                     </Text>}
                 </View>
@@ -367,12 +386,20 @@ class OrderInProgress extends React.Component {
                 region={this.getRegion()}
             >
                 <MapView.Marker
-                    image={require('../../images/pin.png')}
                     coordinate={{
                         latitude: this.state.latitude,
-                        longitude: this.state.longitude,
+                        longitude: this.state.longitude
                     }}
-                />
+                    centerOffset={{
+                        x: 6,
+                        y: -29
+                    }}
+                >
+                    <Image source={Images.mapPin} style={{
+                        resizeMode: 'contain',
+                        width: 40
+                    }}/>
+                </MapView.Marker>
             </MapView>
         );
     }
@@ -385,7 +412,7 @@ class OrderInProgress extends React.Component {
         let menu = <LeftMenu />
         let content = <Container style={{backgroundColor: '#fff'}}>
             {this.renderHeader()}
-            <Content scrollEnabled={true}>
+            <Content contentContainerStyle={{flex: 1, justifyContent: 'flex-end', flexDirection: 'column'}} scrollEnabled={false}>
                 {this.renderMap()}
                 {this.renderRows()}
             </Content>

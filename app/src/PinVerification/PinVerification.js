@@ -30,7 +30,7 @@ export default class PinVerification extends Component {
         this.setState({loading: true});
         HttpClientHelper.post('register', DataParser.getRegistrationData(),
             (error, data) => {
-                this.setState({ loading: false });
+                this.setState({loading: false});
                 if (!error) {
                     try {
                         let token = HttpClientHelper.genBasicAuth(User.email, User.password);
@@ -47,7 +47,11 @@ export default class PinVerification extends Component {
                     Analytics.sendEvent(ACCOUNT_CREATED);
                     Actions.presentation({type: ActionConst.REPLACE});
                 } else {
-                    Functions.showAlert('', 'An unexpected error occurred. Please try again later.');
+                    if (error.hasOwnProperty('error')) {
+                        Functions.showAlert('', error.error);
+                    } else {
+                        Functions.showAlert('', 'Unable to complete registration. Contact support or try again later.');
+                    }
                 }
             }
         );
@@ -63,7 +67,11 @@ export default class PinVerification extends Component {
                 this.finishRegister();
             } else {
                 this.setState({loading: false});
-                Functions.showAlert('', 'Invalid PIN. Please try again.');
+                if (error.hasOwnProperty('error')) {
+                    Functions.showAlert('', error.error);
+                } else {
+                    Functions.showAlert('', 'Unable to verify pin. Contact support or try again later.');
+                }
             }
         });
     }
@@ -94,8 +102,8 @@ export default class PinVerification extends Component {
                         onPress={() => this.onContinuePressed()}
                         text="Finish Registration"
                     />
-                    <Text note style={{margin: 30, marginTop: 10, textAlign: 'left'}}>
-                        {`*Your PIN has been texted to the number provided.`}
+                    <Text note style={{fontFamily:'OpenSans-SemiBold', margin: 30, marginTop: 10, textAlign: 'left'}}>
+                        {"Enter the verification pin sent to " + User.phone_number + " to finish registration."}
                     </Text>
                 </Content>
                 <Spinner visible={this.state.loading} />

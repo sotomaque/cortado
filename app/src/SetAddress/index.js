@@ -11,7 +11,7 @@ import * as DataParser from '../../utils/DataParser';
 import Configs from '../../configs';
 import Analytics from '../../utils/analytics';
 import { ADDRESS_UPDATED } from '../../utils/analyticsEvents';
-import { Metrics } from '../../themes';
+import { Metrics, Images } from '../../themes';
 import { Touchable, Button, Panel } from '../../components';
 import { Address } from '../../beans';
 import { SessionManager, HttpClientHelper } from '../../libs';
@@ -171,7 +171,13 @@ export default class SetAddress extends React.Component {
 
     renderHeader() {
         return (
-            <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+            <Header style={{
+                backgroundColor: '#fff',
+                height: Metrics.navBarHeight,
+                paddingBottom: 10,
+                borderBottomColor: '#e0e0e0',
+                borderBottomWidth: 1.0
+            }}>
                 <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={() => {
                     try {
                         Actions.pop();
@@ -199,15 +205,20 @@ export default class SetAddress extends React.Component {
                 region={this.getRegion()}
             >
                 <MapView.Marker
-                    image={require('../../images/pin.png')}
                     coordinate={{
                         latitude: this.state.latitude,
                         longitude: this.state.longitude
                     }}
-                    title={"My location"}
-                    description={Address.street + ", " + Address.zipcode}
-                />
-                
+                    centerOffset={{
+                        x: 6,
+                        y: -29
+                    }}
+                >
+                    <Image source={Images.mapPin} style={{
+                        resizeMode: 'contain',
+                        width: 40
+                    }}/>
+                </MapView.Marker>
             </MapView>
         );
     }
@@ -282,7 +293,7 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     inputContainer: {
-        borderColor: '#e0e0e0',
+        borderBottomColor: '#e8e8e8',
         marginLeft: 0
     },
     mapView: {

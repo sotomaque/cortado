@@ -6,6 +6,7 @@ import { NavigationBar, Button } from '../../components';
 import { User } from '../../beans';
 import { Actions } from 'react-native-router-flux';
 import { HttpClientHelper } from '../../libs';
+import * as DataParser from '../../utils/DataParser';
 import * as Functions from '../../utils/Functions';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -17,13 +18,11 @@ class Promotion extends React.Component {
             code: '',
             loading: false
         }
-        this.handleLoggedIn = this.handleLoggedIn.bind(this);
+        this.refreshUser = this.refreshUser.bind(this);
     }
 
-    handleLoggedIn() {
-        this.setState({loading: true});
+    refreshUser() {
         HttpClientHelper.get('world', null, (error, data) => {
-          this.setState({loading: false});
           if (!error) {
             try {
               let user = data.user;
@@ -35,7 +34,7 @@ class Promotion extends React.Component {
               console.log(e);
             }
           } else {
-            Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later");
+            console.log(error);
           }
         });
     }
@@ -51,24 +50,26 @@ class Promotion extends React.Component {
         }
 
         this.setState({loading: true});
-        HttpClientHelper.post('promotion', params, (error, params)=>{
+        HttpClientHelper.post('promotion', params, (error, params) => {
             this.setState({loading: false});
-            if(!error) {
-                Functions.showAlert('', 'Your code is applied');
-                this.handleLoggedIn();
-                this.setState({
-                    code: User.total_free_credits
-                })
+            if (!error) {
+                Functions.showAlert('', 'Promotion applied successfully.');
+                this.refreshUser();
             } else {
                 Functions.showAlert('', error.error ? error.error : 'Your promo code is invalid. Please try again');
             }
-        })
-        this.setState({loading: false});
+        });
     }
 
     renderHeader() {
         return (
-          <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+          <Header style={{
+            backgroundColor: '#fff',
+            height: Metrics.navBarHeight,
+            paddingBottom: 10,
+            borderBottomColor: '#e0e0e0',
+            borderBottomWidth: 1.0
+          }}>
             <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{
               try {
                 Actions.pop();

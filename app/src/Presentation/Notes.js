@@ -3,8 +3,8 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Separator, Text, Item, Input } from 'native-base';
+import { View, TextInput } from 'react-native';
+import { Separator, Text, Input } from 'native-base';
 
 class Notes extends Component {
 	props: NotesProps
@@ -12,7 +12,8 @@ class Notes extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			special_instructions: ''
+			special_instructions: '',
+			isFocused: false
 		};
 	}
 
@@ -23,17 +24,30 @@ class Notes extends Component {
 	render() {
 		return (
 			<View>
-				<Separator style={{backgroundColor: '#f2f3f6'}} bordered>
-		        	<Text style={{color: '#AAAAAA', fontSize: 13, marginTop: 6}}>Special Instructions (optional)</Text>
+				<Separator style={{backgroundColor: '#f2f3f6'}}>
+		        	<Text style={{color: '#AAAAAA', fontSize: 14, marginTop: 6, fontFamily: 'OpenSans'}}>Special Instructions (optional)</Text>
 		        </Separator>
-		        <Item underline style={{borderColor: '#e0e0e0'}}>
-					<Input
-						style={{fontSize: 13, fontFamily: 'OpenSans-SemiBold', opacity: 0.5, paddingTop: 0}}
+		        <View style={{
+		        	borderTopWidth: 1.0,
+					borderBottomWidth: 1.0,
+					borderColor: '#e8e8e8'
+		        }}>
+					<TextInput
+						style={{
+							fontSize: 13,
+							fontFamily: 'OpenSans-SemiBold',
+							height: this.state.isFocused ? 120 : 66,
+							marginLeft: 15,
+							paddingTop: 5
+						}}
+						multiline={true}
 						placeholder={'Any garments we should pay special attention to?'}
 						value={this.state.special_instructions}
 						onChangeText={(val) => this.setState({special_instructions: val})}
+						onFocus={() => this.setState({isFocused: true})}
+						onEndEditing={() => this.setState({isFocused: false})}
 					/>
-		        </Item>
+				</View>
 			</View>
 		)
 	}

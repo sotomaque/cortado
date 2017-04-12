@@ -2,10 +2,14 @@ import { StyleSheet } from 'react-native'
 import { Metrics, Images, Colors } from '../../themes';
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginTop: Metrics.navBarHeight
-	},
+	mainContainer: {
+        flex: 1,
+        marginTop: 0,
+        backgroundColor: '#f2f3f6'
+    },
+    container: {
+        flex: 1
+    },
 	text: {
 		marginTop: 10,
 		padding: 10,
@@ -16,7 +20,8 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		height: 60,
 		margin: 30,
-		fontSize: 30
+		fontSize: 30,
+		fontFamily: 'OpenSans'
 	},
 	button: {
 		height: 50,

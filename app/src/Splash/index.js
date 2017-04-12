@@ -36,7 +36,8 @@ export default class Splash extends Component {
                         Actions.presentation({type: ActionConst.REPLACE});
                     }
                 } catch (e) {
-
+                    console.log('Error during Splash:handleLoggedIn');
+                    console.log(e);
                 }
             } else {
                 Functions.showAlert('', error.error ? error.error : "An unknown error has occurred. Please try again later");

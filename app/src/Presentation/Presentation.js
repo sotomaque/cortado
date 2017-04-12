@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, InteractionManager, StyleSheet, Image } from 'react-native';
+import { View, InteractionManager, StyleSheet, Image, Platform } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header, Radio } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -300,7 +300,7 @@ export default class Presentation extends React.Component {
         if (!this.checkPickupTime()) return;
         const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.dropoff);
         this.setState({showIOSPicker: true});
-        TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Dropoff Window', 'When should we drop off your clean clothes?', (error, data) => {
+        TimePicker.show(currentDate, currentTime, this.state.availability, 'Select Dropoff Window', 'When should we drop off your clean clothes?', (error, data) => {
             this.setState({showIOSPicker: false});
             if (!error) {
                 this.setState({
@@ -316,7 +316,7 @@ export default class Presentation extends React.Component {
         if (!this.checkAvailability()) return;
         const {currentDate, currentTime} = this.getCurrentDateSelected(this.state.pickup);
         this.setState({showIOSPicker: true});
-        TimePicker.show(currentDate, currentTime, this.state.availability, 'Set Pickup Window', 'When should we pick up your dirty clothes?', (error, data) => {
+        TimePicker.show(currentDate, currentTime, this.state.availability, 'Select Pickup Window', 'When should we pick up your dirty clothes?', (error, data) => {
             this.setState({showIOSPicker: false});
             if (!error) {
                 this.setState({
@@ -345,16 +345,57 @@ export default class Presentation extends React.Component {
 
     renderHeader() {
         return (
-            <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
-                <Button containerStyle={{width: 50, justifyContent: 'center', marginLeft: 8}} onPress={() => this.toggleMenu()}>
-                    <Image source={Images.person} style={{resizeMode: 'contain', width: 17, marginBottom: 0}}/>
+            <Header style={{
+                backgroundColor: '#fff',
+                height: Metrics.navBarHeight,
+                paddingBottom: 10,
+                borderBottomColor: '#e0e0e0',
+                borderBottomWidth: 1.0
+            }}>
+                <Button onPress={() => this.toggleMenu()} containerStyle={{
+                    width: 50,
+                    justifyContent: 'center',
+                    marginLeft: 8
+                }}>
+                    <Image source={Images.person} style={{
+                        resizeMode: 'contain',
+                        width: 18,
+                        marginBottom: 0
+                    }}/>
                 </Button>
-                <Button containerStyle={{justifyContent: 'center', alignItems: 'center', flex: 1, padding: 5}} onPress={() => Actions.setAddress()}>
-                    <Text style={{marginTop: -5, backgroundColor: 'transparent', fontFamily: 'OpenSans', fontSize: 13, color: '#AAAAAA'}} note>Delivering to</Text>
-                    <Text style={{color: '#111111', fontSize: 16, marginTop: -2, backgroundColor: 'transparent', overflow: 'hidden', fontFamily: 'OpenSans-SemiBold'}}>{DataParser.getAddress()}</Text>
+                <Button onPress={() => Actions.setAddress()} containerStyle={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flex: 1,
+                    padding: 5
+                }}>
+                    <Text style={{
+                        marginTop: -5,
+                        backgroundColor: 'transparent',
+                        fontFamily: 'OpenSans',
+                        fontSize: 14,
+                        color: '#AAAAAA'
+                    }}>
+                        Delivering to
+                    </Text>
+                    <Text style={{
+                        color: '#111111',
+                        fontSize: 17,
+                        marginTop: -3,
+                        backgroundColor: 'transparent',
+                        overflow: 'hidden',
+                        fontFamily: 'OpenSans-SemiBold'
+                    }}>
+                        {DataParser.getAddress()}
+                    </Text>
                 </Button>
-                <Button containerStyle={{width: 50, justifyContent: 'center', alignItems: 'flex-end', marginRight: 8}} onPress={() => ChatSupport.open()}>
-                    <Image source={Images.chat} style={{resizeMode: 'contain', width: 21, marginBottom: -4}}/>
+                <Button onPress={() => ChatSupport.open()} containerStyle={{
+                    width: 50,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                    marginRight: 8
+                }}>
+                    <Image source={Images.chat} style={{resizeMode: 'contain', width: 22, marginBottom: -4}}/>
                 </Button>
             </Header>
         );
@@ -364,11 +405,11 @@ export default class Presentation extends React.Component {
         return (
             <Content scrollEnabled={true}>
                 <View style={styles.container}>
-                    <Separator style={{backgroundColor: '#f2f3f6'}} bordered>
-                        <Text style={{fontFamily: 'OpenSans', color: '#AAAAAA', fontSize: 13, marginTop: 6}}>Choose Service</Text>
+                    <Separator style={{backgroundColor: '#f2f3f6'}}>
+                        <Text style={{fontFamily: 'OpenSans', color: '#AAAAAA', fontSize: 14, marginTop: 6}}>Choose Service</Text>
                     </Separator>
                     <View style={styles.sectionContainer}>
-                        <ListItem onPress={this.handleOnPressWash}>
+                        <ListItem onPress={this.handleOnPressWash} style={{paddingTop: 10, paddingBottom: 13}}>
                             <CheckBox
                                 activeOpacity={0.8}
                                 checked={this.state.wf}
@@ -376,11 +417,11 @@ export default class Presentation extends React.Component {
                                 style={StyleSheet.flatten(this.state.wf ? styles.serviceItemCheckboxSelected : styles.serviceItemCheckbox)}
                             />
                             <Body>
-                                <Text style={{fontFamily: 'OpenSans-SemiBold', color: this.state.wf ? '#171717' : '#656565', fontSize: 16, marginTop: -5}}>Wash & Fold</Text>
-                                <Text note style={{fontFamily: 'OpenSans', color: this.state.wf ? '#AAAAAA' : '#BBBBBB', fontSize: 13, marginBottom: -4}}>Everyday laundry. Returned neatly folded.</Text>
+                                <Text style={{fontFamily: 'OpenSans-SemiBold', color: this.state.wf ? '#171717' : '#656565', fontSize: 17, marginTop: 0}}>Wash & Fold</Text>
+                                <Text style={{fontFamily: 'OpenSans', color: this.state.wf ? '#AAAAAA' : '#BBBBBB', fontSize: 14, marginBottom: 0}}>Everyday laundry. Returned neatly folded.</Text>
                             </Body>
                         </ListItem>
-                        <ListItem onPress={this.handleOnPressDryClean} last>
+                        <ListItem onPress={this.handleOnPressDryClean} last style={{paddingTop: 10, paddingBottom: 13, marginBottom: -1}}>
                             <CheckBox
                                 activeOpacity={0.8}
                                 checked={this.state.dc}
@@ -388,38 +429,40 @@ export default class Presentation extends React.Component {
                                 style={StyleSheet.flatten(this.state.dc ? styles.serviceItemCheckboxSelected : styles.serviceItemCheckbox)}
                             />
                             <Body>
-                                <Text style={{fontFamily: 'OpenSans-SemiBold', color: this.state.dc ? '#171717' : '#656565', fontSize: 16, marginTop: -5}}>Dry Cleaning</Text>
-                                <Text note style={{fontFamily: 'OpenSans', color: this.state.dc ? '#AAAAAA' : '#BBBBBB', fontSize: 13, marginBottom: -4}}>Delicate garments. Returned on hangers.</Text>
+                                <Text style={{fontFamily: 'OpenSans-SemiBold', color: this.state.dc ? '#171717' : '#656565', fontSize: 17, marginTop: 0}}>Dry Cleaning</Text>
+                                <Text style={{fontFamily: 'OpenSans', color: this.state.dc ? '#AAAAAA' : '#BBBBBB', fontSize: 14, marginBottom: 0}}>Delicate garments. Returned on hangers.</Text>
                             </Body>
                         </ListItem>
                     </View>
-                    <Separator style={{backgroundColor: '#f2f3f6'}} bordered>
-                        <Text style={{ fontFamily: 'OpenSans', color: '#AAAAAA', fontSize: 13, marginTop: 6}}>Schedule</Text>
+                    <Separator style={{backgroundColor: '#f2f3f6'}}>
+                        <Text style={{ fontFamily: 'OpenSans', color: '#AAAAAA', fontSize: 14, marginTop: 6}}>Schedule</Text>
                     </Separator>
-
-                    <ListItem onPress={() => {
-                        GLOBAL.requestAnimationFrame(() => {
-                            this.handleOnPressPickUp();
-                        });
-                    }}>
-                        <Body>
-                            <Text style={{ fontFamily: 'OpenSans', marginLeft: 0, marginTop: -5 }} note>Pickup Time</Text>
-                            <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', marginBottom: -4 }}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
-                        </Body>
-                    </ListItem>
-                    <ListItem 
-                        onPress={() => {
+                    <View style={styles.sectionContainer}>
+                        <ListItem onPress={() => {
                             GLOBAL.requestAnimationFrame(() => {
-                                this.handleOnPressDropoff();
+                                this.handleOnPressPickUp();
                             });
-                        }} 
-                        last
-                    >
-                        <Body>
-                            <Text style={{ fontFamily: 'OpenSans', marginLeft: 0, marginTop: -5 }} note>Dropoff Time</Text>
-                            <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', marginBottom: -4 }}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
-                        </Body>
-                    </ListItem>
+                        }}>
+                            <Body>
+                                <Text style={{ fontFamily: 'OpenSans', marginLeft: 0, fontSize: 15, color: '#999999', marginTop: -2 }}>Pickup Time</Text>
+                                <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', fontSize: 17, color: '#111111' }}>{this.getTimeAstring(this.state.pickup, 'Set Pickup Time')}</Text>
+                            </Body>
+                        </ListItem>
+                        <ListItem 
+                            onPress={() => {
+                                GLOBAL.requestAnimationFrame(() => {
+                                    this.handleOnPressDropoff();
+                                });
+                            }}
+                            style={{marginBottom: -1}}
+                            last
+                        >
+                            <Body>
+                                <Text style={{ fontFamily: 'OpenSans', marginLeft: 0, fontSize: 15, color: '#999999', marginTop: -2 }}>Dropoff Time</Text>
+                                <Text style={{ marginLeft: 0, fontFamily: 'OpenSans-SemiBold', fontSize: 17, color: '#111111' }}>{this.getTimeAstring(this.state.dropoff, 'Set Dropoff Time')}</Text>
+                            </Body>
+                        </ListItem>
+                    </View>
                     <Notes ref={(ref) => this.special_instructions=ref} />
                 </View>
             </Content>
@@ -483,7 +526,7 @@ export default class Presentation extends React.Component {
                         this.setState({showIOSPicker: false});
                     }}
                     style={{
-                        position: 'absolute', top: 0, left: 0, backgroundColor: 'rgba(0,0,0,0.4)',
+                        position: 'absolute', top: 0, left: 0, backgroundColor: 'rgba(0,0,0,0.7)',
                         width: Metrics.screenWidth, height: Metrics.screenHeight
                     }}
                 />
@@ -514,6 +557,7 @@ export default class Presentation extends React.Component {
         >
             {content}
             {this.renderModal()}
+            {this.renderOverlayIOS()}
         </DrawerLayoutMenu>);
     }
 }

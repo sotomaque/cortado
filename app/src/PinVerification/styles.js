@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	    height: 60,
 	    margin: 30,
-	    fontSize: 30
+	    fontSize: 30,
+	    fontFamily: 'OpenSans'
 	},
 	button: {
 	    height: 50,

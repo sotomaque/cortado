@@ -11,17 +11,21 @@ export function validateForm(name, value, title='', callback=null) {
 }
 
 export function showAlert(title, message, callback=null) {
-  const oAlert = Platform.OS=='ios'?AlertIOS:Alert;
-  GLOBAL.requestAnimationFrame(() => {
-    oAlert.alert(
-      title,
-      message,
-      [
-        {text: 'OK', onPress: () => {
-          if(callback!=null)
-            callback();
-        }},
-      ]
-    );
-  });
+  const oAlert = Platform.OS == 'ios' ? AlertIOS : Alert;
+  setTimeout(() => {
+    GLOBAL.requestAnimationFrame(() => {
+      oAlert.alert(
+        title,
+        message,
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              if (callback != null) callback();
+            }
+          },
+        ]
+      );
+    });
+  }, 100);
 }

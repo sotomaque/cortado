@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextInput, Text, View, Image, Keyboard, StyleSheet } from 'react-native';
-import { Form, Item, Input, Label, Icon } from 'native-base';
+import { TextInput, Text, View, Image, Keyboard, StyleSheet, StatusBar } from 'react-native';
+import { Form, Item, Input, Label, Icon, Content } from 'native-base';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
 var { FBLoginManager } = require('react-native-facebook-login');
@@ -28,9 +28,11 @@ export default class Login extends React.Component {
     this.onLoginPressed = this.onLoginPressed.bind(this);
     this.onLoginFBPressed = this.onLoginFBPressed.bind(this);
     this.handleLoginFB = this.handleLoginFB.bind(this);
-    this._keyboardDidShow = this._keyboardDidShow.bind(this)
-    this._keyboardDidHide = this._keyboardDidHide.bind(this)
-    this.handleLoggedIn = this.handleLoggedIn.bind(this)
+    this._keyboardDidShow = this._keyboardDidShow.bind(this);
+    this._keyboardDidHide = this._keyboardDidHide.bind(this);
+    this.handleLoggedIn = this.handleLoggedIn.bind(this);
+    this.handlePressSignUp = this.handlePressSignUp.bind(this);
+    this.handlePressForgotPassword = this.handlePressForgotPassword.bind(this);
   }
 
   startAnimateButton() {
@@ -68,10 +70,12 @@ export default class Login extends React.Component {
   }
 
   handlePressSignUp() {
+    this.setState({error: ''});
     Actions.register();
   }
 
   handlePressForgotPassword() {
+    this.setState({error: ''});
     Actions.forgotPassword();
   }
 
@@ -124,7 +128,6 @@ export default class Login extends React.Component {
   onLoginFBPressed() {
     this.setState({error: ''});
     FBLoginManager.loginWithPermissions(["email", "user_friends"], (error, data) => {
-      console.log('yo2');
       if (!error) {
         console.log('facebook', data);
         let profile = null;
@@ -199,25 +202,25 @@ export default class Login extends React.Component {
     return (
       <Form>
         <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans'}}>Email</Label>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Email</Label>
             <Input
               onChangeText={(email) => this.setState({email})}
               value={this.state.email}
               keyboardType="email-address"
               returnKeyType="next"
               autoCapitalize="none"
-              style={{fontFamily: 'OpenSans'}}
+              style={StyleSheet.flatten(styles.inputField)}
             />
         </Item>
         <Item floatingLabel style={StyleSheet.flatten(styles.input)}>
-            <Label style={{fontFamily: 'OpenSans'}}>Password</Label>
+            <Label style={StyleSheet.flatten(styles.inputLabel)}>Password</Label>
             <Input
               value={this.state.password}
               onChangeText={(password) => this.setState({password})}
               secureTextEntry={true}
               returnKeyType="go"
               autoCapitalize="none"
-              style={{fontFamily: 'OpenSans'}}
+              style={StyleSheet.flatten(styles.inputField)}
             />
         </Item>
     </Form>
@@ -227,49 +230,55 @@ export default class Login extends React.Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-      <View style={styles.container} ref='container'>
-        <Image
-          source={Images.pressMarketing}
-          style={styles.logoImage}
-          resizeMode='contain'
-        />
-        <Panel>
-          {this.renderForm()}
-          <Button
-            text="Login with Email"
-            containerStyle={styles.loginButton}
-            textStyle={styles.loginButtonText}
-            onPress={this.onLoginPressed}
+        <StatusBar barStyle="light-content"/>
+        <View style={{
+          backgroundColor: '#4B2D8F',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          right: 0,
+          height: 350
+        }}></View>
+        <Content style={{padding: 20, backgroundColor:'transparent'}} ref='container'>
+          <Image
+            source={Images.pressLogoWhite}
+            style={styles.logoImage}
+            resizeMode='contain'
           />
-          <Text style={styles.orSeperator}>- or -</Text>
-          <Button
-            text="Connect with Facebook"
-            containerStyle={styles.facebookButton}
-            textStyle={styles.facebookButtonText}
-            onPress={this.onLoginFBPressed}
-          />
-        </Panel>
-        <Text style={styles.errorText}>{this.state.error}</Text>
-        {!this.state.keyboardShow &&
+          <Text style={styles.valueProp}>Laundry and dry cleaning, delivered</Text>
+          <Panel>
+            {this.renderForm()}
+            <Text style={styles.errorText}>{this.state.error}</Text>
+            <Button
+              text="Log In"
+              containerStyle={styles.loginButton}
+              textStyle={styles.loginButtonText}
+              onPress={this.onLoginPressed}
+            />
+          </Panel>
           <View style={styles.bottomButtons}>
             <Button
-              text="Recover Password"
+              text="Recover password"
               containerStyle={styles.forgotPasswordButton}
               textStyle={styles.forgotPasswordButtonText}
               onPress={this.handlePressForgotPassword}
             />
             <Button
-              text="Create Account"
+              text="Sign up with email"
               containerStyle={styles.signUpButton}
               textStyle={styles.signUpButtonText}
               onPress={this.handlePressSignUp}
             />
           </View>
-        }
+        </Content>
+        <Button
+          text="Connect with Facebook"
+          containerStyle={styles.facebookButton}
+          textStyle={styles.facebookButtonText}
+          onPress={this.onLoginFBPressed}
+        />
+        <Spinner visible={this.state.loading} />
       </View>
-      <Spinner visible={this.state.loading} />
-    </View>
-
     )
   }
 }

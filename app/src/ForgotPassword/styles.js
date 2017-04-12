@@ -20,31 +20,42 @@ const styles = StyleSheet.create({
   	padding: 20
   },
   heading: {
-  	fontSize: 24,
+    fontSize: 26,
     textAlign: 'center',
-  	fontFamily: 'OpenSans-SemiBold',
-  	padding: 10,
-  	marginTop: 20,
-    color: '#333'
+    fontFamily: 'OpenSans-SemiBold',
+    padding: 10,
+    marginTop: 40,
+    color: '#ffffff'
   },
   subHeading: {
     fontSize: 14,
     textAlign: 'center',
     width: 300,
     alignSelf: 'center',
-    fontFamily: 'OpenSans',
+    fontFamily: 'OpenSans-SemiBold',
+    backgroundColor: 'transparent',
     padding: 10,
     marginTop: -15,
-    marginBottom: 15,
-    color: '#999a9a'
+    marginBottom: 25,
+    color: '#ffffff'
   },
   input: {
+    marginBottom: 10,
+    marginTop: 0,
     marginLeft: 0,
-    marginTop: 0
+    borderBottomColor: '#e8e8e8'
+  },
+  inputLabel: {
+    fontFamily: 'OpenSans-SemiBold',
+    color: '#888888'
+  },
+  inputField: {
+    fontFamily: 'OpenSans',
+    fontSize: 20
   },
   button: {
   	height: 50,
-  	marginTop: 20,
+  	marginTop: 30,
   	backgroundColor: '#4B2D8F',
   	alignSelf: 'stretch',
   	justifyContent: 'center',
@@ -60,7 +71,8 @@ const styles = StyleSheet.create({
     height: 60,
   	alignSelf: 'stretch',
   	marginTop: 10,
-  	justifyContent: 'center'
+  	justifyContent: 'center',
+    backgroundColor: 'transparent'
   },
   cancelButtonText: {
     fontSize: 15,

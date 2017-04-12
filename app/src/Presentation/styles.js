@@ -7,29 +7,32 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     sectionContainer: {
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFFFFF',
+        borderTopWidth: 1.0,
+        borderBottomWidth: 1.0,
+        borderColor: '#e8e8e8'
     },
     serviceItemCheckbox: {
         borderColor: '#D5D5D5',
         backgroundColor: null,
-        borderRadius: 1,
+        borderRadius: 2,
         borderWidth: 1,
-        width: 21,
-        height: 21,
-        paddingLeft: 3,
-        paddingTop: 2,
-        marginRight: 12
+        width: 22,
+        height: 22,
+        paddingLeft: 4,
+        paddingTop: 1,
+        marginRight: 14
     },
     serviceItemCheckboxSelected: {
         borderColor: '#4B2D8F',
         backgroundColor: '#4B2D8F',
-        borderRadius: 1,
+        borderRadius: 2,
         borderWidth: 1,
-        width: 21,
-        height: 21,
-        paddingLeft: 3,
-        paddingTop: 2,
-        marginRight: 12
+        width: 22,
+        height: 22,
+        paddingLeft: 4,
+        paddingTop: 1,
+        marginRight: 14
     },
     primaryButton: {
         height: Metrics.navBarHeight,
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     primaryButtonText: {
         fontFamily: 'OpenSans-Bold',
         color: '#fff',
-        fontSize: 16
+        fontSize: 17
     }
 });
 

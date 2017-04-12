@@ -105,7 +105,13 @@ class Pricing extends React.Component {
 
 	renderHeader() {
 	    return (
-	      <Header style={{backgroundColor: '#fff', height: Metrics.navBarHeight, paddingBottom: 3}}>
+	      <Header style={{
+            backgroundColor: '#fff',
+            height: Metrics.navBarHeight,
+            paddingBottom: 10,
+            borderBottomColor: '#e0e0e0',
+            borderBottomWidth: 1.0
+          }}>
 	        <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{
 	          try {
 	            Actions.pop();

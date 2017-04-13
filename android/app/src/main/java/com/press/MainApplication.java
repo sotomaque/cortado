@@ -3,6 +3,7 @@ package com.press;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bugsnag.BugsnagReactNative;
 import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
@@ -37,6 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
             return Arrays.<ReactPackage>asList(
                 new FacebookLoginPackage(),
                 new MainReactPackage(),
+            BugsnagReactNative.getPackage(),
             new ReactNativePermissionsPackage(),
             new ReactNativePushNotificationPackage(),
                 new ReactNativeConfigPackage(),

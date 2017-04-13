@@ -1,6 +1,10 @@
 // @flow
 
-import { AppRegistry } from 'react-native'
-import App from './app'
+import { AppRegistry } from 'react-native';
+import { Client } from 'bugsnag-react-native';
 
-AppRegistry.registerComponent('PressApp', () => App)
+import App from './app';
+
+
+const bugsnag = new Client();
+AppRegistry.registerComponent('PressApp', () => App);

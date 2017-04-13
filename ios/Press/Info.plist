@@ -39,6 +39,8 @@
     <string>1618099148466774</string>
     <key>FacebookDisplayName</key>
     <string>Press</string>
+    <key>BugsnagAPIKey</key>
+    <string>af9f521bde62bf13b64731179ffaf8f4</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>fbapi</string>

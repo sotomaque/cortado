@@ -2,6 +2,8 @@ package com.press;
 
 import com.facebook.react.ReactActivity;
 import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsPackage;
+import com.bugsnag.BugsnagReactNative;
+import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,5 +14,11 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "PressApp";
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BugsnagReactNative.start(this);
     }
 }

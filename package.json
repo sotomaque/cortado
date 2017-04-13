@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
+    "bugsnag-react-native": "^2.2.0",
     "card-validator": "^4.0.0",
     "email-validator": "^1.0.7",
     "lodash.compact": "^3.0.1",

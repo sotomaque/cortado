@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -29,6 +28,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1AFEE8AFC1584C3ABF7BA153 /* Skia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E25B7415FF6548EDBC98AC46 /* Skia.ttf */; };
 		247EE23F7CD549B692DD075A /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF1351FF3BF8426AA0E3F05B /* FontAwesome.ttf */; };
+		252968FEA7AE4B7FAD4900C4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F0F981FCC2B342ED8011EB3D /* libz.tbd */; };
 		27652E5EE6984407BD3DE1D7 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 125F1EE048474EAC855F6C65 /* Rubik-Medium.ttf */; };
 		277D748AEBBC4200B111CE80 /* Arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEA8AC4EB624E53B72A31D1 /* Arial.ttf */; };
 		29FB23195D2846A689CAD1E3 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C32BEAD2104544319C78359F /* OFL.txt */; };
@@ -90,6 +90,7 @@
 		DBA37449993B42BF9D476B24 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99CD3AED53044642B25FCBC0 /* Rubik-Regular.ttf */; };
 		DBD0FAAEDED347838995B0AA /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D1F01F8F2584DCAADD8C380 /* Rubik-LightItalic.ttf */; };
 		E1527420881D4059A8036785 /* Comic Sans MS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9BAA8A6A029D48699CFE5B93 /* Comic Sans MS.ttf */; };
+		E24494BCACFC49BBBDC35C3F /* libBugsnagReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6C253C52DE440A5BC514BBA /* libBugsnagReactNative.a */; };
 		E405211DEB9E4D70A050048A /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F3DD4032A77463FA3F60E1C /* Foundation.ttf */; };
 		E8BAF2328D444C308B698F09 /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 758A939401B443E2A9296872 /* libReactNativePermissions.a */; };
 		EA2ED127F98B4CD2A544D9E7 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C13A04513938475B89E0FE29 /* rubicon-icon-font.ttf */; };
@@ -349,6 +350,13 @@
 			remoteGlobalIDString = 3D05745F1DE6004600184BB4;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
+		9468506D1E9F3BDB005DFB25 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBE53A7A65154BB0BDB6087D /* BugsnagReactNative.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8AD256131D6DE5F600C7D842;
+			remoteInfo = BugsnagReactNative;
+		};
 		946FF8F41E97346700592231 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DDCC262B340040A8B3FB8D10 /* ReactNativePermissions.xcodeproj */;
@@ -450,6 +458,7 @@
 		99CD3AED53044642B25FCBC0 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../node_modules/native-base/Fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
 		9BAA8A6A029D48699CFE5B93 /* Comic Sans MS.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comic Sans MS.ttf"; path = "../node_modules/native-base/Fonts/Comic Sans MS.ttf"; sourceTree = "<group>"; };
 		A60331DADCD84FFBA3F5C0ED /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		A6C253C52DE440A5BC514BBA /* libBugsnagReactNative.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBugsnagReactNative.a; sourceTree = "<group>"; };
 		A8388984722741F1A38F4D1C /* Microsoft Sans Serif.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Microsoft Sans Serif.ttf"; path = "../node_modules/native-base/Fonts/Microsoft Sans Serif.ttf"; sourceTree = "<group>"; };
 		AA4714A590A347E7BEEB5E48 /* Courier New.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Courier New.ttf"; path = "../node_modules/native-base/Fonts/Courier New.ttf"; sourceTree = "<group>"; };
 		B721CA2ABF464F8C86B3E994 /* Andale Mono.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Andale Mono.ttf"; path = "../node_modules/native-base/Fonts/Andale Mono.ttf"; sourceTree = "<group>"; };
@@ -476,7 +485,9 @@
 		E25B7415FF6548EDBC98AC46 /* Skia.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Skia.ttf; path = "../node_modules/native-base/Fonts/Skia.ttf"; sourceTree = "<group>"; };
 		E793E0711FD44AA7A1E92BD0 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		EB2DFFA43E7D4857B54FA608 /* libRNGeocoder.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGeocoder.a; sourceTree = "<group>"; };
+		EBE53A7A65154BB0BDB6087D /* BugsnagReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BugsnagReactNative.xcodeproj; path = "../node_modules/bugsnag-react-native/cocoa/BugsnagReactNative.xcodeproj"; sourceTree = "<group>"; };
 		EF1351FF3BF8426AA0E3F05B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/native-base/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		F0F981FCC2B342ED8011EB3D /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F495BEB8727BF96F23170260 /* libPods-Press.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Press.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8617D5C52F74C249E62C866 /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -523,6 +534,8 @@
 				4BA2F9729C334483AB724AE7 /* libReactNativeConfig.a in Frameworks */,
 				D90EBEF236B64474BA241CBB /* libAirMaps.a in Frameworks */,
 				E8BAF2328D444C308B698F09 /* libReactNativePermissions.a in Frameworks */,
+				E24494BCACFC49BBBDC35C3F /* libBugsnagReactNative.a in Frameworks */,
+				252968FEA7AE4B7FAD4900C4 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,6 +733,7 @@
 				73A82F461E7ADB6A00D98E9C /* FBSDKCoreKit.framework */,
 				73A82F441E7ADB3200D98E9C /* Bolts.framework */,
 				F495BEB8727BF96F23170260 /* libPods-Press.a */,
+				F0F981FCC2B342ED8011EB3D /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -764,6 +778,7 @@
 				7677F79F2EE24E198959CD3E /* ReactNativeConfig.xcodeproj */,
 				427037908574483AB252317F /* AirMaps.xcodeproj */,
 				DDCC262B340040A8B3FB8D10 /* ReactNativePermissions.xcodeproj */,
+				EBE53A7A65154BB0BDB6087D /* BugsnagReactNative.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -835,6 +850,14 @@
 			children = (
 				944420001E97054C0048CB88 /* libRCTPushNotification.a */,
 				944420021E97054C0048CB88 /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		946850691E9F3BDB005DFB25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9468506E1E9F3BDB005DFB25 /* libBugsnagReactNative.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1029,6 +1052,10 @@
 				{
 					ProductGroup = 94307A921E9568FD00C12613 /* Products */;
 					ProjectRef = 427037908574483AB252317F /* AirMaps.xcodeproj */;
+				},
+				{
+					ProductGroup = 946850691E9F3BDB005DFB25 /* Products */;
+					ProjectRef = EBE53A7A65154BB0BDB6087D /* BugsnagReactNative.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1349,6 +1376,13 @@
 			remoteRef = 944420011E97054C0048CB88 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9468506E1E9F3BDB005DFB25 /* libBugsnagReactNative.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBugsnagReactNative.a;
+			remoteRef = 9468506D1E9F3BDB005DFB25 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		946FF8F51E97346700592231 /* libReactNativePermissions.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1617,12 +1651,14 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1653,12 +1689,14 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = PressTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1698,6 +1736,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1743,6 +1782,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = Press/Info.plist;
 				INFOPLIST_OTHER_PREPROCESSOR_FLAGS = "-traditional";
@@ -1786,11 +1826,13 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = "Press-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1827,11 +1869,13 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-maps/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-permissions/**",
+					"$(SRCROOT)/../node_modules/bugsnag-react-native/cocoa/**",
 				);
 				INFOPLIST_FILE = "Press-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1864,6 +1908,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.Press-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1888,6 +1933,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

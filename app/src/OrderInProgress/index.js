@@ -196,7 +196,7 @@ class OrderInProgress extends React.Component {
     }
 
     renderHeader() {
-        let canNotCancel = DataParser.getCurrentOrderStatus() >= Order.PICKUP;
+        let canNotCancel = DataParser.getCurrentOrderStatus() > Order.PICKUP;
         return (
             <Header style={{
                 backgroundColor: '#fff',

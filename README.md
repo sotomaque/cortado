@@ -64,11 +64,25 @@ We use [CodePush](https://microsoft.github.io/code-push/index.html) to publish i
 **iOS**
 
 ```
+# Check Deployment Status
+code-push deployment list PressCustomerIOS
+
+# Deploy to Staging
 code-push release-react PressCustomerIOS ios
+
+# Promote Staging to Production
+code-push promote PressCustomerIOS Staging Production
 ```
 
 **Android**
 
 ```
+# Check Deployment Status
+code-push deployment list PressCustomerAndroid
+
+# Deploy to Staging
 code-push release-react PressCustomerAndroid android
+
+# Promote Staging to Production
+code-push promote PressCustomerAndroid Staging Production
 ```

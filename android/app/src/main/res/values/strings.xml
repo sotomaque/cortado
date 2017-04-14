@@ -1,4 +1,5 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">6f7Pi6tbQBvy1LZb7IySy4rjlShq4kl4wHYaz</string>
     <string name="app_name">Press</string>
     <string name="fb_app_id">1618099148466774</string>
     <string name="fb_login_protocol_scheme">fb1618099148466774</string>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import codePush from "react-native-code-push";
 
 //Screens
 import {
@@ -39,8 +40,12 @@ const scenes = Actions.create(
   </Scene>
 );
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return <Router scenes={scenes} duration={200}/>
   }
 }
+
+App = codePush(App);
+
+export default App;

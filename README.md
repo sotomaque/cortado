@@ -78,3 +78,19 @@ The `.env` file is ignored by git keeping those secrets out of your repo.
 ## Analytics
 
 This project uses [Segment](https://segment.com/) to log analytics events. A wrapper for [this sdk](https://github.com/presshq/react-native-analytics) can be found in /app/utils/analytics.js
+
+## Releasing an Update
+
+We use [CodePush](https://microsoft.github.io/code-push/index.html) to publish instant app updates, bypassing the app store review process. This only works for changes to JavaScript and asset files. For updates involving changes to native code, you must publish through the app store.
+
+**iOS**
+
+```
+code-push release-react PressCustomerIOS ios
+```
+
+**Android**
+
+```
+code-push release-react PressCustomerAndroid android
+```

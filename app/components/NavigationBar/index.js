@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
 import { Metrics, Colors, Images } from '../../themes';
 import { Button } from '../../components';
@@ -11,8 +11,8 @@ export default class NavigationBar extends React.Component {
             <Header style={{
                 backgroundColor: '#fff',
                 height: Metrics.navBarHeight,
-                paddingBottom: 10,
-                borderBottomColor: '#e0e0e0',
+                paddingBottom: Platform.OS == 'ios' ? 10 : 0,
+                borderBottomColor: Platform.OS == 'ios' ? '#e0e0e0' : 'transparent',
                 borderBottomWidth: 1.0
             }}>
                 <Button containerStyle={{width: 50, justifyContent: 'center'}} onPress={()=>{

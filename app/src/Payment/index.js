@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TextInput, NetInfo, StyleSheet } from 'react-native';
+import { View, ScrollView, TextInput, NetInfo, StyleSheet, Platform } from 'react-native';
 import { Container, Content, ListItem, Left, Body, Right, Text, Header, Form, Item, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -162,8 +162,8 @@ class Payment extends React.Component {
             <Header style={{
                 backgroundColor: '#fff',
                 height: Metrics.navBarHeight,
-                paddingBottom: 10,
-                borderBottomColor: '#e0e0e0',
+                paddingBottom: Platform.OS == 'ios' ? 10 : 0,
+                borderBottomColor: Platform.OS == 'ios' ? '#e0e0e0' : 'transparent',
                 borderBottomWidth: 1.0
             }}>
                 <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={() => {

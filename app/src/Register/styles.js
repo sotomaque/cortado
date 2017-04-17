@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 	    textAlign: 'center',
 		fontFamily: 'OpenSans-SemiBold',
 		padding: 10,
-		marginTop: 40,
+		marginTop: (Metrics.screenHeight < 600 ? 0 : 45),
 	    color: '#ffffff'
 	},
 	subHeading: {
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'transparent',
 		padding: 10,
 		marginTop: -15,
-		marginBottom: 25,
+		marginBottom: (Metrics.screenHeight < 600 ? 10 : 25),
 		color: '#ffffff'
 	},
 	inputLeft: {

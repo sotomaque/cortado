@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, InteractionManager } from 'react-native';
+import { View, StyleSheet, InteractionManager, Platform } from 'react-native';
 import { Container, Content, ListItem, Left, Body, Right, Text, List, Header } from 'native-base';
 import { Metrics } from '../../themes';
 import { NavigationBar, Button } from '../../components';
@@ -108,8 +108,8 @@ class Pricing extends React.Component {
 	      <Header style={{
             backgroundColor: '#fff',
             height: Metrics.navBarHeight,
-            paddingBottom: 10,
-            borderBottomColor: '#e0e0e0',
+            paddingBottom: Platform.OS == 'ios' ? 10 : 0,
+            borderBottomColor: Platform.OS == 'ios' ? '#e0e0e0' : 'transparent',
             borderBottomWidth: 1.0
           }}>
 	        <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{

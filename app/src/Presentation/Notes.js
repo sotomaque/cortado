@@ -40,6 +40,7 @@ class Notes extends Component {
 							marginLeft: 15,
 							paddingTop: 5
 						}}
+						underlineColorAndroid='transparent'
 						multiline={true}
 						placeholder={'Any garments we should pay special attention to?'}
 						value={this.state.special_instructions}

@@ -289,12 +289,12 @@ export default class Login extends React.Component {
             />
           </View>
         </Content>
-        <Button
+        {!this.state.keyboardShow && <Button
           text="Connect with Facebook"
           containerStyle={styles.facebookButton}
           textStyle={styles.facebookButtonText}
           onPress={this.onLoginFBPressed}
-        />
+        />}
         <Spinner visible={this.state.loading} />
       </View>
     )

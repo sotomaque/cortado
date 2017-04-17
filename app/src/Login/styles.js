@@ -18,9 +18,17 @@ const styles = StyleSheet.create({
         height: 63,
         width: 200,
         padding: 20,
-        marginTop: 40,
+        marginTop: (Metrics.screenHeight < 600 ? 10 : 40),
         marginBottom: 0,
         alignSelf: 'center'
+    },
+    valueProp: {
+        textAlign: 'center',
+        fontSize: 14,
+        color: (Metrics.screenHeight < 600 ? 'transparent' : '#ffffff'),
+        fontFamily: 'OpenSans-SemiBold',
+        marginBottom: (Metrics.screenHeight < 600 ? 10 : 40),
+        marginTop: (Metrics.screenHeight < 600 ? -10 : 10)
     },
     container: {
         flex: 1,
@@ -33,14 +41,6 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans',
         padding: 10,
         marginTop: (Metrics.screenHeight / 10)
-    },
-    valueProp: {
-        textAlign: 'center',
-        fontSize: 14,
-        color: '#ffffff',
-        fontFamily: 'OpenSans-SemiBold',
-        marginBottom: 40,
-        marginTop: 10
     },
     orSeperator: {
         fontFamily: 'OpenSans-SemiBold',
@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     bottomButtons:{
         flex: 1,
         flexDirection: 'row',
-        marginTop: 28
+        marginTop: 28,
+        marginBottom: 140
     },
     forgotPasswordButton: {
         alignSelf: 'flex-start',
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#aaa',
         alignSelf: 'center',
-        marginLeft: 20
+        marginLeft: 10
     },
     signUpButton: {
         alignSelf: 'flex-end',
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         position: 'absolute',
         bottom: 0,
-        right: 0
+        right: -10
     },
     signUpButtonText: {
         fontFamily: 'OpenSans-SemiBold',

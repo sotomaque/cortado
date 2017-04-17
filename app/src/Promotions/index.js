@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Platform } from 'react-native'
 import { Container, Content, Item, Input, Header } from 'native-base'
 import { Metrics } from '../../themes'
 import { NavigationBar, Button } from '../../components';
@@ -66,8 +66,8 @@ class Promotion extends React.Component {
           <Header style={{
             backgroundColor: '#fff',
             height: Metrics.navBarHeight,
-            paddingBottom: 10,
-            borderBottomColor: '#e0e0e0',
+            paddingBottom: Platform.OS == 'ios' ? 10 : 0,
+            borderBottomColor: Platform.OS == 'ios' ? '#e0e0e0' : 'transparent',
             borderBottomWidth: 1.0
           }}>
             <Button containerStyle={{width: 80, justifyContent: 'center'}} onPress={()=>{

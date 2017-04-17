@@ -164,12 +164,12 @@ export default class Register extends React.Component {
           			
 					<View style={{height: 40, backgroundColor: 'transparent'}} />
 				</Content>
-				<Button
+				{!this.state.keyboardShow && <Button
 					containerStyle={styles.cancelButton}
 					textStyle={styles.cancelButtonText}
 					onPress={()=>this.handlePressCancel()}
 					text="Go Back"
-				/>
+				/>}
 				<Spinner visible={this.state.loading} />
 			</View>
 		);

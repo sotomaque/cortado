@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Linking, ListView, Image, InteractionManager } from 'react-native';
+import { View, StyleSheet, Linking, ListView, Image, InteractionManager, Platform } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import { Container, Content, Body, ListItem, Text, CheckBox, Footer, FooterTab, Header, Icon } from 'native-base';
 import MapView from 'react-native-maps'
@@ -201,8 +201,8 @@ class OrderInProgress extends React.Component {
             <Header style={{
                 backgroundColor: '#fff',
                 height: Metrics.navBarHeight,
-                paddingBottom: 10,
-                borderBottomColor: '#e0e0e0',
+                paddingBottom: Platform.OS == 'ios' ? 10 : 0,
+                borderBottomColor: Platform.OS == 'ios' ? '#e0e0e0' : 'transparent',
                 borderBottomWidth: 1.0
             }}>
                 <Button onPress={() => this.toggleMenu()} containerStyle={{

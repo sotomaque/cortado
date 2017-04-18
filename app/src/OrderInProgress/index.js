@@ -231,7 +231,7 @@ class OrderInProgress extends React.Component {
                     }}>
                         Delivering to
                     </Text>
-                    <Text style={{
+                    <Text numberOfLines={1} style={{
                         color: '#111111',
                         fontSize: 17,
                         marginTop: -3,

@@ -31,6 +31,7 @@
 
   else try: react-native upgrade
 
+ 
 ## Configuration
 
 This project uses [react-native-config](https://github.com/luggit/react-native-config) to expose config variables to your javascript code in React Native. You can store API keys

@@ -7,13 +7,6 @@ const styles = StyleSheet.create({
         marginTop: 0,
         backgroundColor: '#f2f3f6'
     },
-    backgroundImage: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-    },
     logoImage: {
         height: 63,
         width: 200,
@@ -65,12 +58,12 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     loginButton: {
-        height: 50,
+        height: (Metrics.screenHeight < 600 ? 40 : 50),
         backgroundColor: '#4B2D8F',
         borderWidth: 0,
         borderColor: '#e0e0e0',
         alignSelf: 'stretch',
-        marginTop: 30,
+        marginTop: (Metrics.screenHeight < 600 ? 20 : 30),
         justifyContent: 'center',
         borderRadius: 4
     },
@@ -81,7 +74,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     facebookButton: {
-        height: 60,
+        height: (Metrics.screenHeight < 600 ? 50 : 60),
         backgroundColor: '#4267b2',
         alignSelf: 'stretch',
         justifyContent: 'center',

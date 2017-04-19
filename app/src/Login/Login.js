@@ -255,7 +255,7 @@ export default class Login extends React.Component {
           left: 0,
           top: 0,
           right: 0,
-          height: 350
+          height: (Metrics.screenHeight < 600 ? 300 : 350)
         }}></View>
         <Content style={{padding: 20, backgroundColor:'transparent'}} ref='container'>
           <Image
@@ -263,7 +263,7 @@ export default class Login extends React.Component {
             style={styles.logoImage}
             resizeMode='contain'
           />
-          <Text style={styles.valueProp}>Laundry and dry cleaning, delivered</Text>
+          <Text style={styles.valueProp}>Laundry and dry cleaning, delivered.</Text>
           <Panel>
             {this.renderForm()}
             <Text style={styles.errorText}>{this.state.error}</Text>

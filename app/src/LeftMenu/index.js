@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Container, Content, ListItem, Text, Separator, CheckBox, Footer, FooterTab, Body, Input, Item, Button as MenuButton, Icon, Left, Right, Title, Header } from 'native-base';
 import { Images } from '../../themes';
 import { Button } from '../../components';
@@ -18,71 +18,98 @@ export default class LeftMenu extends React.Component {
 
         let textStyle = {
             fontFamily: 'OpenSans',
-            fontSize: 17,
-            color: '#565656'
+            fontSize: 16,
+            color: '#171717'
         };
 
         let itemStyle = {
             backgroundColor: '#fff',
             borderColor: '#fff',
             marginLeft: 0,
-            paddingLeft: 10
+            paddingLeft: 10,
+            paddingBottom: 12,
+            paddingTop: 12
         };
+
+        let iconStyle = {
+            fontSize: 28,
+            width: 30,
+            marginLeft: 10,
+            marginTop: 4
+        }
 
         return (
             <Container style={{
-                backgroundColor: '#fff',
-                borderRightWidth: 1,
+                backgroundColor: '#ffffff',
+                borderRightWidth: 0,
                 borderColor: '#e8e8e8'
             }}>
                 <Content>
-                    <ListItem style={{justifyContent: 'center', paddingBottom: 30, paddingTop: 30, borderColor: '#fff'}}>
-                        <Image source={avatar} style={{width: 70, height: 70, borderWidth: 0, borderRadius: 35}}/>
+                    <ListItem style={{
+                        justifyContent: 'flex-start',
+                        paddingBottom: 16,
+                        paddingTop: 34,
+                        paddingLeft: 20,
+                        marginBottom: 10,
+                        borderColor: '#f2f3f6',
+                        borderBottomWidth: 1,
+                        marginLeft: 0
+                    }}>
+                        <Image source={avatar} style={{width: 52, height: 52, borderWidth: 0, borderRadius: 26}}/>
+                        <View>
+                            <Text style={{fontFamily: 'OpenSans-SemiBold', fontSize: 15, marginLeft: 16, color: '#333333', alignSelf: 'flex-start'}}>{User.full_name}</Text>
+                            <Text style={{fontFamily: 'OpenSans-SemiBold', fontSize: 13, marginLeft: 16, color: '#888888', alignSelf: 'flex-start'}}>{User.email}</Text>
+                        </View>
                     </ListItem>
                     <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.payment();
                         });
                     }}>
-                        <Body>
+                        <Left>
+                            <Icon name="card" style={iconStyle}/>
                             <Text style={textStyle}>Payment</Text>
-                        </Body>
-                    </ListItem>
-                    <ListItem style={itemStyle} onPress={() => {
-                        GLOBAL.requestAnimationFrame(() => {
-                            Actions.pricing();
-                        });
-                    }}>
-                        <Body>
-                            <Text style={textStyle}>Pricing</Text>
-                        </Body>
-                    </ListItem>
-                    <ListItem style={itemStyle} onPress={() => {
-                        GLOBAL.requestAnimationFrame(() => {
-                            Actions.promotions();
-                        });
-                    }}>
-                        <Body>
-                            <Text style={textStyle}>Promotions</Text>
-                        </Body>
+                        </Left>
                     </ListItem>
                     <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             Actions.freePress();
                         });
                     }}>
-                        <Body>
-                            <Text style={textStyle}>Free Press</Text>
-                        </Body>
+                        <Left>
+                            <Icon ios="ios-cash" android="md-cash" style={StyleSheet.flatten([iconStyle, {color: '#694CB5'}])}/>
+                            <Text style={StyleSheet.flatten([textStyle, {color: '#694CB5', fontFamily: 'OpenSans-SemiBold'}])}>Get Free Press</Text>
+                        </Left>
+                    </ListItem>
+                    <ListItem style={itemStyle} onPress={() => {
+                        GLOBAL.requestAnimationFrame(() => {
+                            Actions.promotions();
+                        });
+                    }}>
+                        <Left>
+                            <Icon name="ribbon" style={iconStyle}/>
+                            <Text style={textStyle}>Redeem Promotion</Text>
+                        </Left>
+                    </ListItem>
+                    <ListItem style={itemStyle} onPress={() => {
+                        GLOBAL.requestAnimationFrame(() => {
+                            Actions.pricing();
+                        });
+                    }}>
+                        <Left>
+                            <Icon name="pricetags" style={iconStyle}/>
+                            <Text style={textStyle}>Pricing</Text>
+                        </Left>
                     </ListItem>
                     <ListItem style={itemStyle} onPress={() => {
                         GLOBAL.requestAnimationFrame(() => {
                             ChatSupport.open();
                         });
                     }}>
-                        <Body>
+                        <Left>
+                            <Icon name="help-buoy" style={iconStyle}/>
                             <Text style={textStyle}>Chat Support</Text>
-                        </Body>
+                        </Left>
                     </ListItem>
                     <ListItem style={itemStyle} onPress={() => {
                         SessionManager.logout();
@@ -90,11 +117,15 @@ export default class LeftMenu extends React.Component {
                             Actions.login({type: ActionConst.REPLACE});
                         });
                     }}>
-                        <Body>
+                        <Left>
+                            <Icon name="exit" style={iconStyle}/>
                             <Text style={textStyle}>Logout</Text>
-                        </Body>
+                        </Left>
                     </ListItem>
                 </Content>
+                <Footer style={{justifyContent: 'flex-start', backgroundColor: '#ffffff', borderTopWidth: 0, paddingLeft: 20}}>
+                    
+                </Footer>
             </Container>
         )
     }

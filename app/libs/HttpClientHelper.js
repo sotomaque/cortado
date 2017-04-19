@@ -23,6 +23,7 @@ const API_URL = {
     pricing:              BASE_URL + '/pricing/',
     promotion:            BASE_URL + '/promo_code/{code}/redeem/',
     validate:             BASE_URL + '/validate/',
+    create_referrals:     BASE_URL + '/customer/me/create_referrals/'
 }
 
 export default class HttpClientHelper {

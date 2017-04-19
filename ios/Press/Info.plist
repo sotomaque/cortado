@@ -99,6 +99,8 @@
 	<string>Share location for a smoother pickup and delivery experience</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Send photos to help resolve app issues</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Earn free laundry credits by referring your friends. Press can help you refer friends and family if you allow us to sync your contacts.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Light.ttf</string>

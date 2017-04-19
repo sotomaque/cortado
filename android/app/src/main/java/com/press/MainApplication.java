@@ -22,6 +22,7 @@ import com.facebook.soloader.SoLoader;
 import com.press.modules.timepicker.TimePickerPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import com.smore.RNSegmentIOAnalytics.RNSegmentIOAnalyticsPackage;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,7 +57,8 @@ public class MainApplication extends Application implements ReactApplication {
                 new RNGeocoderPackage(),
                 new MapsPackage(),
                 new RNSharePackage(),
-                new TimePickerPackage()
+                new TimePickerPackage(),
+                new ReactNativeContacts()
             );
         }
     };

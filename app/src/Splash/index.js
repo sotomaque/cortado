@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableHighlight, Image, Text, StyleSheet } from 'react-native';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import codePush, { InstallMode } from "react-native-code-push";
 
 import * as DataParser from '../../utils/DataParser';
 import { Images } from '../../themes';
@@ -13,6 +14,9 @@ import PushNotifications from '../../utils/pushNotifications';
 export default class Splash extends Component {
 
     componentDidMount() {
+        // Download updates silently, and install on next app resume and after 10 seconds of app inactivity
+        codePush.sync({ installMode: InstallMode.ON_NEXT_RESUME, minimumBackgroundDuration: 10 });
+
         Analytics.setup();
         PushNotifications.init();
         this.next();

@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.0</string>
+	<string>1.6.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
 	<key>CodePushDeploymentKey</key>
 	<string>ZvtvD8KIw-dxq2RqxEGD08K_1rye4kl4wHYaz</string>
 	<key>FacebookAppID</key>
@@ -95,12 +95,12 @@
 	<string>Press bluetooth use</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Save pickup and dropoff reminders</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Earn free laundry credits by referring your friends. Press can help you refer friends and family if you allow us to sync your contacts.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Share location for a smoother pickup and delivery experience</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Send photos to help resolve app issues</string>
-	<key>NSContactsUsageDescription</key>
-	<string>Earn free laundry credits by referring your friends. Press can help you refer friends and family if you allow us to sync your contacts.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Light.ttf</string>

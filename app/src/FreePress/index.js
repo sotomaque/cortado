@@ -63,13 +63,12 @@ class FreePress extends Component {
 
                 var contactsGrouped = {};
                 var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                for (let letter in alphabet) {
-                    contactsGrouped[alphabet[letter]] = [];
+                for (var k = 0; k < alphabet.length; k++) {
+                    contactsGrouped[alphabet[k]] = [];
                 }
 
                 for (let c in contacts) {
                     var section = contacts[c].fullName.toUpperCase()[0];
-                    console.log(section, contacts[c], contactsGrouped[section]);
                     contactsGrouped[section].push(contacts[c]);
                 }
 
@@ -473,7 +472,7 @@ const styles = StyleSheet.create({
     },
     contactListSectionListItemText: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: 11,
+        fontSize: (Metrics.screenHeight < 600 ? 9 : 11),
         color: '#999999'
     },
     contactListCellContainer: {
